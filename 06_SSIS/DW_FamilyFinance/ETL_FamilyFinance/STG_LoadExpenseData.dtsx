@@ -5,14 +5,14 @@
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DEVELOPER-PC"
   DTS:CreatorName="Developer-PC\tbeha"
-  DTS:DTSID="{BD3A099B-457B-447E-91F8-83CCB22A942C}"
+  DTS:DTSID="{8F5BEA1E-E4E4-4634-9BAF-918BEE90F3E0}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="1033"
-  DTS:ObjectName="STG_LoadExpenseData dtsx"
+  DTS:ObjectName="STG_LoadExpenseData"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{1FF78F78-4858-4A9B-839D-0B86887C21A3}">
+  DTS:VersionBuild="2"
+  DTS:VersionGUID="{5F63CC83-AB4D-4B62-84DE-1CB2E687107D}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
