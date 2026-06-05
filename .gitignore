@@ -1,0 +1,21 @@
+# Visual Studio
+.vs/
+bin/
+obj/
+
+# SSIS
+*.dtproj.user
+
+# SQL Server
+*.mdf
+*.ldf
+
+# Power BI
+*.pbix.autosave
+
+# Windows
+Thumbs.db
+Desktop.ini
+
+# Logs
+*.log
