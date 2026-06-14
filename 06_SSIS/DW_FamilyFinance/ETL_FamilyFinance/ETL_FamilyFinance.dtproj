@@ -26,12 +26,13 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DEVELOPER-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAACFIbzS/W+oYmDVd3IebDdZBi6QJm1aZVEKOrH88Qz33QAAAAAOgAAAAAIAACAAAAD9qlZNQ+PWvr4f60wg+IuZBs1P3SJLRyRMsbN3SyoXQ5AAAADaASzmc8llERbFkMAZ8s+ZFHwkeMKU+LofR7oLumrL98SOh/IV1tLLMEWl8YG65eof8FRHcdzyHIbmbLzF3JkEOafnizqv8+9DvJuoxtV2xFJhSLNCZvQ4Lss1hc6XQuWbmqIktGS8TrCdBbtL0WWisPCSIFJU/2pOfz7icP6IQmx7epJsHMVqDxksQ5wHXcVAAAAA5LZLfaKezUuKnjRYt6XXlBJ+Qr94dK1pi9d3pvfCBCXm1iagdaRnrbtAc1T9vxWOBSfObq6w4WV0YGpXi6HwKQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAABble/XdENMI7mvpzaSwys0OhLQPkDi8ojIS0s2okKXRAAAAAAOgAAAAAIAACAAAADVrBvBXIsub/01BNhvZRBwS0lfAD0qOWpOFKbbeTdxQJAAAACvbXqdMK1tc3aGU1TbSqSqXe0H60WE0xMCXdcUBTjcFSVy749gJIHZsA/qEZWX3T3+bIp85HeS6dpKvNL0TL80mH6GuCd4+bSh7Hh6ekDeHZGDZ2R/9nRrA5DLIHh1kp8LNwU1aPbldO2TpLfv8soY/s7bjNN3IofwZoFeXlGo/33ssFehGn48adZ2cjet+FBAAAAAane+iddr9MoPvvGyKMbRlYZtJPJNKjdfkC1CvBSbPACxH/xzp8fJsVefVOHNYYjPJD3bFd3t/IKe3JjKxHVMZg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="STG_LoadExpenseData.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="STG_LoadIncomeData.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="STG_LoadDescriptionData.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="OLDB_STG.conmgr" />
@@ -193,10 +194,10 @@
                 <SSIS:Property SSIS:Name="Name">STG_LoadExpenseData</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">27</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">28</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1513618F-D7E9-4FDB-BBF0-6C1254B5B062}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{1630A9A3-9635-4BFB-B344-3E80AE339625}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -343,10 +344,10 @@
                 <SSIS:Property SSIS:Name="Name">STG_LoadIncomeData</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">4</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{86C34DF6-F0C9-44A4-A1CB-AAEE805A5065}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{8625A577-99B5-460C-829D-990070501C99}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -379,7 +380,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\Income_Statement\Family_Income.xlsx;Extended Properties="Excel 12.0 XML;HDR=YES";</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\Income_Statement\Family_Income.xlsx;Extended Properties="EXCEL 12.0 XML;HDR=YES";</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -486,6 +487,23 @@
                   </SSIS:Properties>
                 </SSIS:Parameter>
               </SSIS:Parameters>
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="STG_LoadDescriptionData.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{1DF43FFA-DD12-41CD-939C-97B57F690DD5}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">STG_LoadDescriptionData</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{63239AEB-7760-4273-89FD-CF4477B1C76F}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
             </SSIS:PackageMetaData>
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>

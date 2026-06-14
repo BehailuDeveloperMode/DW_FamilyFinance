@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadIncomeData"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{ADBB544B-E310-4B43-B858-032E85656291}">
+  DTS:VersionBuild="8"
+  DTS:VersionGUID="{8625A577-99B5-460C-829D-990070501C99}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\Income_Statement\Family_Income.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\Income_Statement\Family_Income.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -723,7 +723,7 @@
         <NodeLayout
           Size="190,42"
           Id="Package\DFT_LoadIncomeData"
-          TopLeft="324.5,122.5" />
+          TopLeft="331.5,130.5" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -733,47 +733,13 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
-          Size="177,42"
-          Id="Package\DFT_LoadIncomeData\EXL_IncomeSource"
-          TopLeft="67.5,78.5" />
-        <NodeLayout
           Size="188,42"
           Id="Package\DFT_LoadIncomeData\RC_IncomeRowCount"
           TopLeft="292.5,214.5" />
-        <EdgeLayout
-          Id="Package\DFT_LoadIncomeData.Paths[Excel Source Output]"
-          TopLeft="156,120.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="230.5,94"
-              Start="0,0"
-              End="230.5,86.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,43" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,43"
-                    Point2="0,47"
-                    Point3="4,47" />
-                  <mssgle:LineSegment
-                    End="226.5,47" />
-                  <mssgle:CubicBezierSegment
-                    Point1="226.5,47"
-                    Point2="230.5,47"
-                    Point3="230.5,51" />
-                  <mssgle:LineSegment
-                    End="230.5,86.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="177,42"
+          Id="Package\DFT_LoadIncomeData\EXL_IncomeSource"
+          TopLeft="67.5,78.5" />
         <NodeLayout
           Size="184,42"
           Id="Package\DFT_LoadIncomeData\OLED_FamilyIncome"
@@ -804,6 +770,40 @@
                     Point3="249,43" />
                   <mssgle:LineSegment
                     End="249,70.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_LoadIncomeData.Paths[Excel Source Output]"
+          TopLeft="156,120.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="230.5,94"
+              Start="0,0"
+              End="230.5,86.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,43"
+                    Point2="0,47"
+                    Point3="4,47" />
+                  <mssgle:LineSegment
+                    End="226.5,47" />
+                  <mssgle:CubicBezierSegment
+                    Point1="226.5,47"
+                    Point2="230.5,47"
+                    Point3="230.5,51" />
+                  <mssgle:LineSegment
+                    End="230.5,86.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

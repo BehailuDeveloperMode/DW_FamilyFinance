@@ -1,19 +1,28 @@
 ﻿<?xml version="1.0"?>
 <DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
   DTS:refId="Package"
-  DTS:CreationDate="6/14/2026 1:04:14 AM"
+  DTS:CreationDate="6/14/2026 1:07:42 AM"
   DTS:CreationName="Microsoft.Package"
   DTS:CreatorComputerName="DEVELOPER-PC"
   DTS:CreatorName="Developer-PC\tbeha"
-  DTS:DTSID="{F0DFE9D9-35ED-4FB7-9BC0-D7E61A46AC91}"
+  DTS:DTSID="{1DF43FFA-DD12-41CD-939C-97B57F690DD5}"
   DTS:ExecutableType="Microsoft.Package"
   DTS:LastModifiedProductVersion="17.0.1016.0"
   DTS:LocaleID="1033"
-  DTS:ObjectName="Package1"
+  DTS:ObjectName="STG_LoadDescriptionData"
   DTS:PackageType="5"
-  DTS:VersionGUID="{678B9BF7-10E7-4D35-8672-2F71BEF466C3}">
+  DTS:VersionBuild="1"
+  DTS:VersionGUID="{63239AEB-7760-4273-89FD-CF4477B1C76F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables />
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+</Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
