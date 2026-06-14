@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadExpenseData"
   DTS:PackageType="5"
-  DTS:VersionBuild="40"
-  DTS:VersionGUID="{2F907CBD-BC3A-43C0-923D-78D58F7A5F63}">
+  DTS:VersionBuild="42"
+  DTS:VersionGUID="{01720B94-7954-43F0-AB96-2D04BB7719E8}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -615,6 +615,11 @@ Partial Public Class ScriptMain
         Dts.Variables("User::FileName").Value = fileName
         Dts.Variables("User::SourceName").Value = sourceName
         Dts.Variables("User::FileYear").Value = fileYear
+        '    Dts.Events.FireInformation(0, "File Metadata",
+        '"FileName=" & fileName &
+        '", SourceName=" & sourceName &
+        '", FileYear=" & fileYear,
+        '"", 0, True)
 
         Dts.TaskResult = ScriptResults.Success
 
@@ -653,8 +658,7 @@ End Enum]]></ProjectItem>
     <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
-    <TargetFrameworkProfile>
-    </TargetFrameworkProfile>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
@@ -822,7 +826,7 @@ End Class]]></ProjectItem>
     <msb:CodeName>ST_651667e553e447a386dbac254eedd647</msb:CodeName>
     <msb:Language>msBuild</msb:Language>
     <msb:DisplayName>ST_651667e553e447a386dbac254eedd647</msb:DisplayName>
-    <msb:ProjectId>{F4A2315F-635D-4EF0-8BDF-A8E87232342B}</msb:ProjectId>
+    <msb:ProjectId>{483A4B6B-8D25-4CC0-861D-B5CEF7367055}</msb:ProjectId>
   </msb:PropertyGroup>
   <msb:ItemGroup>
     <msb:Project Include="ST_651667e553e447a386dbac254eedd647.vbproj" />
@@ -1019,7 +1023,7 @@ End Namespace]]></ProjectItem>
               <BinaryItem
                 Name="ST_651667e553e447a386dbac254eedd647.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
 AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
-ZGUuDQ0KJAAAAAAAAABQRQAATAEDAK8KL2oAAAAAAAAAAOAAIiALAVAAABwAAAAIAAAAAAAAYjoA
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAN4OL2oAAAAAAAAAAOAAIiALAVAAABwAAAAIAAAAAAAAYjoA
 AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
 ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAABA6AABPAAAAAEAAAEgEAAAAAAAAAAAAAAAAAAAA
 AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
@@ -1123,7 +1127,7 @@ eABTVF82NTE2NjdlNTUzZTQ0N2EzODZkYmFjMjU0ZWVkZDY0Ny5NeQBnZXRfQXNzZW1ibHkAADFN
 AHkALgBSAGUAcwBvAHUAcgBjAGUAcwAuAE0AeQBSAGUAcwBvAHUAcgBjAGUAcwAAJVUAcwBlAHIA
 OgA6AEYAdQBsAGwARgBpAGwAZQBQAGEAdABoAAADXwAAEygAMgAwAFwAZAB7ADIAfQApAAAdVQBz
 AGUAcgA6ADoARgBpAGwAZQBOAGEAbQBlAAAhVQBzAGUAcgA6ADoAUwBvAHUAcgBjAGUATgBhAG0A
-ZQAAHVUAcwBlAHIAOgA6AEYAaQBsAGUAWQBlAGEAcgAAACIMk/OssztGrMMPo3/OV/4ABCABAQgD
+ZQAAHVUAcwBlAHIAOgA6AEYAaQBsAGUAWQBlAGEAcgAAAIGKIM8v9P9MjR0D2eXCygcABCABAQgD
 IAABBSABARERBCABAQ4EIAEBAgUgAgEODgUgAQERRQcgBAEODg4OBhUSKAESDAYVEigBEggGFRIo
 ARJlBhUSKAESJAQgABMABwABEm0RgJkFIAASgJ0HIAIBDhKAnQQAARwcBAABARwIBwQODggSgJEF
 IAASgKkFIAASgK0GIAESgLEcAyAAHAMgAA4EAAEODgQgAQIOBiABHQ4dAwcAAhKAkQ4OAyAAAgQA
