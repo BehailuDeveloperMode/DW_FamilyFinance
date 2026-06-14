@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadDescriptionData"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{94AFF1E2-2FBE-4C30-AD9F-E5241D14C33C}">
+  DTS:VersionBuild="20"
+  DTS:VersionGUID="{34264185-1996-48D4-B253-5B6847C5D738}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -231,11 +231,11 @@
               </outputs>
             </component>
             <component
-              refId="Package\DFT_LoadDescriptionData\Lookup"
+              refId="Package\DFT_LoadDescriptionData\LKP_Description"
               componentClassID="Microsoft.Lookup"
               contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
               description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
-              name="Lookup"
+              name="LKP_Description"
               usesDispositions="true"
               version="6">
               <properties>
@@ -251,7 +251,7 @@
                   expressionType="Notify"
                   name="SqlCommandParam"
                   UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[STG_Description_LookUp]) [refTable]
-where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Description] = ? and [refTable].[LookUp_SubCategory] = ? and [refTable].[LookUp_ExpenseType] = ? and [refTable].[LookUp_Category] = ?</property>
+where [refTable].[LookUp_Description_Name] = ?</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the type of connection used to access the reference dataset."
@@ -287,7 +287,7 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
                   containsID="true"
                   dataType="System.String"
                   description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
-                  name="ParameterMap">#{Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_Description_Name]};#{Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_Description]};#{Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_SubCategory]};#{Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_ExpenseType]};#{Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_Category]};</property>
+                  name="ParameterMap">#{Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_Description_Name]};</property>
                 <property
                   dataType="System.Int32"
                   description="Specifies the column code page to use when code page information is unavailable from the data source."
@@ -299,7 +299,7 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
               </properties>
               <connections>
                 <connection
-                  refId="Package\DFT_LoadDescriptionData\Lookup.Connections[OleDbConnection]"
+                  refId="Package\DFT_LoadDescriptionData\LKP_Description.Connections[OleDbConnection]"
                   connectionManagerID="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}:external"
                   connectionManagerRefId="Project.ConnectionManagers[OLDB_STG]"
                   description="Connection manager used to access lookup data."
@@ -307,11 +307,11 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
               </connections>
               <inputs>
                 <input
-                  refId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input]"
+                  refId="Package\DFT_LoadDescriptionData\LKP_Description.Inputs[Lookup Input]"
                   name="Lookup Input">
                   <inputColumns>
                     <inputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input].Columns[LookUp_Description_Name]"
+                      refId="Package\DFT_LoadDescriptionData\LKP_Description.Inputs[Lookup Input].Columns[LookUp_Description_Name]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="LookUp_Description_Name"
@@ -327,92 +327,24 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
                           name="CopyFromReferenceColumn" />
                       </properties>
                     </inputColumn>
-                    <inputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input].Columns[LookUp_Description]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="LookUp_Description"
-                      lineageId="Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_Description]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">LookUp_Description</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input].Columns[LookUp_SubCategory]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="LookUp_SubCategory"
-                      lineageId="Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_SubCategory]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">LookUp_SubCategory</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input].Columns[LookUp_ExpenseType]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="LookUp_ExpenseType"
-                      lineageId="Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_ExpenseType]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">LookUp_ExpenseType</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
-                    <inputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input].Columns[LookUp_Category]"
-                      cachedDataType="wstr"
-                      cachedLength="255"
-                      cachedName="LookUp_Category"
-                      lineageId="Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output].Columns[LookUp_Category]">
-                      <properties>
-                        <property
-                          dataType="System.String"
-                          description="Specifies the column in the reference table that a column joins."
-                          name="JoinToReferenceColumn">LookUp_Category</property>
-                        <property
-                          dataType="System.Null"
-                          description="Specifies the column in the reference table from which a column is copied."
-                          name="CopyFromReferenceColumn" />
-                      </properties>
-                    </inputColumn>
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
               </inputs>
               <outputs>
                 <output
-                  refId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Match Output]"
+                  refId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Match Output]"
                   errorOrTruncationOperation="Lookup"
                   exclusionGroup="1"
                   name="Lookup Match Output"
-                  synchronousInputId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\DFT_LoadDescriptionData\LKP_Description.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Match Output].Columns[LookUp_Description_Name]"
+                      refId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Match Output].Columns[LookUp_Description_Name]"
                       dataType="wstr"
                       errorOrTruncationOperation="Copy Column"
                       length="255"
-                      lineageId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Match Output].Columns[LookUp_Description_Name]"
+                      lineageId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Match Output].Columns[LookUp_Description_Name]"
                       name="LookUp_Description_Name"
                       truncationRowDisposition="FailComponent">
                       <properties>
@@ -426,30 +358,30 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup No Match Output]"
+                  refId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup No Match Output]"
                   description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
                   exclusionGroup="1"
                   name="Lookup No Match Output"
-                  synchronousInputId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\DFT_LoadDescriptionData\LKP_Description.Inputs[Lookup Input]">
                   <externalMetadataColumns />
                 </output>
                 <output
-                  refId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Error Output]"
+                  refId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Error Output]"
                   exclusionGroup="1"
                   isErrorOut="true"
                   name="Lookup Error Output"
-                  synchronousInputId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input]">
+                  synchronousInputId="Package\DFT_LoadDescriptionData\LKP_Description.Inputs[Lookup Input]">
                   <outputColumns>
                     <outputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      refId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       dataType="i4"
-                      lineageId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      lineageId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Error Output].Columns[ErrorCode]"
                       name="ErrorCode"
                       specialFlags="1" />
                     <outputColumn
-                      refId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      refId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       dataType="i4"
-                      lineageId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      lineageId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -628,14 +560,14 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
           <paths>
             <path
               refId="Package\DFT_LoadDescriptionData.Paths[Excel Source Output]"
-              endId="Package\DFT_LoadDescriptionData\Lookup.Inputs[Lookup Input]"
+              endId="Package\DFT_LoadDescriptionData\LKP_Description.Inputs[Lookup Input]"
               name="Excel Source Output"
               startId="Package\DFT_LoadDescriptionData\EXL_DescriptionSource.Outputs[Excel Source Output]" />
             <path
-              refId="Package\DFT_LoadDescriptionData.Paths[Lookup Match Output]"
+              refId="Package\DFT_LoadDescriptionData.Paths[Lookup No Match Output]"
               endId="Package\DFT_LoadDescriptionData\OLED_Description.Inputs[OLE DB Destination Input]"
-              name="Lookup Match Output"
-              startId="Package\DFT_LoadDescriptionData\Lookup.Outputs[Lookup Match Output]" />
+              name="Lookup No Match Output"
+              startId="Package\DFT_LoadDescriptionData\LKP_Description.Outputs[Lookup No Match Output]" />
           </paths>
         </pipeline>
       </DTS:ObjectData>
@@ -668,41 +600,29 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
         <NodeLayout
           Size="170,42"
           Id="Package\DFT_LoadDescriptionData\OLED_Description"
-          TopLeft="652,372" />
+          TopLeft="665,360" />
         <NodeLayout
           Size="196,42"
           Id="Package\DFT_LoadDescriptionData\EXL_DescriptionSource"
-          TopLeft="89.5,90.5" />
+          TopLeft="144.5,79.5" />
         <NodeLayout
-          Size="115,42"
-          Id="Package\DFT_LoadDescriptionData\Lookup"
-          TopLeft="168,230" />
+          Size="161,42"
+          Id="Package\DFT_LoadDescriptionData\LKP_Description"
+          TopLeft="156,232" />
         <EdgeLayout
           Id="Package\DFT_LoadDescriptionData.Paths[Excel Source Output]"
-          TopLeft="187.5,132.5">
+          TopLeft="239.5,121.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="38,97.5"
+              EndConnector="0,110.5"
               Start="0,0"
-              End="38,90">
+              End="0,103">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,44.75" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,44.75"
-                    Point2="0,48.75"
-                    Point3="4,48.75" />
-                  <mssgle:LineSegment
-                    End="34,48.75" />
-                  <mssgle:CubicBezierSegment
-                    Point1="34,48.75"
-                    Point2="38,48.75"
-                    Point3="38,52.75" />
-                  <mssgle:LineSegment
-                    End="38,90" />
+                    End="0,103" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -712,38 +632,38 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\DFT_LoadDescriptionData.Paths[Lookup Match Output]"
-          TopLeft="225.5,272">
+          Id="Package\DFT_LoadDescriptionData.Paths[Lookup No Match Output]"
+          TopLeft="236.5,274">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="511.5,100"
+              EndConnector="513.5,86"
               Start="0,0"
-              End="511.5,92.5">
+              End="513.5,78.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,46" />
+                    End="0,39" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,46"
-                    Point2="0,50"
-                    Point3="4,50" />
+                    Point1="0,39"
+                    Point2="0,43"
+                    Point3="4,43" />
                   <mssgle:LineSegment
-                    End="507.5,50" />
+                    End="509.5,43" />
                   <mssgle:CubicBezierSegment
-                    Point1="507.5,50"
-                    Point2="511.5,50"
-                    Point3="511.5,54" />
+                    Point1="509.5,43"
+                    Point2="513.5,43"
+                    Point3="513.5,47" />
                   <mssgle:LineSegment
-                    End="511.5,92.5" />
+                    End="513.5,78.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="207.55861328125,55,96.3827734375,11.609375"
+              BoundingBox="200.94361328125,48,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -777,7 +697,7 @@ where [refTable].[LookUp_Description_Name] = ? and [refTable].[LookUp_Descriptio
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT_LoadDescriptionData\Lookup">
+    design-time-name="Package\DFT_LoadDescriptionData\LKP_Description">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
