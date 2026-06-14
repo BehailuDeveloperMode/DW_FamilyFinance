@@ -60,14 +60,16 @@ Date         Author              Description
 IF OBJECT_ID(N'dbo.STG_FileLoadAudit', N'U') IS NULL
     BEGIN
         CREATE TABLE dbo.STG_FileLoadAudit (
-            FileLoadAuditID BIGINT         IDENTITY (1, 1) NOT NULL,
-            FileName        VARCHAR (255)  NOT NULL,
-            FilePath        VARCHAR (1000) NULL,
-            SourceName      VARCHAR (100)  NULL,
-            FileYear        INT            NULL,
-            SourceRowCount  BIGINT         NOT NULL,
-            LoadDateTime    DATETIME2 (0)  CONSTRAINT DF_STG_FileLoadAudit_LoadDateTime DEFAULT (SYSDATETIME()) NOT NULL,
-            LoadedBy        VARCHAR (100)  CONSTRAINT DF_STG_FileLoadAudit_LoadedBy DEFAULT (SUSER_SNAME()) NOT NULL,
+            FileLoadAuditID BIGINT          IDENTITY (1, 1) NOT NULL,
+            PackageName     NVARCHAR (255)  NULL,
+            FileName        NVARCHAR (255)  NOT NULL,
+            FilePath        NVARCHAR (1000) NULL,
+            SourceName      NVARCHAR (100)  NULL,
+            FileYear        INT             NULL,
+            SourceRowCount  BIGINT          NULL,
+            LoadStatus      NVARCHAR (50)   CONSTRAINT DF_STG_FileLoadAudit_LoadStatus DEFAULT ('SUCCESS') NOT NULL,
+            LoadDateTime    DATETIME2 (0)   CONSTRAINT DF_STG_FileLoadAudit_LoadDateTime DEFAULT (SYSDATETIME()) NOT NULL,
+            LoadedBy        NVARCHAR (100)  CONSTRAINT DF_STG_FileLoadAudit_LoadedBy DEFAULT (SUSER_SNAME()) NOT NULL,
             CONSTRAINT PK_STG_FileLoadAudit PRIMARY KEY CLUSTERED (FileLoadAuditID)
         );
     END
