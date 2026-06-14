@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DEVELOPER-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAACPa8p1wprOIIVgpptEOxkKib4P4y9N10RQlQmTTE2dPQAAAAAOgAAAAAIAACAAAAAITd7PaxaLzS6Mbuv9TK0UkUg3x5orE9c29xwcWPP+UJAAAACzCxPAgoSG1xHlQ3ONRUV9RZ+BNIYxuO76DQB4MIQ6nb4buDwDbsBKa8XTyikA2aJXcZbmur9EZM4B2zl1DVxDemPQIQ7y2ueAoR5JzoDAfWDPOIqZCqkS8Qmvn3lYRrysl/Gc3pNDnJRs68jpXBP9WCOy3sLHZ+qb0sJJESaB7CQvOh+ZB1JwTLN0TwxkkZBAAAAAWsckH6b6VgY2WFFLGNyzzZ3Ss0LHiYcYBuUK0F+O73qGp2/0UtxumpyMY8XOkB61lfKlJSf1YB/5T04w7Wlehw==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAAAxDay1jNC2Y6QUelg2u6YVJWOFGQ2/m8tbkGezfSU0tQAAAAAOgAAAAAIAACAAAABcjmF8F71BB1UlDClbuLnMUuENkGZmxSAt9dbNjsWXSJAAAADq6VhZm8/U3IMdUTDNW0S1rTrQuRVBcTxaZxXqPd2p0UvxPEqoR8gnNprIl/KXphtDgJtUws/Mfw+rOTPRJbAysmE7SmZhp0oez1Gh9e2snaW4ciW2AxDp3U4NhzSFxvMgDjvvhj0w4AqzDlqDTdtwvujccBYxXZUhEO5L7sQmxjMHVncfmy3tJV8hArBHsvxAAAAAdqpLb1VnYcRSaVGEmhH7dr0y6jC3M6jTIHUTU0wo3XUj39jStW131RXA/nioRxuDGSsoIL249UkLBYZrtbOl2Q==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -194,10 +194,10 @@
                 <SSIS:Property SSIS:Name="Name">STG_LoadExpenseData</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">27</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">34</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{1513618F-D7E9-4FDB-BBF0-6C1254B5B062}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{A982F0B6-EEBF-4714-9818-4F79A1362660}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -230,22 +230,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2020_.xlsx;Extended Properties="EXCEL 12.0 XML;HDR=YES";</SSIS:Property>
-                    <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
-                  </SSIS:Properties>
-                </SSIS:Parameter>
-                <SSIS:Parameter SSIS:Name="CM.STG_Exepense_OneDriveSource.ExcelFilePath">
-                  <SSIS:Properties>
-                    <SSIS:Property SSIS:Name="ID">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="CreationName">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="Description">
-                    </SSIS:Property>
-                    <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2020_.xlsx</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=;Extended Properties="EXCEL 12.0 XML;HDR=YES";</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -318,7 +303,8 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2020_.xlsx</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">
+                    </SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
