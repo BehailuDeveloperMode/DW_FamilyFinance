@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadExpenseData"
   DTS:PackageType="5"
-  DTS:VersionBuild="17"
-  DTS:VersionGUID="{2F5C7A3F-62B4-4BC0-92BE-95F517EB2195}">
+  DTS:VersionBuild="18"
+  DTS:VersionGUID="{9D723FA1-2C28-4841-A884-3952349CD8B6}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -25,7 +25,7 @@
         <DTS:ConnectionManager
           DTS:ConnectRetryCount="0"
           DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2020_.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2020_.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
       </DTS:ObjectData>
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
@@ -318,39 +318,39 @@
       <GraphLayout
         Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
         <NodeLayout
+          Size="195,42"
+          Id="Package\DFT_LoadExpenseData\RC_ExpenseRowCount"
+          TopLeft="560,260" />
+        <NodeLayout
           Size="184,42"
           Id="Package\DFT_LoadExpenseData\EXL_ExpenseSource"
           TopLeft="196.5,126.5" />
-        <NodeLayout
-          Size="195,42"
-          Id="Package\DFT_LoadExpenseData\RC_ExpenseRowCount"
-          TopLeft="409,218" />
         <EdgeLayout
           Id="Package\DFT_LoadExpenseData.Paths[Excel Source Output]"
           TopLeft="288.5,168.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="218,49.5"
+              EndConnector="369,91.5"
               Start="0,0"
-              End="218,42">
+              End="369,84">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.75" />
+                    End="0,41.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,20.75"
-                    Point2="0,24.75"
-                    Point3="4,24.75" />
+                    Point1="0,41.75"
+                    Point2="0,45.75"
+                    Point3="4,45.75" />
                   <mssgle:LineSegment
-                    End="214,24.75" />
+                    End="365,45.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="214,24.75"
-                    Point2="218,24.75"
-                    Point3="218,28.75" />
+                    Point1="365,45.75"
+                    Point2="369,45.75"
+                    Point3="369,49.75" />
                   <mssgle:LineSegment
-                    End="218,42" />
+                    End="369,84" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
