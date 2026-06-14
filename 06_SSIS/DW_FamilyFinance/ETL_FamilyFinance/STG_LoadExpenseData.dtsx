@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadExpenseData"
   DTS:PackageType="5"
-  DTS:VersionBuild="42"
-  DTS:VersionGUID="{01720B94-7954-43F0-AB96-2D04BB7719E8}">
+  DTS:VersionBuild="44"
+  DTS:VersionGUID="{FB28D950-E8DC-4B02-B153-D4BB527AA8DD}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -132,6 +132,125 @@
             <pipeline
               version="1">
               <components>
+                <component
+                  refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DC_AddFileMetadata"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[FileName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="255"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[FileName]"
+                          name="FileName"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,255)[UPPER](@[User::FileName])</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,255)UPPER(@[User::FileName])</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[FileYear]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[FileYear]"
+                          name="FileYear"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[User::FileYear]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[User::FileYear]</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[SourceName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="50"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[SourceName]"
+                          name="SourceName"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_WSTR,50)([UPPER](@[User::SourceName]) + " BANK")</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_WSTR,50)(UPPER(@[User::SourceName]) + " BANK")</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
                 <component
                   refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\EXL_ExpenseSource"
                   componentClassID="Microsoft.ExcelSource"
@@ -434,12 +553,25 @@
                           externalMetadataColumnId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[Category]"
                           lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\EXL_ExpenseSource.Outputs[Excel Source Output].Columns[Category]" />
                         <inputColumn
-                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].Columns[SourceName]"
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].Columns[FileName]"
                           cachedDataType="wstr"
                           cachedLength="255"
+                          cachedName="FileName"
+                          externalMetadataColumnId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[FileName]"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[FileName]" />
+                        <inputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].Columns[FileYear]"
+                          cachedDataType="i4"
+                          cachedName="FileYear"
+                          externalMetadataColumnId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[FileYear]"
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[FileYear]" />
+                        <inputColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].Columns[SourceName]"
+                          cachedDataType="wstr"
+                          cachedLength="50"
                           cachedName="SourceName"
                           externalMetadataColumnId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[SourceName]"
-                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\EXL_ExpenseSource.Outputs[Excel Source Output].Columns[SourceName]" />
+                          lineageId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output].Columns[SourceName]" />
                       </inputColumns>
                       <externalMetadataColumns
                         isUsed="True">
@@ -487,6 +619,15 @@
                           refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[LoadDate]"
                           dataType="dbDate"
                           name="LoadDate" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[FileName]"
+                          dataType="wstr"
+                          length="255"
+                          name="FileName" />
+                        <externalMetadataColumn
+                          refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData.Inputs[OLE DB Destination Input].ExternalColumns[FileYear]"
+                          dataType="i4"
+                          name="FileYear" />
                       </externalMetadataColumns>
                     </input>
                   </inputs>
@@ -547,8 +688,13 @@
               </components>
               <paths>
                 <path
-                  refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Excel Source Output]"
+                  refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Derived Column Output]"
                   endId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\RC_ExpenseRowCount.Inputs[Row Count Input 1]"
+                  name="Derived Column Output"
+                  startId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Excel Source Output]"
+                  endId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata.Inputs[Derived Column Input]"
                   name="Excel Source Output"
                   startId="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\EXL_ExpenseSource.Outputs[Excel Source Output]" />
                 <path
@@ -1288,41 +1434,79 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <NodeLayout
           Size="234,42"
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData"
-          TopLeft="454,309" />
+          TopLeft="651,248" />
         <NodeLayout
           Size="195,42"
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\RC_ExpenseRowCount"
-          TopLeft="225,227" />
+          TopLeft="201,345" />
         <NodeLayout
           Size="184,42"
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\EXL_ExpenseSource"
           TopLeft="94.5,106.5" />
+        <EdgeLayout
+          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Row Count Output 1]"
+          TopLeft="329.666666666667,345">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="438.333333333333,-55"
+              Start="0,0"
+              End="438.333333333333,-47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-18.2685656154629" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-18.2685656154629"
+                    Point2="0,-22.2685656154629"
+                    Point3="4,-22.2685656154629" />
+                  <mssgle:LineSegment
+                    End="434.333333333333,-22.2685656154629" />
+                  <mssgle:CubicBezierSegment
+                    Point1="434.333333333333,-22.2685656154629"
+                    Point2="438.333333333333,-22.2685656154629"
+                    Point3="438.333333333333,-26.2685656154629" />
+                  <mssgle:LineSegment
+                    End="438.333333333333,-47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="184,42"
+          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata"
+          TopLeft="67,201" />
         <EdgeLayout
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Excel Source Output]"
           TopLeft="186.5,148.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="136,78.5"
+              EndConnector="-27.5,52.5"
               Start="0,0"
-              End="136,71">
+              End="-27.5,45">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,35.25" />
+                    End="0,22.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,35.25"
-                    Point2="0,39.25"
-                    Point3="4,39.25" />
+                    Point1="0,22.25"
+                    Point2="0,26.25"
+                    Point3="-4,26.25" />
                   <mssgle:LineSegment
-                    End="132,39.25" />
+                    End="-23.5,26.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="132,39.25"
-                    Point2="136,39.25"
-                    Point3="136,43.25" />
+                    Point1="-23.5,26.25"
+                    Point2="-27.5,26.25"
+                    Point3="-27.5,30.25" />
                   <mssgle:LineSegment
-                    End="136,71" />
+                    End="-27.5,45" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1332,31 +1516,31 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
-          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Row Count Output 1]"
-          TopLeft="322.5,269">
+          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Derived Column Output]"
+          TopLeft="159,243">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="248.5,40"
+              EndConnector="108.333333333333,102"
               Start="0,0"
-              End="248.5,32.5">
+              End="108.333333333333,94.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,16" />
+                    End="0,56.7019328585961" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,16"
-                    Point2="0,20"
-                    Point3="4,20" />
+                    Point1="0,56.7019328585961"
+                    Point2="0,60.7019328585961"
+                    Point3="4,60.7019328585961" />
                   <mssgle:LineSegment
-                    End="244.5,20" />
+                    End="104.333333333333,60.7019328585961" />
                   <mssgle:CubicBezierSegment
-                    Point1="244.5,20"
-                    Point2="248.5,20"
-                    Point3="248.5,24" />
+                    Point1="104.333333333333,60.7019328585961"
+                    Point2="108.333333333333,60.7019328585961"
+                    Point3="108.333333333333,64.7019328585961" />
                   <mssgle:LineSegment
-                    End="248.5,32.5" />
+                    End="108.333333333333,94.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

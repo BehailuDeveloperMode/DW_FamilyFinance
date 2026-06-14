@@ -47,6 +47,8 @@ IF OBJECT_ID(N'dbo.STG_FamilySourceData', N'U') IS NULL
             Credit          DECIMAL (18, 2) NULL,
             Category        NVARCHAR (255)  NULL,
             SourceName      NVARCHAR (255)  NULL,
+            [FileName]        NVARCHAR (255)  NULL,
+            FileYear        INT             NULL,
             LoadDate        AS              (CONVERT (DATE, DATEADD(DAY, 2, DATEADD(MONTH, DATEDIFF(MONTH, 0, [Date]) + 1, 0)))) PERSISTED,
             CONSTRAINT PK_STG_FamilySourceData PRIMARY KEY CLUSTERED (ExpenseSourceID)
         );
