@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_MonthlyFinancialSummary
 Author       : Behailu Tessema
@@ -72,44 +75,33 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_MonthlyFinancialSummary]
 AS
-WITH ExpenseMonthly AS
-(
-    SELECT
-        d.[Year],
-        d.YearMonthNumber,
-        d.YearMonthName,
-        SUM(e.ExpenseAmount) AS TotalExpense
-    FROM fact.FactExpense e
-    INNER JOIN dim.DimDate d
-        ON d.DateKey = e.TransactionDateKey
-    GROUP BY
-        d.[Year],
-        d.YearMonthNumber,
-        d.YearMonthName
-),
-IncomeMonthly AS
-(
-    SELECT
-        d.[Year],
-        d.YearMonthNumber,
-        d.YearMonthName,
-        SUM(i.EmployerNetPay) AS TotalIncome
-    FROM fact.FactIncome i
-    INNER JOIN dim.DimDate d
-        ON d.DateKey = i.PayDateKey
-    GROUP BY
-        d.[Year],
-        d.YearMonthNumber,
-        d.YearMonthName
-)
-SELECT
-    COALESCE(e.[Year], i.[Year]) AS [Year],
-    COALESCE(e.YearMonthNumber, i.YearMonthNumber) AS YearMonthNumber,
-    COALESCE(e.YearMonthName, i.YearMonthName) AS YearMonthName,
-    ISNULL(i.TotalIncome, 0.00) AS TotalIncome,
-    ISNULL(e.TotalExpense, 0.00) AS TotalExpense,
-    ISNULL(i.TotalIncome, 0.00) - ISNULL(e.TotalExpense, 0.00) AS NetSavings
-FROM ExpenseMonthly e
-FULL OUTER JOIN IncomeMonthly i
-    ON e.YearMonthNumber = i.YearMonthNumber;
-GO
+WITH   ExpenseMonthly
+AS     (SELECT   d.[Year],
+                 d.YearMonthNumber,
+                 d.YearMonthName,
+                 SUM(e.ExpenseAmount) AS TotalExpense
+        FROM     fact.FactExpense AS e
+                 INNER JOIN
+                 dim.DimDate AS d
+                 ON d.DateKey = e.TransactionDateKey
+        GROUP BY d.[Year], d.YearMonthNumber, d.YearMonthName),
+       IncomeMonthly
+AS     (SELECT   d.[Year],
+                 d.YearMonthNumber,
+                 d.YearMonthName,
+                 SUM(i.EmployerNetPay) AS TotalIncome
+        FROM     fact.FactIncome AS i
+                 INNER JOIN
+                 dim.DimDate AS d
+                 ON d.DateKey = i.PayDateKey
+        GROUP BY d.[Year], d.YearMonthNumber, d.YearMonthName)
+SELECT COALESCE (e.[Year], i.[Year]) AS [Year],
+       COALESCE (e.YearMonthNumber, i.YearMonthNumber) AS YearMonthNumber,
+       COALESCE (e.YearMonthName, i.YearMonthName) AS YearMonthName,
+       ISNULL(i.TotalIncome, 0.00) AS TotalIncome,
+       ISNULL(e.TotalExpense, 0.00) AS TotalExpense,
+       ISNULL(i.TotalIncome, 0.00) - ISNULL(e.TotalExpense, 0.00) AS NetSavings
+FROM   ExpenseMonthly AS e
+       FULL OUTER JOIN
+       IncomeMonthly AS i
+       ON e.YearMonthNumber = i.YearMonthNumber;

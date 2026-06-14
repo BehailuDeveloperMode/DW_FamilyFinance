@@ -58,39 +58,27 @@ Date         Author              Description
 06/04/2026   Behailu Tessema     Initial version.
 ------------------------------------------------------------------------------------------------***/
 USE DW_FamilyFinance;
-GO
 
+
+GO
 IF OBJECT_ID('fact.FactExpense', 'U') IS NULL
-BEGIN
-    CREATE TABLE fact.FactExpense
-    (
-        ExpenseFactKey        BIGINT IDENTITY(1,1) NOT NULL,
-        SourceExpenseID       BIGINT NOT NULL,
-        TransactionID         VARCHAR(500) NULL,
-        TransactionDateKey    INT NOT NULL,
-        BankKey               INT NOT NULL,
-        DescriptionKey        INT NOT NULL,
-        ExpenseAmount         DECIMAL(18,2) NOT NULL,
-        LoadDate              DATE NULL,
-        SourceSystem          VARCHAR(100) NOT NULL,
-        CreatedDate           DATETIME2(0) NOT NULL
-            CONSTRAINT DF_FactExpense_CreatedDate DEFAULT SYSDATETIME(),
-        ModifiedDate          DATETIME2(0) NULL,
-
-        CONSTRAINT PK_FactExpense PRIMARY KEY CLUSTERED (ExpenseFactKey),
-        CONSTRAINT UQ_FactExpense_SourceExpenseID UNIQUE (SourceExpenseID),
-
-        CONSTRAINT FK_FactExpense_DimDate
-            FOREIGN KEY (TransactionDateKey)
-            REFERENCES dim.DimDate(DateKey),
-
-        CONSTRAINT FK_FactExpense_DimBank
-            FOREIGN KEY (BankKey)
-            REFERENCES dim.DimBank(BankKey),
-
-        CONSTRAINT FK_FactExpense_DimDescription
-            FOREIGN KEY (DescriptionKey)
-            REFERENCES dim.DimDescription(DescriptionKey)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE fact.FactExpense (
+            ExpenseFactKey     BIGINT          IDENTITY (1, 1) NOT NULL,
+            SourceExpenseID    BIGINT          NOT NULL,
+            TransactionID      VARCHAR (500)   NULL,
+            TransactionDateKey INT             NOT NULL,
+            BankKey            INT             NOT NULL,
+            DescriptionKey     INT             NOT NULL,
+            ExpenseAmount      DECIMAL (18, 2) NOT NULL,
+            LoadDate           DATE            NULL,
+            SourceSystem       VARCHAR (100)   NOT NULL,
+            CreatedDate        DATETIME2 (0)   CONSTRAINT DF_FactExpense_CreatedDate DEFAULT SYSDATETIME() NOT NULL,
+            ModifiedDate       DATETIME2 (0)   NULL,
+            CONSTRAINT PK_FactExpense PRIMARY KEY CLUSTERED (ExpenseFactKey),
+            CONSTRAINT UQ_FactExpense_SourceExpenseID UNIQUE (SourceExpenseID),
+            CONSTRAINT FK_FactExpense_DimDate FOREIGN KEY (TransactionDateKey) REFERENCES dim.DimDate (DateKey),
+            CONSTRAINT FK_FactExpense_DimBank FOREIGN KEY (BankKey) REFERENCES dim.DimBank (BankKey),
+            CONSTRAINT FK_FactExpense_DimDescription FOREIGN KEY (DescriptionKey) REFERENCES dim.DimDescription (DescriptionKey)
+        );
+    END

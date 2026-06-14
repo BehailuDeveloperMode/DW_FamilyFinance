@@ -1,12 +1,15 @@
 USE [STG_FamilyLiving];
-GO
 
+
+GO
 SET ANSI_NULLS ON;
-GO
 
+
+GO
 SET QUOTED_IDENTIFIER ON;
-GO
 
+
+GO
 /***************************************************************************************************
 Table Name   : dbo.STG_FamilySourceData
 Author       : Behailu Tessema
@@ -33,50 +36,18 @@ Date         Author              Description
 -----------------------------------------------------------------------------------------------
 06/05/2026   Behailu Tessema     Initial table creation script.
 ***************************************************************************************************/
-
 IF OBJECT_ID(N'dbo.STG_FamilySourceData', N'U') IS NULL
-BEGIN
-    CREATE TABLE dbo.STG_FamilySourceData
-    (
-        ExpenseSourceID BIGINT IDENTITY(1,1) NOT NULL,
-
-        Transaction_ID AS
-        (
-            CONCAT
-            (
-                TRIM([Description]),
-                TRIM([SourceName])
-            )
-        ),
-
-        [Date] DATE NULL,
-        [Description] NVARCHAR(255) NULL,
-        Debit DECIMAL(18,2) NULL,
-        Credit DECIMAL(18,2) NULL,
-        Category NVARCHAR(255) NULL,
-        SourceName NVARCHAR(255) NULL,
-
-        LoadDate AS
-        (
-            CONVERT
-            (
-                DATE,
-                DATEADD
-                (
-                    DAY,
-                    2,
-                    DATEADD
-                    (
-                        MONTH,
-                        DATEDIFF(MONTH, 0, [Date]) + 1,
-                        0
-                    )
-                )
-            )
-        ) PERSISTED,
-
-        CONSTRAINT PK_STG_FamilySourceData
-            PRIMARY KEY CLUSTERED (ExpenseSourceID)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE dbo.STG_FamilySourceData (
+            ExpenseSourceID BIGINT          IDENTITY (1, 1) NOT NULL,
+            Transaction_ID  AS              (CONCAT(TRIM([Description]), TRIM([SourceName]))),
+            [Date]          DATE            NULL,
+            [Description]   NVARCHAR (255)  NULL,
+            Debit           DECIMAL (18, 2) NULL,
+            Credit          DECIMAL (18, 2) NULL,
+            Category        NVARCHAR (255)  NULL,
+            SourceName      NVARCHAR (255)  NULL,
+            LoadDate        AS              (CONVERT (DATE, DATEADD(DAY, 2, DATEADD(MONTH, DATEDIFF(MONTH, 0, [Date]) + 1, 0)))) PERSISTED,
+            CONSTRAINT PK_STG_FamilySourceData PRIMARY KEY CLUSTERED (ExpenseSourceID)
+        );
+    END

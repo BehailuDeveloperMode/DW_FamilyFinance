@@ -1,12 +1,15 @@
 USE [STG_FamilyLiving];
-GO
 
+
+GO
 SET ANSI_NULLS ON;
-GO
 
+
+GO
 SET QUOTED_IDENTIFIER ON;
-GO
 
+
+GO
 /***************************************************************************************************
 Table Name   : dbo.STG_Description_LookUp
 Author       : Behailu Tessema
@@ -41,27 +44,15 @@ FROM dbo.STG_Description_LookUp;
 
 06/05/2026   Behailu Tessema     Initial table creation script.
 ***************************************************************************************************/
-
 IF OBJECT_ID(N'dbo.STG_Description_LookUp', N'U') IS NULL
-BEGIN
-CREATE TABLE dbo.STG_Description_LookUp
-(
-LookUp_Description_Name NVARCHAR(255) NOT NULL,
-LookUp_Description NVARCHAR(255) NULL,
-LookUp_SubCategory NVARCHAR(255) NULL,
-LookUp_ExpenseType NVARCHAR(255) NULL,
-LookUp_Category NVARCHAR(255) NULL,
-
-
-    LoadDate DATE NOT NULL
-        CONSTRAINT DF_STG_Description_LookUp_LoadDate
-        DEFAULT (GETDATE()),
-
-    CONSTRAINT UQ_STG_Description_LookUp_DescriptionName
-        UNIQUE (LookUp_Description_Name)
-);
-
-
-END;
-GO
-
+    BEGIN
+        CREATE TABLE dbo.STG_Description_LookUp (
+            LookUp_Description_Name NVARCHAR (255) NOT NULL,
+            LookUp_Description      NVARCHAR (255) NULL,
+            LookUp_SubCategory      NVARCHAR (255) NULL,
+            LookUp_ExpenseType      NVARCHAR (255) NULL,
+            LookUp_Category         NVARCHAR (255) NULL,
+            LoadDate                DATE           CONSTRAINT DF_STG_Description_LookUp_LoadDate DEFAULT (GETDATE()) NOT NULL,
+            CONSTRAINT UQ_STG_Description_LookUp_DescriptionName UNIQUE (LookUp_Description_Name)
+        );
+    END

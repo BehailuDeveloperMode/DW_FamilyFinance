@@ -1,13 +1,15 @@
-
 USE [STG_FamilyLiving];
-GO
 
+
+GO
 SET ANSI_NULLS ON;
-GO
 
+
+GO
 SET QUOTED_IDENTIFIER ON;
-GO
 
+
+GO
 /***************************************************************************************************
 Table Name   : dbo.Family_Income
 Author       : Behailu Tessema
@@ -51,33 +53,24 @@ Date         Author              Description
 -----------------------------------------------------------------------------------------------
 06/05/2026   Behailu Tessema     Initial table creation script.
 ***************************************************************************************************/
-
 IF OBJECT_ID(N'dbo.Family_Income', N'U') IS NULL
-BEGIN
-    CREATE TABLE dbo.Family_Income
-    (
-        IncomeSourceID BIGINT IDENTITY(1,1) NOT NULL,
-
-        Period_Bginning DATE NULL,
-        Period_Ending DATE NULL,
-        Pay_Day DATE NULL,
-
-        Work_Place NVARCHAR(255) NULL,
-        Employee_FullName NVARCHAR(255) NULL,
-
-        Gross_Payment DECIMAL(18,2) NULL,
-        Federal_Tax DECIMAL(18,2) NULL,
-        SS_Tax DECIMAL(18,2) NULL,
-        Medical_Tax DECIMAL(18,2) NULL,
-        CA_State_Tax DECIMAL(18,2) NULL,
-        CA_SDI_Tax DECIMAL(18,2) NULL,
-        Employer_NetPay DECIMAL(18,2) NULL,
-        Total_Tax DECIMAL(18,2) NULL,
-        Payment_Validation DECIMAL(18,2) NULL,
-
-        CONSTRAINT PK_Family_Income
-            PRIMARY KEY CLUSTERED (IncomeSourceID)
-    );
-END;
-GO
-
+    BEGIN
+        CREATE TABLE dbo.Family_Income (
+            IncomeSourceID     BIGINT          IDENTITY (1, 1) NOT NULL,
+            Period_Bginning    DATE            NULL,
+            Period_Ending      DATE            NULL,
+            Pay_Day            DATE            NULL,
+            Work_Place         NVARCHAR (255)  NULL,
+            Employee_FullName  NVARCHAR (255)  NULL,
+            Gross_Payment      DECIMAL (18, 2) NULL,
+            Federal_Tax        DECIMAL (18, 2) NULL,
+            SS_Tax             DECIMAL (18, 2) NULL,
+            Medical_Tax        DECIMAL (18, 2) NULL,
+            CA_State_Tax       DECIMAL (18, 2) NULL,
+            CA_SDI_Tax         DECIMAL (18, 2) NULL,
+            Employer_NetPay    DECIMAL (18, 2) NULL,
+            Total_Tax          DECIMAL (18, 2) NULL,
+            Payment_Validation DECIMAL (18, 2) NULL,
+            CONSTRAINT PK_Family_Income PRIMARY KEY CLUSTERED (IncomeSourceID)
+        );
+    END

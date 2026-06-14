@@ -87,53 +87,35 @@ Date         Author              Description
 06/04/2026   Behailu Tessema     Initial version with SourceIncomeID business key.
 ------------------------------------------------------------------------------------------------***/
 USE DW_FamilyFinance;
-GO
 
+
+GO
 IF OBJECT_ID('fact.FactIncome', 'U') IS NULL
-BEGIN
-    CREATE TABLE fact.FactIncome
-    (
-        IncomeFactKey             BIGINT IDENTITY(1,1) NOT NULL,
-        SourceIncomeID            BIGINT NOT NULL,
-        IncomeSourceKey           INT NOT NULL,
-        PeriodBeginningDateKey    INT NOT NULL,
-        PeriodEndingDateKey       INT NOT NULL,
-        PayDateKey                INT NOT NULL,
-        GrossPayment              DECIMAL(18,2) NOT NULL,
-        FederalTax                DECIMAL(18,2) NOT NULL,
-        SSTax                     DECIMAL(18,2) NOT NULL,
-        MedicareTax               DECIMAL(18,2) NOT NULL,
-        CAStateTax                DECIMAL(18,2) NOT NULL,
-        CASDITax                  DECIMAL(18,2) NOT NULL,
-        EmployerNetPay            DECIMAL(18,2) NOT NULL,
-        TotalTax                  DECIMAL(18,2) NOT NULL,
-        PaymentValidation         BIT NOT NULL,
-        SourceSystem              VARCHAR(100) NOT NULL,
-        CreatedDate               DATETIME2(0) NOT NULL
-            CONSTRAINT DF_FactIncome_CreatedDate DEFAULT SYSDATETIME(),
-        ModifiedDate              DATETIME2(0) NULL,
-
-        CONSTRAINT PK_FactIncome
-            PRIMARY KEY CLUSTERED (IncomeFactKey),
-
-        CONSTRAINT UQ_FactIncome_SourceIncomeID
-            UNIQUE (SourceIncomeID),
-
-        CONSTRAINT FK_FactIncome_DimIncomeSource
-            FOREIGN KEY (IncomeSourceKey)
-            REFERENCES dim.DimIncomeSource(IncomeSourceKey),
-
-        CONSTRAINT FK_FactIncome_PeriodBeginningDate
-            FOREIGN KEY (PeriodBeginningDateKey)
-            REFERENCES dim.DimDate(DateKey),
-
-        CONSTRAINT FK_FactIncome_PeriodEndingDate
-            FOREIGN KEY (PeriodEndingDateKey)
-            REFERENCES dim.DimDate(DateKey),
-
-        CONSTRAINT FK_FactIncome_PayDate
-            FOREIGN KEY (PayDateKey)
-            REFERENCES dim.DimDate(DateKey)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE fact.FactIncome (
+            IncomeFactKey          BIGINT          IDENTITY (1, 1) NOT NULL,
+            SourceIncomeID         BIGINT          NOT NULL,
+            IncomeSourceKey        INT             NOT NULL,
+            PeriodBeginningDateKey INT             NOT NULL,
+            PeriodEndingDateKey    INT             NOT NULL,
+            PayDateKey             INT             NOT NULL,
+            GrossPayment           DECIMAL (18, 2) NOT NULL,
+            FederalTax             DECIMAL (18, 2) NOT NULL,
+            SSTax                  DECIMAL (18, 2) NOT NULL,
+            MedicareTax            DECIMAL (18, 2) NOT NULL,
+            CAStateTax             DECIMAL (18, 2) NOT NULL,
+            CASDITax               DECIMAL (18, 2) NOT NULL,
+            EmployerNetPay         DECIMAL (18, 2) NOT NULL,
+            TotalTax               DECIMAL (18, 2) NOT NULL,
+            PaymentValidation      BIT             NOT NULL,
+            SourceSystem           VARCHAR (100)   NOT NULL,
+            CreatedDate            DATETIME2 (0)   CONSTRAINT DF_FactIncome_CreatedDate DEFAULT SYSDATETIME() NOT NULL,
+            ModifiedDate           DATETIME2 (0)   NULL,
+            CONSTRAINT PK_FactIncome PRIMARY KEY CLUSTERED (IncomeFactKey),
+            CONSTRAINT UQ_FactIncome_SourceIncomeID UNIQUE (SourceIncomeID),
+            CONSTRAINT FK_FactIncome_DimIncomeSource FOREIGN KEY (IncomeSourceKey) REFERENCES dim.DimIncomeSource (IncomeSourceKey),
+            CONSTRAINT FK_FactIncome_PeriodBeginningDate FOREIGN KEY (PeriodBeginningDateKey) REFERENCES dim.DimDate (DateKey),
+            CONSTRAINT FK_FactIncome_PeriodEndingDate FOREIGN KEY (PeriodEndingDateKey) REFERENCES dim.DimDate (DateKey),
+            CONSTRAINT FK_FactIncome_PayDate FOREIGN KEY (PayDateKey) REFERENCES dim.DimDate (DateKey)
+        );
+    END

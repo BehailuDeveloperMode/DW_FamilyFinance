@@ -61,23 +61,19 @@ Date         Author              Description
 06/04/2026   Behailu Tessema     Initial version.
 ------------------------------------------------------------------------------------------------***/
 USE DW_FamilyFinance;
-GO
 
+
+GO
 IF OBJECT_ID('dim.DimIncomeSource', 'U') IS NULL
-BEGIN
-    CREATE TABLE dim.DimIncomeSource
-    (
-        IncomeSourceKey  INT IDENTITY(1,1) NOT NULL,
-        WorkPlace        VARCHAR(150) NOT NULL,
-        EmployeeFullName VARCHAR(150) NOT NULL,
-        SourceSystem     VARCHAR(100) NOT NULL,
-        CreatedDate      DATETIME2(0) NOT NULL
-            CONSTRAINT DF_DimIncomeSource_CreatedDate DEFAULT SYSDATETIME(),
-        ModifiedDate     DATETIME2(0) NULL,
-
-        CONSTRAINT PK_DimIncomeSource PRIMARY KEY CLUSTERED (IncomeSourceKey),
-        CONSTRAINT UQ_DimIncomeSource_WorkPlace_Employee
-            UNIQUE (WorkPlace, EmployeeFullName)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE dim.DimIncomeSource (
+            IncomeSourceKey  INT           IDENTITY (1, 1) NOT NULL,
+            WorkPlace        VARCHAR (150) NOT NULL,
+            EmployeeFullName VARCHAR (150) NOT NULL,
+            SourceSystem     VARCHAR (100) NOT NULL,
+            CreatedDate      DATETIME2 (0) CONSTRAINT DF_DimIncomeSource_CreatedDate DEFAULT SYSDATETIME() NOT NULL,
+            ModifiedDate     DATETIME2 (0) NULL,
+            CONSTRAINT PK_DimIncomeSource PRIMARY KEY CLUSTERED (IncomeSourceKey),
+            CONSTRAINT UQ_DimIncomeSource_WorkPlace_Employee UNIQUE (WorkPlace, EmployeeFullName)
+        );
+    END

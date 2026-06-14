@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_ExpenseRecordCountByYearBank
 Author       : Behailu Tessema
@@ -61,16 +64,14 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_ExpenseRecordCountByYearBank]
 AS
-SELECT
-    d.[Year],
-    b.BankName,
-    COUNT_BIG(*) AS RecordCount
-FROM fact.FactExpense f
-INNER JOIN dim.DimDate d
-    ON d.DateKey = f.TransactionDateKey
-INNER JOIN dim.DimBank b
-    ON b.BankKey = f.BankKey
-GROUP BY
-    d.[Year],
-    b.BankName;
-GO
+SELECT   d.[Year],
+         b.BankName,
+         COUNT_BIG(*) AS RecordCount
+FROM     fact.FactExpense AS f
+         INNER JOIN
+         dim.DimDate AS d
+         ON d.DateKey = f.TransactionDateKey
+         INNER JOIN
+         dim.DimBank AS b
+         ON b.BankKey = f.BankKey
+GROUP BY d.[Year], b.BankName;

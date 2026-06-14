@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_IncomeReconciliation
 Author       : Behailu Tessema
@@ -85,31 +88,14 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_IncomeReconciliation]
 AS
-SELECT
-    'Income' AS SubjectArea,
-
-    (SELECT COUNT(*)
-     FROM STG_FamilyLiving.dbo.Family_Income) AS SourceRowCount,
-
-    (SELECT COUNT(*)
-     FROM fact.FactIncome) AS FactRowCount,
-
-    (SELECT COUNT(*)
-     FROM STG_FamilyLiving.dbo.Family_Income)
-    -
-    (SELECT COUNT(*)
-     FROM fact.FactIncome) AS RowDifference,
-
-    CASE
-        WHEN
-            (
-                (SELECT COUNT(*)
-                 FROM STG_FamilyLiving.dbo.Family_Income)
-                -
-                (SELECT COUNT(*)
-                 FROM fact.FactIncome)
-            ) = 0
-        THEN 'PASS'
-        ELSE 'FAIL'
-    END AS ReconciliationStatus;
-GO
+SELECT 'Income' AS SubjectArea,
+       (SELECT COUNT(*)
+        FROM   STG_FamilyLiving.dbo.Family_Income) AS SourceRowCount,
+       (SELECT COUNT(*)
+        FROM   fact.FactIncome) AS FactRowCount,
+       (SELECT COUNT(*)
+        FROM   STG_FamilyLiving.dbo.Family_Income) - (SELECT COUNT(*)
+                                                      FROM   fact.FactIncome) AS RowDifference,
+       CASE WHEN ((SELECT COUNT(*)
+                   FROM   STG_FamilyLiving.dbo.Family_Income) - (SELECT COUNT(*)
+                                                                 FROM   fact.FactIncome)) = 0 THEN 'PASS' ELSE 'FAIL' END AS ReconciliationStatus;

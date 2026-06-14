@@ -1,12 +1,15 @@
 USE [STG_FamilyLiving];
-GO
 
+
+GO
 SET ANSI_NULLS ON;
-GO
 
+
+GO
 SET QUOTED_IDENTIFIER ON;
-GO
 
+
+GO
 /***************************************************************************************************
 Table Name   : dbo.STG_FileLoadAudit
 Author       : Behailu Tessema
@@ -54,28 +57,17 @@ Date         Author              Description
 -----------------------------------------------------------------------------------------------
 06/05/2026   Behailu Tessema     Initial table creation script.
 ***************************************************************************************************/
-
 IF OBJECT_ID(N'dbo.STG_FileLoadAudit', N'U') IS NULL
-BEGIN
-    CREATE TABLE dbo.STG_FileLoadAudit
-    (
-        FileLoadAuditID BIGINT IDENTITY(1,1) NOT NULL,
-        FileName VARCHAR(255) NOT NULL,
-        FilePath VARCHAR(1000) NULL,
-        SourceName VARCHAR(100) NULL,
-        FileYear INT NULL,
-        SourceRowCount BIGINT NOT NULL,
-
-        LoadDateTime DATETIME2(0) NOT NULL
-            CONSTRAINT DF_STG_FileLoadAudit_LoadDateTime
-            DEFAULT (SYSDATETIME()),
-
-        LoadedBy VARCHAR(100) NOT NULL
-            CONSTRAINT DF_STG_FileLoadAudit_LoadedBy
-            DEFAULT (SUSER_SNAME()),
-
-        CONSTRAINT PK_STG_FileLoadAudit
-            PRIMARY KEY CLUSTERED (FileLoadAuditID)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE dbo.STG_FileLoadAudit (
+            FileLoadAuditID BIGINT         IDENTITY (1, 1) NOT NULL,
+            FileName        VARCHAR (255)  NOT NULL,
+            FilePath        VARCHAR (1000) NULL,
+            SourceName      VARCHAR (100)  NULL,
+            FileYear        INT            NULL,
+            SourceRowCount  BIGINT         NOT NULL,
+            LoadDateTime    DATETIME2 (0)  CONSTRAINT DF_STG_FileLoadAudit_LoadDateTime DEFAULT (SYSDATETIME()) NOT NULL,
+            LoadedBy        VARCHAR (100)  CONSTRAINT DF_STG_FileLoadAudit_LoadedBy DEFAULT (SUSER_SNAME()) NOT NULL,
+            CONSTRAINT PK_STG_FileLoadAudit PRIMARY KEY CLUSTERED (FileLoadAuditID)
+        );
+    END

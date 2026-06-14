@@ -63,25 +63,22 @@ Date         Author              Description
 06/04/2026   Behailu Tessema     Initial version.
 ------------------------------------------------------------------------------------------------***/
 USE DW_FamilyFinance;
-GO
 
+
+GO
 IF OBJECT_ID('dim.DimDescription', 'U') IS NULL
-BEGIN
-    CREATE TABLE dim.DimDescription
-    (
-        DescriptionKey     INT IDENTITY(1,1) NOT NULL,
-        DescriptionName    VARCHAR(255) NOT NULL,
-        [Description]      VARCHAR(500) NULL,
-        Category           VARCHAR(200) NULL,
-        SubCategory        VARCHAR(200) NULL,
-        ExpenseType        VARCHAR(200) NULL,
-        SourceSystem       VARCHAR(100) NOT NULL,
-        CreatedDate        DATETIME2(0) NOT NULL
-            CONSTRAINT DF_DimDescription_CreatedDate DEFAULT SYSDATETIME(),
-        ModifiedDate       DATETIME2(0) NULL,
-
-        CONSTRAINT PK_DimDescription PRIMARY KEY CLUSTERED (DescriptionKey),
-        CONSTRAINT UQ_DimDescription_DescriptionName UNIQUE (DescriptionName)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE dim.DimDescription (
+            DescriptionKey  INT           IDENTITY (1, 1) NOT NULL,
+            DescriptionName VARCHAR (255) NOT NULL,
+            [Description]   VARCHAR (500) NULL,
+            Category        VARCHAR (200) NULL,
+            SubCategory     VARCHAR (200) NULL,
+            ExpenseType     VARCHAR (200) NULL,
+            SourceSystem    VARCHAR (100) NOT NULL,
+            CreatedDate     DATETIME2 (0) CONSTRAINT DF_DimDescription_CreatedDate DEFAULT SYSDATETIME() NOT NULL,
+            ModifiedDate    DATETIME2 (0) NULL,
+            CONSTRAINT PK_DimDescription PRIMARY KEY CLUSTERED (DescriptionKey),
+            CONSTRAINT UQ_DimDescription_DescriptionName UNIQUE (DescriptionName)
+        );
+    END

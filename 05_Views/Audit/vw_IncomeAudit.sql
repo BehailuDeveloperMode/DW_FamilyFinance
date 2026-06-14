@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_IncomeAudit
 Author       : Behailu Tessema
@@ -68,22 +71,18 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_IncomeAudit]
 AS
-SELECT
-    s.IncomeSourceID AS SourceIncomeID,
-    s.Period_Bginning,
-    s.Period_Ending,
-    s.Pay_Day,
-    s.Work_Place,
-    s.Employee_FullName,
-    s.Gross_Payment,
-    s.Employer_NetPay,
-    CASE
-        WHEN ds.IncomeSourceKey IS NULL THEN 'Missing Income Source'
-        ELSE 'Matched'
-    END AS IncomeSourceAuditStatus
-FROM STG_FamilyLiving.dbo.Family_Income s
-LEFT JOIN dim.DimIncomeSource ds
-    ON ds.WorkPlace = LTRIM(RTRIM(s.Work_Place))
-   AND ds.EmployeeFullName = LTRIM(RTRIM(s.Employee_FullName))
-WHERE ds.IncomeSourceKey IS NULL;
-GO
+SELECT s.IncomeSourceID AS SourceIncomeID,
+       s.Period_Bginning,
+       s.Period_Ending,
+       s.Pay_Day,
+       s.Work_Place,
+       s.Employee_FullName,
+       s.Gross_Payment,
+       s.Employer_NetPay,
+       CASE WHEN ds.IncomeSourceKey IS NULL THEN 'Missing Income Source' ELSE 'Matched' END AS IncomeSourceAuditStatus
+FROM   STG_FamilyLiving.dbo.Family_Income AS s
+       LEFT OUTER JOIN
+       dim.DimIncomeSource AS ds
+       ON ds.WorkPlace = LTRIM(RTRIM(s.Work_Place))
+          AND ds.EmployeeFullName = LTRIM(RTRIM(s.Employee_FullName))
+WHERE  ds.IncomeSourceKey IS NULL;

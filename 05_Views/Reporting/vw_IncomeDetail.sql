@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_IncomeDetail
 Author       : Behailu Tessema
@@ -68,35 +71,37 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_IncomeDetail]
 AS
-SELECT
-    f.IncomeFactKey,
-    f.SourceIncomeID,
-    ds.EmployeeFullName,
-    ds.WorkPlace,
-    pb.FullDate AS PeriodBeginningDate,
-    pe.FullDate AS PeriodEndingDate,
-    pd.FullDate AS PayDate,
-    pd.[Year],
-    pd.YearMonthNumber,
-    pd.YearMonthName,
-    f.GrossPayment,
-    f.FederalTax,
-    f.SSTax,
-    f.MedicareTax,
-    f.CAStateTax,
-    f.CASDITax,
-    f.TotalTax,
-    f.EmployerNetPay,
-    f.PaymentValidation,
-    f.SourceSystem,
-    f.CreatedDate
-FROM fact.FactIncome f
-INNER JOIN dim.DimIncomeSource ds
-    ON ds.IncomeSourceKey = f.IncomeSourceKey
-INNER JOIN dim.DimDate pb
-    ON pb.DateKey = f.PeriodBeginningDateKey
-INNER JOIN dim.DimDate pe
-    ON pe.DateKey = f.PeriodEndingDateKey
-INNER JOIN dim.DimDate pd
-    ON pd.DateKey = f.PayDateKey;
-GO
+SELECT f.IncomeFactKey,
+       f.SourceIncomeID,
+       ds.EmployeeFullName,
+       ds.WorkPlace,
+       pb.FullDate AS PeriodBeginningDate,
+       pe.FullDate AS PeriodEndingDate,
+       pd.FullDate AS PayDate,
+       pd.[Year],
+       pd.YearMonthNumber,
+       pd.YearMonthName,
+       f.GrossPayment,
+       f.FederalTax,
+       f.SSTax,
+       f.MedicareTax,
+       f.CAStateTax,
+       f.CASDITax,
+       f.TotalTax,
+       f.EmployerNetPay,
+       f.PaymentValidation,
+       f.SourceSystem,
+       f.CreatedDate
+FROM   fact.FactIncome AS f
+       INNER JOIN
+       dim.DimIncomeSource AS ds
+       ON ds.IncomeSourceKey = f.IncomeSourceKey
+       INNER JOIN
+       dim.DimDate AS pb
+       ON pb.DateKey = f.PeriodBeginningDateKey
+       INNER JOIN
+       dim.DimDate AS pe
+       ON pe.DateKey = f.PeriodEndingDateKey
+       INNER JOIN
+       dim.DimDate AS pd
+       ON pd.DateKey = f.PayDateKey;

@@ -51,32 +51,29 @@ Date         Author              Description
 06/04/2026   Behailu Tessema     Initial version.
 ------------------------------------------------------------------------------------------------***/
 USE DW_FamilyFinance;
-GO
 
+
+GO
 IF OBJECT_ID('dim.DimDate', 'U') IS NULL
-BEGIN
-    CREATE TABLE dim.DimDate
-    (
-        DateKey             INT          NOT NULL,
-        FullDate            DATE         NOT NULL,
-        [Year]              INT          NOT NULL,
-        QuarterNumber       INT          NOT NULL,
-        MonthNumber         INT          NOT NULL,
-        MonthName           VARCHAR(20)  NOT NULL,
-        MonthShortName      VARCHAR(3)   NOT NULL,
-        YearMonthNumber     INT          NOT NULL,
-        YearMonthName       VARCHAR(20)  NOT NULL,
-        DayOfMonth          INT          NOT NULL,
-        DayOfWeekNumber     INT          NOT NULL,
-        DayOfWeekName       VARCHAR(20)  NOT NULL,
-        WeekOfYear          INT          NOT NULL,
-        IsWeekend           BIT          NOT NULL,
-        CreatedDate         DATETIME2(0) NOT NULL
-            CONSTRAINT DF_DimDate_CreatedDate DEFAULT SYSDATETIME(),
-        ModifiedDate        DATETIME2(0) NULL,
-
-        CONSTRAINT PK_DimDate PRIMARY KEY CLUSTERED (DateKey),
-        CONSTRAINT UQ_DimDate_FullDate UNIQUE (FullDate)
-    );
-END;
-GO
+    BEGIN
+        CREATE TABLE dim.DimDate (
+            DateKey         INT           NOT NULL,
+            FullDate        DATE          NOT NULL,
+            [Year]          INT           NOT NULL,
+            QuarterNumber   INT           NOT NULL,
+            MonthNumber     INT           NOT NULL,
+            MonthName       VARCHAR (20)  NOT NULL,
+            MonthShortName  VARCHAR (3)   NOT NULL,
+            YearMonthNumber INT           NOT NULL,
+            YearMonthName   VARCHAR (20)  NOT NULL,
+            DayOfMonth      INT           NOT NULL,
+            DayOfWeekNumber INT           NOT NULL,
+            DayOfWeekName   VARCHAR (20)  NOT NULL,
+            WeekOfYear      INT           NOT NULL,
+            IsWeekend       BIT           NOT NULL,
+            CreatedDate     DATETIME2 (0) CONSTRAINT DF_DimDate_CreatedDate DEFAULT SYSDATETIME() NOT NULL,
+            ModifiedDate    DATETIME2 (0) NULL,
+            CONSTRAINT PK_DimDate PRIMARY KEY CLUSTERED (DateKey),
+            CONSTRAINT UQ_DimDate_FullDate UNIQUE (FullDate)
+        );
+    END

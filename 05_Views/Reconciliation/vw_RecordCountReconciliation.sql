@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_RecordCountReconciliation
 Author       : Behailu Tessema
@@ -62,39 +65,16 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_RecordCountReconciliation]
 AS
-SELECT
-    stg_exp.SourceExpenseRows,
-    dw_exp.FactExpenseRows,
-    stg_exp.SourceExpenseRows - dw_exp.FactExpenseRows AS ExpenseRowDifference,
-
-    stg_inc.SourceIncomeRows,
-    dw_inc.FactIncomeRows,
-    stg_inc.SourceIncomeRows - dw_inc.FactIncomeRows AS IncomeRowDifference,
-
-    CASE
-        WHEN stg_exp.SourceExpenseRows = dw_exp.FactExpenseRows
-         AND stg_inc.SourceIncomeRows = dw_inc.FactIncomeRows
-        THEN 'PASS'
-        ELSE 'FAIL'
-    END AS Audit_Status
-FROM
-(
-    SELECT COUNT_BIG(*) AS SourceExpenseRows
-    FROM STG_FamilyLiving.dbo.STG_FamilySourceData
-) stg_exp
-CROSS JOIN
-(
-    SELECT COUNT_BIG(*) AS FactExpenseRows
-    FROM DW_FamilyFinance.fact.FactExpense
-) dw_exp
-CROSS JOIN
-(
-    SELECT COUNT_BIG(*) AS SourceIncomeRows
-    FROM STG_FamilyLiving.dbo.Family_Income
-) stg_inc
-CROSS JOIN
-(
-    SELECT COUNT_BIG(*) AS FactIncomeRows
-    FROM DW_FamilyFinance.fact.FactIncome
-) dw_inc;
-GO
+SELECT stg_exp.SourceExpenseRows,
+       dw_exp.FactExpenseRows,
+       stg_exp.SourceExpenseRows - dw_exp.FactExpenseRows AS ExpenseRowDifference,
+       stg_inc.SourceIncomeRows,
+       dw_inc.FactIncomeRows,
+       stg_inc.SourceIncomeRows - dw_inc.FactIncomeRows AS IncomeRowDifference,
+       CASE WHEN stg_exp.SourceExpenseRows = dw_exp.FactExpenseRows
+                 AND stg_inc.SourceIncomeRows = dw_inc.FactIncomeRows THEN 'PASS' ELSE 'FAIL' END AS Audit_Status
+FROM   (SELECT COUNT_BIG(*) AS SourceExpenseRows
+        FROM   STG_FamilyLiving.dbo.STG_FamilySourceData) AS stg_exp CROSS JOIN (SELECT COUNT_BIG(*) AS FactExpenseRows
+                                                                                 FROM   DW_FamilyFinance.fact.FactExpense) AS dw_exp CROSS JOIN (SELECT COUNT_BIG(*) AS SourceIncomeRows
+                                                                                                                                                 FROM   STG_FamilyLiving.dbo.Family_Income) AS stg_inc CROSS JOIN (SELECT COUNT_BIG(*) AS FactIncomeRows
+                                                                                                                                                                                                                   FROM   DW_FamilyFinance.fact.FactIncome) AS dw_inc;

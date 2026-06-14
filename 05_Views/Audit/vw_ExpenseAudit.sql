@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_ExpenseAudit
 Author       : Behailu Tessema
@@ -80,28 +83,22 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_ExpenseAudit]
 AS
-SELECT
-    s.ExpenseSourceID,
-    s.Transaction_ID,
-    s.[Date] AS TransactionDate,
-    s.[Description],
-    s.SourceName AS BankName,
-    s.Debit,
-    s.Credit,
-    s.LoadDate,
-    CASE
-        WHEN b.BankKey IS NULL THEN 'Missing Bank'
-        ELSE 'Matched'
-    END AS BankAuditStatus,
-    CASE
-        WHEN d.DescriptionKey IS NULL THEN 'Missing Description'
-        ELSE 'Matched'
-    END AS DescriptionAuditStatus
-FROM STG_FamilyLiving.dbo.STG_FamilySourceData s
-LEFT JOIN dim.DimBank b
-    ON b.BankName = LTRIM(RTRIM(s.SourceName))
-LEFT JOIN dim.DimDescription d
-    ON d.DescriptionName = LTRIM(RTRIM(s.[Description]))
-WHERE b.BankKey IS NULL
-   OR d.DescriptionKey IS NULL;
-GO
+SELECT s.ExpenseSourceID,
+       s.Transaction_ID,
+       s.[Date] AS TransactionDate,
+       s.[Description],
+       s.SourceName AS BankName,
+       s.Debit,
+       s.Credit,
+       s.LoadDate,
+       CASE WHEN b.BankKey IS NULL THEN 'Missing Bank' ELSE 'Matched' END AS BankAuditStatus,
+       CASE WHEN d.DescriptionKey IS NULL THEN 'Missing Description' ELSE 'Matched' END AS DescriptionAuditStatus
+FROM   STG_FamilyLiving.dbo.STG_FamilySourceData AS s
+       LEFT OUTER JOIN
+       dim.DimBank AS b
+       ON b.BankName = LTRIM(RTRIM(s.SourceName))
+       LEFT OUTER JOIN
+       dim.DimDescription AS d
+       ON d.DescriptionName = LTRIM(RTRIM(s.[Description]))
+WHERE  b.BankKey IS NULL
+       OR d.DescriptionKey IS NULL;

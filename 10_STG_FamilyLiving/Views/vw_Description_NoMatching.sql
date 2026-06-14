@@ -1,12 +1,15 @@
 USE [STG_FamilyLiving];
-GO
 
+
+GO
 SET ANSI_NULLS ON;
-GO
 
+
+GO
 SET QUOTED_IDENTIFIER ON;
-GO
 
+
+GO
 /***************************************************************************************************
 View Name    : dbo.vw_Description_NoMatching
 Author       : Behailu Tessema
@@ -46,22 +49,18 @@ Date         Author              Description
 -----------------------------------------------------------------------------------------------
 06/05/2026   Behailu Tessema     Initial unmatched description validation view.
 ***************************************************************************************************/
-
 CREATE OR ALTER VIEW dbo.vw_Description_NoMatching
 AS
-SELECT DISTINCT
-    LTRIM(RTRIM(s.[Description])) AS DescriptionName,
-    s.SourceName,
-    COUNT_BIG(*) AS SourceRecordCount,
-    MIN(s.[Date]) AS FirstTransactionDate,
-    MAX(s.[Date]) AS LastTransactionDate
-FROM dbo.STG_FamilySourceData s
-LEFT JOIN dbo.STG_Description_LookUp l
-    ON LTRIM(RTRIM(s.[Description])) = LTRIM(RTRIM(l.LookUp_Description_Name))
-WHERE s.[Description] IS NOT NULL
-  AND LTRIM(RTRIM(s.[Description])) <> ''
-  AND l.LookUp_Description_Name IS NULL
-GROUP BY
-    LTRIM(RTRIM(s.[Description])),
-    s.SourceName;
-GO
+SELECT   DISTINCT LTRIM(RTRIM(s.[Description])) AS DescriptionName,
+                  s.SourceName,
+                  COUNT_BIG(*) AS SourceRecordCount,
+                  MIN(s.[Date]) AS FirstTransactionDate,
+                  MAX(s.[Date]) AS LastTransactionDate
+FROM     dbo.STG_FamilySourceData AS s
+         LEFT OUTER JOIN
+         dbo.STG_Description_LookUp AS l
+         ON LTRIM(RTRIM(s.[Description])) = LTRIM(RTRIM(l.LookUp_Description_Name))
+WHERE    s.[Description] IS NOT NULL
+         AND LTRIM(RTRIM(s.[Description])) <> ''
+         AND l.LookUp_Description_Name IS NULL
+GROUP BY LTRIM(RTRIM(s.[Description])), s.SourceName;

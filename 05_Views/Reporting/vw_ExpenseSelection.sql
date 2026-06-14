@@ -1,12 +1,15 @@
-USE [DW_FamilyFinance]
-GO
+USE [DW_FamilyFinance];
 
-SET ANSI_NULLS ON
-GO
 
-SET QUOTED_IDENTIFIER ON
 GO
+SET ANSI_NULLS ON;
 
+
+GO
+SET QUOTED_IDENTIFIER ON;
+
+
+GO
 /***************************************************************************************************
 View Name    : rpt.vw_ExpenseSelection
 Author       : Behailu Tessema
@@ -94,31 +97,29 @@ Date         Author              Description
 ------------------------------------------------------------------------------------------------***/
 CREATE OR ALTER VIEW [rpt].[vw_ExpenseSelection]
 AS
-SELECT
-    d.FullDate AS TransactionDate,
-    d.[Year],
-    d.MonthNumber,
-    d.MonthName,
-    d.YearMonthNumber,
-    d.YearMonthName,
-
-    des.DescriptionName,
-    des.[Description],
-    des.Category,
-    des.SubCategory,
-    des.ExpenseType,
-
-    b.BankName,
-
-    f.ExpenseAmount,
-    f.LoadDate,
-    f.SourceExpenseID,
-    f.TransactionID
-FROM fact.FactExpense f
-INNER JOIN dim.DimDate d
-    ON d.DateKey = f.TransactionDateKey
-INNER JOIN dim.DimBank b
-    ON b.BankKey = f.BankKey
-INNER JOIN dim.DimDescription des
-    ON des.DescriptionKey = f.DescriptionKey;
-GO
+SELECT d.FullDate AS TransactionDate,
+       d.[Year],
+       d.MonthNumber,
+       d.MonthName,
+       d.YearMonthNumber,
+       d.YearMonthName,
+       des.DescriptionName,
+       des.[Description],
+       des.Category,
+       des.SubCategory,
+       des.ExpenseType,
+       b.BankName,
+       f.ExpenseAmount,
+       f.LoadDate,
+       f.SourceExpenseID,
+       f.TransactionID
+FROM   fact.FactExpense AS f
+       INNER JOIN
+       dim.DimDate AS d
+       ON d.DateKey = f.TransactionDateKey
+       INNER JOIN
+       dim.DimBank AS b
+       ON b.BankKey = f.BankKey
+       INNER JOIN
+       dim.DimDescription AS des
+       ON des.DescriptionKey = f.DescriptionKey;
