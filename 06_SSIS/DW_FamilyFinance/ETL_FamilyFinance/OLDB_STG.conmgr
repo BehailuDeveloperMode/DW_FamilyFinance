@@ -1,0 +1,12 @@
+﻿<?xml version="1.0"?>
+<DTS:ConnectionManager xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:ObjectName="OLDB_STG"
+  DTS:DTSID="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}"
+  DTS:CreationName="OLEDB">
+  <DTS:ObjectData>
+    <DTS:ConnectionManager
+      DTS:ConnectRetryCount="1"
+      DTS:ConnectRetryInterval="5"
+      DTS:ConnectionString="Initial Catalog=STG_FamilyLiving;Provider=MSOLEDBSQL.1;Integrated Security=SSPI;Application Name=SSIS-STG_LoadExpenseData-{B32620D0-DC98-42C3-B3B4-4103FDA4927C}Data Connection;Auto Translate=False;" />
+  </DTS:ObjectData>
+</DTS:ConnectionManager>
