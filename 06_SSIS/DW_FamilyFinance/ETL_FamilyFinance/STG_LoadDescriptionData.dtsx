@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadDescriptionData"
   DTS:PackageType="5"
-  DTS:VersionBuild="21"
-  DTS:VersionGUID="{98D380C4-FD33-4B34-9A51-109BB2BD6473}">
+  DTS:VersionBuild="24"
+  DTS:VersionGUID="{BFDA5FF8-9A08-49C0-8178-9AEED51F6999}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -588,7 +588,7 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         <NodeLayout
           Size="209,42"
           Id="Package\DFT_LoadDescriptionData"
-          TopLeft="317.5,137.5" />
+          TopLeft="314.5,136.5" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -600,41 +600,29 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         <NodeLayout
           Size="170,42"
           Id="Package\DFT_LoadDescriptionData\OLED_Description"
-          TopLeft="622,307" />
-        <NodeLayout
-          Size="196,42"
-          Id="Package\DFT_LoadDescriptionData\EXL_DescriptionSource"
-          TopLeft="144.5,79.5" />
+          TopLeft="430.5,272.5" />
         <NodeLayout
           Size="161,42"
           Id="Package\DFT_LoadDescriptionData\LKP_Description"
-          TopLeft="149,243" />
+          TopLeft="435,170.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\DFT_LoadDescriptionData\EXL_DescriptionSource"
+          TopLeft="417.5,68.5" />
         <EdgeLayout
           Id="Package\DFT_LoadDescriptionData.Paths[Excel Source Output]"
-          TopLeft="242.5,121.5">
+          TopLeft="515.5,110.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-13,121.5"
+              EndConnector="0,60"
               Start="0,0"
-              End="-13,114">
+              End="0,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,56.75" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,56.75"
-                    Point2="0,60.75"
-                    Point3="-4,60.75" />
-                  <mssgle:LineSegment
-                    End="-9,60.75" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-9,60.75"
-                    Point2="-13,60.75"
-                    Point3="-13,64.75" />
-                  <mssgle:LineSegment
-                    End="-13,114" />
+                    End="0,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -645,37 +633,25 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT_LoadDescriptionData.Paths[Lookup No Match Output]"
-          TopLeft="310,264">
+          TopLeft="515.5,212.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="312,64"
+              EndConnector="0,60"
               Start="0,0"
-              End="304.5,64">
+              End="0,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="152,0" />
-                  <mssgle:CubicBezierSegment
-                    Point1="152,0"
-                    Point2="156,0"
-                    Point3="156,4" />
-                  <mssgle:LineSegment
-                    End="156,60" />
-                  <mssgle:CubicBezierSegment
-                    Point1="156,60"
-                    Point2="156,64"
-                    Point3="160,64" />
-                  <mssgle:LineSegment
-                    End="304.5,64" />
+                    End="0,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="100.19361328125,-17.609375,111.6127734375,11.609375"
+              BoundingBox="-55.80638671875,20.4453125,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
@@ -696,25 +672,12 @@ where [refTable].[LookUp_Description_Name] = ?</property>
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT_LoadDescriptionData\EXL_DescriptionSource">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
     design-time-name="Package\DFT_LoadDescriptionData\LKP_Description">
     <Properties>
       <Property>
         <Name>OverwriteParamsSQLProp</Name>
         <Value
-          type="q2:boolean">false</Value>
+          type="q2:string">false</Value>
       </Property>
       <Property>
         <Name>UsedTableName</Name>
@@ -724,10 +687,23 @@ where [refTable].[LookUp_Description_Name] = ?</property>
       <Property>
         <Name>TableInfoObjectType</Name>
         <Value
-          type="q4:int">0</Value>
+          type="q4:string">0</Value>
       </Property>
       <Property>
         <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_LoadDescriptionData\EXL_DescriptionSource">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
       </Property>
     </Properties>
   </PipelineComponentMetadata>
