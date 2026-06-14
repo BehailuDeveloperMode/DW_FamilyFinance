@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadDescriptionData"
   DTS:PackageType="5"
-  DTS:VersionBuild="20"
-  DTS:VersionGUID="{34264185-1996-48D4-B253-5B6847C5D738}">
+  DTS:VersionBuild="21"
+  DTS:VersionGUID="{98D380C4-FD33-4B34-9A51-109BB2BD6473}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -600,7 +600,7 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         <NodeLayout
           Size="170,42"
           Id="Package\DFT_LoadDescriptionData\OLED_Description"
-          TopLeft="665,360" />
+          TopLeft="622,307" />
         <NodeLayout
           Size="196,42"
           Id="Package\DFT_LoadDescriptionData\EXL_DescriptionSource"
@@ -608,21 +608,33 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         <NodeLayout
           Size="161,42"
           Id="Package\DFT_LoadDescriptionData\LKP_Description"
-          TopLeft="156,232" />
+          TopLeft="149,243" />
         <EdgeLayout
           Id="Package\DFT_LoadDescriptionData.Paths[Excel Source Output]"
-          TopLeft="239.5,121.5">
+          TopLeft="242.5,121.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="0,110.5"
+              EndConnector="-13,121.5"
               Start="0,0"
-              End="0,103">
+              End="-13,114">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,103" />
+                    End="0,56.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,56.75"
+                    Point2="0,60.75"
+                    Point3="-4,60.75" />
+                  <mssgle:LineSegment
+                    End="-9,60.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-9,60.75"
+                    Point2="-13,60.75"
+                    Point3="-13,64.75" />
+                  <mssgle:LineSegment
+                    End="-13,114" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -633,37 +645,37 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\DFT_LoadDescriptionData.Paths[Lookup No Match Output]"
-          TopLeft="236.5,274">
+          TopLeft="310,264">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="513.5,86"
+              EndConnector="312,64"
               Start="0,0"
-              End="513.5,78.5">
+              End="304.5,64">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,39" />
+                    End="152,0" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,39"
-                    Point2="0,43"
-                    Point3="4,43" />
+                    Point1="152,0"
+                    Point2="156,0"
+                    Point3="156,4" />
                   <mssgle:LineSegment
-                    End="509.5,43" />
+                    End="156,60" />
                   <mssgle:CubicBezierSegment
-                    Point1="509.5,43"
-                    Point2="513.5,43"
-                    Point3="513.5,47" />
+                    Point1="156,60"
+                    Point2="156,64"
+                    Point3="160,64" />
                   <mssgle:LineSegment
-                    End="513.5,78.5" />
+                    End="304.5,64" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="200.94361328125,48,111.6127734375,11.609375"
+              BoundingBox="100.19361328125,-17.609375,111.6127734375,11.609375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
