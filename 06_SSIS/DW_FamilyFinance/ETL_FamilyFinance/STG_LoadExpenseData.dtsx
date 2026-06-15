@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadExpenseData"
   DTS:PackageType="5"
-  DTS:VersionBuild="44"
-  DTS:VersionGUID="{FB28D950-E8DC-4B02-B153-D4BB527AA8DD}">
+  DTS:VersionBuild="69"
+  DTS:VersionGUID="{2D861F64-A845-468F-AFCF-623DDC79CB48}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -32,6 +32,15 @@
     </DTS:ConnectionManager>
   </DTS:ConnectionManagers>
   <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{78C7E588-C83E-42CF-A515-0A7E98ADE8F9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FileAlreadyLoaded">
+      <DTS:VariableValue
+        DTS:DataType="11">0</DTS:VariableValue>
+    </DTS:Variable>
     <DTS:Variable
       DTS:CreationName=""
       DTS:DTSID="{FC1621C8-D38C-492C-8914-4685348FF696}"
@@ -707,6 +716,118 @@
           </DTS:ObjectData>
         </DTS:Executable>
         <DTS:Executable
+          DTS:refId="Package\FELC_LoadExpenseFiles\EST_CheckFileAlreadyLoaded"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ACE2A15E-241C-4C5E-88A1-A16CEA016042}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_CheckFileAlreadyLoaded"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}"
+              SQLTask:SqlStatementSource="SELECT&#xA;    CASE&#xA;        WHEN EXISTS&#xA;        (&#xA;            SELECT 1&#xA;            FROM STG_FamilyLiving.dbo.STG_FileLoadAudit&#xA;            WHERE UPPER(FileName) = UPPER(?)&#xA;              AND SourceRowCount = ?&#xA;              AND LoadStatus = 'SUCCESS'&#xA;        )&#xA;        THEN CAST(1 AS BIT)&#xA;        ELSE CAST(0 AS BIT)&#xA;    END AS FileAlreadyLoaded;"
+              SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ResultBinding
+                SQLTask:ResultName="FileAlreadyLoaded"
+                SQLTask:DtsVariableName="User::FileAlreadyLoaded" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::FileName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="255" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::RowCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_LoadExpenseFiles\EST_DeleteOldExpenseFileRows"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{E8C1FD81-F4A4-446A-8D11-5B71E9D777A6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_DeleteOldExpenseFileRows"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}"
+              SQLTask:SqlStatementSource="DELETE FROM STG_FamilyLiving.dbo.STG_FamilySourceData&#xA;WHERE UPPER(FileName) = UPPER(?);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::FileName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="255" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\FELC_LoadExpenseFiles\EST_InsertFileLoadAudit"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{3E3007D6-F10C-4999-93CB-E79DA91B5BC3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="EST_InsertFileLoadAudit"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}"
+              SQLTask:SqlStatementSource="INSERT INTO STG_FamilyLiving.dbo.STG_FileLoadAudit&#xA;(&#xA;      PackageName&#xA;    , FileName&#xA;    , FilePath&#xA;    , SourceName&#xA;    , FileYear&#xA;    , SourceRowCount&#xA;    , LoadStatus&#xA;)&#xA;VALUES&#xA;(&#xA;      ?&#xA;    , ?&#xA;    , ?&#xA;    , ?&#xA;    , ?&#xA;    , ?&#xA;    , 'SUCCESS'&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="255" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::FileName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="255" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="User::FullFilePath"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="1000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="User::SourceName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="100" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="4"
+                SQLTask:DtsVariableName="User::FileYear"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="5"
+                SQLTask:DtsVariableName="User::RowCount"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
           DTS:refId="Package\FELC_LoadExpenseFiles\ST_ParseExpenseFileMetadata"
           DTS:CreationName="Microsoft.ScriptTask"
           DTS:Description="Script Task"
@@ -725,58 +846,43 @@
               ReadOnlyVariables="User::FullFilePath"
               ReadWriteVariables="User::FileName,User::FileYear,User::SourceName">
               <ProjectItem
-                Name="ScriptMain.vb"
+                Name="My Project\AssemblyInfo.vb"
                 Encoding="UTF8"><![CDATA[Imports System
-Imports System.IO
-Imports System.Text.RegularExpressions
-Imports Microsoft.SqlServer.Dts.Runtime
+Imports System.Reflection
+Imports System.Runtime.InteropServices
 
-<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()>
-<System.CLSCompliant(False)>
-Partial Public Class ScriptMain
-    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+' General Information about an assembly is controlled through the following 
+' set of attributes. Change these attribute values to modify the information
+' associated with an assembly.
 
-    Public Sub Main()
+' Review the values of the assembly attributes
 
-        Dim fullPath As String
-        Dim fileName As String
-        Dim sourceName As String
-        Dim fileYear As Integer = 0
+<Assembly: AssemblyTitle("ST_651667e553e447a386dbac254eedd647")> 
+<Assembly: AssemblyDescription("")> 
+<Assembly: AssemblyCompany("")> 
+<Assembly: AssemblyProduct("ST_651667e553e447a386dbac254eedd647")> 
+<Assembly: AssemblyCopyright("Copyright @  2026")> 
+<Assembly: AssemblyTrademark("")> 
+<Assembly: CLSCompliant(True)> 
 
-        fullPath = Dts.Variables("User::FullFilePath").Value.ToString()
-        fileName = Path.GetFileName(fullPath)
+<Assembly: ComVisible(False)> 
 
-        If fileName.Contains("_") Then
-            sourceName = fileName.Split("_"c)(0)
-        Else
-            sourceName = Path.GetFileNameWithoutExtension(fileName)
-        End If
+'The following GUID is for the ID of the typelib if this project is exposed to COM
+<Assembly: Guid("396fb571-5e56-460a-aa99-566c39018edf")> 
 
-        Dim match As Match = Regex.Match(fileName, "(20\d{2})")
+' Version information for an assembly consists of the following four values:
+'
+'      Major Version
+'      Minor Version 
+'      Build Number
+'      Revision
+'
+' You can specify all the values or you can default the Build and Revision Numbers 
+' by using the '*' as shown below:
+' <Assembly: AssemblyVersion("1.0.*")>
 
-        If match.Success Then
-            fileYear = Convert.ToInt32(match.Value)
-        End If
-
-        Dts.Variables("User::FileName").Value = fileName
-        Dts.Variables("User::SourceName").Value = sourceName
-        Dts.Variables("User::FileYear").Value = fileYear
-        '    Dts.Events.FireInformation(0, "File Metadata",
-        '"FileName=" & fileName &
-        '", SourceName=" & sourceName &
-        '", FileYear=" & fileYear,
-        '"", 0, True)
-
-        Dts.TaskResult = ScriptResults.Success
-
-    End Sub
-
-End Class
-
-Enum ScriptResults
-    Success = DTSExecResult.Success
-    Failure = DTSExecResult.Failure
-End Enum]]></ProjectItem>
+<Assembly: AssemblyVersion("1.0.0.0")> 
+<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
               <ProjectItem
                 Name="My Project\Settings.settings"
                 Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
@@ -887,44 +993,6 @@ End Enum]]></ProjectItem>
   </ProjectExtensions>
 </Project>]]></ProjectItem>
               <ProjectItem
-                Name="My Project\AssemblyInfo.vb"
-                Encoding="UTF8"><![CDATA[Imports System
-Imports System.Reflection
-Imports System.Runtime.InteropServices
-
-' General Information about an assembly is controlled through the following 
-' set of attributes. Change these attribute values to modify the information
-' associated with an assembly.
-
-' Review the values of the assembly attributes
-
-<Assembly: AssemblyTitle("ST_651667e553e447a386dbac254eedd647")> 
-<Assembly: AssemblyDescription("")> 
-<Assembly: AssemblyCompany("")> 
-<Assembly: AssemblyProduct("ST_651667e553e447a386dbac254eedd647")> 
-<Assembly: AssemblyCopyright("Copyright @  2026")> 
-<Assembly: AssemblyTrademark("")> 
-<Assembly: CLSCompliant(True)> 
-
-<Assembly: ComVisible(False)> 
-
-'The following GUID is for the ID of the typelib if this project is exposed to COM
-<Assembly: Guid("396fb571-5e56-460a-aa99-566c39018edf")> 
-
-' Version information for an assembly consists of the following four values:
-'
-'      Major Version
-'      Minor Version 
-'      Build Number
-'      Revision
-'
-' You can specify all the values or you can default the Build and Revision Numbers 
-' by using the '*' as shown below:
-' <Assembly: AssemblyVersion("1.0.*")>
-
-<Assembly: AssemblyVersion("1.0.0.0")> 
-<Assembly: AssemblyFileVersion("1.0.0.0")> ]]></ProjectItem>
-              <ProjectItem
                 Name="My Project\Settings.Designer.vb"
                 Encoding="UTF8"><![CDATA['------------------------------------------------------------------------------
 ' <autogenerated>
@@ -984,6 +1052,59 @@ End Class]]></ProjectItem>
     <msb:File Include="My Project\Settings.Designer.vb" />
   </msb:ItemGroup>
 </c:Project>]]></ProjectItem>
+              <ProjectItem
+                Name="ScriptMain.vb"
+                Encoding="UTF8"><![CDATA[Imports System
+Imports System.IO
+Imports System.Text.RegularExpressions
+Imports Microsoft.SqlServer.Dts.Runtime
+
+<Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute()>
+<System.CLSCompliant(False)>
+Partial Public Class ScriptMain
+    Inherits Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+
+    Public Sub Main()
+
+        Dim fullPath As String
+        Dim fileName As String
+        Dim sourceName As String
+        Dim fileYear As Integer = 0
+
+        fullPath = Dts.Variables("User::FullFilePath").Value.ToString()
+        fileName = Path.GetFileName(fullPath)
+
+        If fileName.Contains("_") Then
+            sourceName = fileName.Split("_"c)(0)
+        Else
+            sourceName = Path.GetFileNameWithoutExtension(fileName)
+        End If
+
+        Dim match As Match = Regex.Match(fileName, "(20\d{2})")
+
+        If match.Success Then
+            fileYear = Convert.ToInt32(match.Value)
+        End If
+
+        Dts.Variables("User::FileName").Value = fileName
+        Dts.Variables("User::SourceName").Value = sourceName
+        Dts.Variables("User::FileYear").Value = fileYear
+        '    Dts.Events.FireInformation(0, "File Metadata",
+        '"FileName=" & fileName &
+        '", SourceName=" & sourceName &
+        '", FileYear=" & fileYear,
+        '"", 0, True)
+
+        Dts.TaskResult = ScriptResults.Success
+
+    End Sub
+
+End Class
+
+Enum ScriptResults
+    Success = DTSExecResult.Success
+    Failure = DTSExecResult.Failure
+End Enum]]></ProjectItem>
               <ProjectItem
                 Name="My Project\Resources.resx"
                 Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
@@ -1346,10 +1467,36 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <DTS:PrecedenceConstraint
           DTS:refId="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint]"
           DTS:CreationName=""
-          DTS:DTSID="{A97C5FCD-95F8-449C-98D7-645E6E00A79A}"
+          DTS:DTSID="{EEC7A4E3-50F9-4636-AB59-EC1D1FCDAF1D}"
           DTS:From="Package\FELC_LoadExpenseFiles\ST_ParseExpenseFileMetadata"
           DTS:LogicalAnd="True"
           DTS:ObjectName="Constraint"
+          DTS:To="Package\FELC_LoadExpenseFiles\EST_CheckFileAlreadyLoaded" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{62CBB3C3-7F03-409B-AAC5-61F0BAF10196}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::FileAlreadyLoaded]==False"
+          DTS:From="Package\FELC_LoadExpenseFiles\EST_CheckFileAlreadyLoaded"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\FELC_LoadExpenseFiles\EST_DeleteOldExpenseFileRows" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{00C2E5C0-1408-49B6-941E-45B83DA77346}"
+          DTS:From="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\FELC_LoadExpenseFiles\EST_InsertFileLoadAudit" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{78D8ED6F-049C-4A99-98E5-ADC399D3B64F}"
+          DTS:From="Package\FELC_LoadExpenseFiles\EST_DeleteOldExpenseFileRows"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
           DTS:To="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData" />
       </DTS:PrecedenceConstraints>
       <DTS:ForEachVariableMappings>
@@ -1373,41 +1520,157 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
     design-time-name="Package">
     <LayoutInfo>
       <GraphLayout
-        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
           Size="197,42"
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData"
-          TopLeft="139,162" />
+          TopLeft="43,339" />
         <NodeLayout
           Size="234,42"
           Id="Package\FELC_LoadExpenseFiles\ST_ParseExpenseFileMetadata"
-          TopLeft="48,34" />
+          TopLeft="14,22" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\FELC_LoadExpenseFiles\EST_CheckFileAlreadyLoaded"
+          TopLeft="113.5,112" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\FELC_LoadExpenseFiles\EST_InsertFileLoadAudit"
+          TopLeft="267,421" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\FELC_LoadExpenseFiles\EST_DeleteOldExpenseFileRows"
+          TopLeft="81,243" />
         <EdgeLayout
-          Id="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint]"
-          TopLeft="165,76">
+          Id="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint 1]"
+          TopLeft="228.5,154">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="72.5,86"
+              EndConnector="-25.5,89"
               Start="0,0"
-              End="72.5,78.5">
+              End="-25.5,81.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,39" />
+                    End="0,40.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,39"
-                    Point2="0,43"
-                    Point3="4,43" />
+                    Point1="0,40.5"
+                    Point2="0,44.5"
+                    Point3="-4,44.5" />
                   <mssgle:LineSegment
-                    End="68.5,43" />
+                    End="-21.5,44.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="68.5,43"
-                    Point2="72.5,43"
-                    Point3="72.5,47" />
+                    Point1="-21.5,44.5"
+                    Point2="-25.5,44.5"
+                    Point3="-25.5,48.5" />
                   <mssgle:LineSegment
-                    End="72.5,78.5" />
+                    End="-25.5,81.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-20.75,49.5,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint 2]"
+          TopLeft="141.5,381">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="226,40"
+              Start="0,0"
+              End="226,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16"
+                    Point2="0,20"
+                    Point3="4,20" />
+                  <mssgle:LineSegment
+                    End="222,20" />
+                  <mssgle:CubicBezierSegment
+                    Point1="222,20"
+                    Point2="226,20"
+                    Point3="226,24" />
+                  <mssgle:LineSegment
+                    End="226,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint 3]"
+          TopLeft="203,285">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-61.5,54"
+              Start="0,0"
+              End="-61.5,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23"
+                    Point2="0,27"
+                    Point3="-4,27" />
+                  <mssgle:LineSegment
+                    End="-57.5,27" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-57.5,27"
+                    Point2="-61.5,27"
+                    Point3="-61.5,31" />
+                  <mssgle:LineSegment
+                    End="-61.5,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\FELC_LoadExpenseFiles.PrecedenceConstraints[Constraint]"
+          TopLeft="131,64">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="97.5,48"
+              Start="0,0"
+              End="97.5,40.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20"
+                    Point2="0,24"
+                    Point3="4,24" />
+                  <mssgle:LineSegment
+                    End="93.5,24" />
+                  <mssgle:CubicBezierSegment
+                    Point1="93.5,24"
+                    Point2="97.5,24"
+                    Point3="97.5,28" />
+                  <mssgle:LineSegment
+                    End="97.5,40.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1419,10 +1682,10 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         <ContainerLayout
           HeaderHeight="43"
           IsExpanded="True"
-          PanelSize="398,292"
-          Size="398,335"
+          PanelSize="513,518"
+          Size="513,561"
           Id="Package\FELC_LoadExpenseFiles"
-          TopLeft="293,106" />
+          TopLeft="193,47" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -1436,39 +1699,43 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\OLED_STG_FamilySourceData"
           TopLeft="651,248" />
         <NodeLayout
-          Size="195,42"
-          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\RC_ExpenseRowCount"
-          TopLeft="201,345" />
-        <NodeLayout
           Size="184,42"
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\EXL_ExpenseSource"
           TopLeft="94.5,106.5" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata"
+          TopLeft="64,214" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\RC_ExpenseRowCount"
+          TopLeft="209,334" />
         <EdgeLayout
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Row Count Output 1]"
-          TopLeft="329.666666666667,345">
+          TopLeft="337.666666666667,334">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="438.333333333333,-55"
+              EndConnector="430.333333333333,-44"
               Start="0,0"
-              End="438.333333333333,-47.5">
+              End="430.333333333333,-36.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,-18.2685656154629" />
+                    End="0,-13.8148524923703" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,-18.2685656154629"
-                    Point2="0,-22.2685656154629"
-                    Point3="4,-22.2685656154629" />
+                    Point1="0,-13.8148524923703"
+                    Point2="0,-17.8148524923703"
+                    Point3="4,-17.8148524923703" />
                   <mssgle:LineSegment
-                    End="434.333333333333,-22.2685656154629" />
+                    End="426.333333333333,-17.8148524923703" />
                   <mssgle:CubicBezierSegment
-                    Point1="434.333333333333,-22.2685656154629"
-                    Point2="438.333333333333,-22.2685656154629"
-                    Point3="438.333333333333,-26.2685656154629" />
+                    Point1="426.333333333333,-17.8148524923703"
+                    Point2="430.333333333333,-17.8148524923703"
+                    Point3="430.333333333333,-21.8148524923703" />
                   <mssgle:LineSegment
-                    End="438.333333333333,-47.5" />
+                    End="430.333333333333,-36.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1477,36 +1744,32 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="184,42"
-          Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData\DC_AddFileMetadata"
-          TopLeft="67,201" />
         <EdgeLayout
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Excel Source Output]"
           TopLeft="186.5,148.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-27.5,52.5"
+              EndConnector="-30.5,65.5"
               Start="0,0"
-              End="-27.5,45">
+              End="-30.5,58">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,22.25" />
+                    End="0,28.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,22.25"
-                    Point2="0,26.25"
-                    Point3="-4,26.25" />
+                    Point1="0,28.75"
+                    Point2="0,32.75"
+                    Point3="-4,32.75" />
                   <mssgle:LineSegment
-                    End="-23.5,26.25" />
+                    End="-26.5,32.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="-23.5,26.25"
-                    Point2="-27.5,26.25"
-                    Point3="-27.5,30.25" />
+                    Point1="-26.5,32.75"
+                    Point2="-30.5,32.75"
+                    Point3="-30.5,36.75" />
                   <mssgle:LineSegment
-                    End="-27.5,45" />
+                    End="-30.5,58" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1517,30 +1780,30 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</BinaryItem>
         </EdgeLayout>
         <EdgeLayout
           Id="Package\FELC_LoadExpenseFiles\DFT_LoadExpenseData.Paths[Derived Column Output]"
-          TopLeft="159,243">
+          TopLeft="156,256">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="108.333333333333,102"
+              EndConnector="119.333333333333,78"
               Start="0,0"
-              End="108.333333333333,94.5">
+              End="119.333333333333,70.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,56.7019328585961" />
+                    End="0,42.4191251271618" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,56.7019328585961"
-                    Point2="0,60.7019328585961"
-                    Point3="4,60.7019328585961" />
+                    Point1="0,42.4191251271618"
+                    Point2="0,46.4191251271618"
+                    Point3="4,46.4191251271618" />
                   <mssgle:LineSegment
-                    End="104.333333333333,60.7019328585961" />
+                    End="115.333333333333,46.4191251271618" />
                   <mssgle:CubicBezierSegment
-                    Point1="104.333333333333,60.7019328585961"
-                    Point2="108.333333333333,60.7019328585961"
-                    Point3="108.333333333333,64.7019328585961" />
+                    Point1="115.333333333333,46.4191251271618"
+                    Point2="119.333333333333,46.4191251271618"
+                    Point3="119.333333333333,50.4191251271618" />
                   <mssgle:LineSegment
-                    End="108.333333333333,94.5" />
+                    End="119.333333333333,70.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
