@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadDescriptionData"
   DTS:PackageType="5"
-  DTS:VersionBuild="28"
-  DTS:VersionGUID="{2326EAE1-DA76-440D-A10E-1C58C87E6F6C}">
+  DTS:VersionBuild="30"
+  DTS:VersionGUID="{AAF600BE-9EFF-4BEA-8E0C-85E34B349B46}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -630,7 +630,7 @@ where [refTable].[LookUp_Description_Name] = ?</property>
       <DTS:ObjectData>
         <SQLTask:SqlTaskData
           SQLTask:Connection="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}"
-          SQLTask:SqlStatementSource="CREATE TABLE dbo.STG_DescriptionLoadAudit (&#xA;    DescriptionLoadAuditID BIGINT        IDENTITY (1, 1),&#xA;    PackageName            VARCHAR (255),&#xA;    RowCountLoaded         INT          ,&#xA;    LoadDateTime           DATETIME2 (0) DEFAULT SYSDATETIME(),&#xA;    LoadedBy               VARCHAR (100) DEFAULT SUSER_SNAME()&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          SQLTask:SqlStatementSource="INSERT INTO dbo.STG_DescriptionLoadAudit&#xA;(&#xA;      PackageName&#xA;    , RowCountLoaded&#xA;)&#xA;VALUES&#xA;(&#xA;      ?&#xA;    , ?&#xA;);" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
           <SQLTask:ParameterBinding
             SQLTask:ParameterName="0"
             SQLTask:DtsVariableName="System::PackageName"
@@ -672,37 +672,37 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         <NodeLayout
           Size="209,42"
           Id="Package\DFT_LoadDescriptionData"
-          TopLeft="314.5,136.5" />
+          TopLeft="230.5,143.5" />
         <NodeLayout
           Size="214,42"
           Id="Package\EST_InsertDescriptionAudit"
           TopLeft="524,324" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="419,178.5">
+          TopLeft="335,185.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="212,145.5"
+              EndConnector="296,138.5"
               Start="0,0"
-              End="212,138">
+              End="296,131">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,68.75" />
+                    End="0,65.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,68.75"
-                    Point2="0,72.75"
-                    Point3="4,72.75" />
+                    Point1="0,65.25"
+                    Point2="0,69.25"
+                    Point3="4,69.25" />
                   <mssgle:LineSegment
-                    End="208,72.75" />
+                    End="292,69.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="208,72.75"
-                    Point2="212,72.75"
-                    Point3="212,76.75" />
+                    Point1="292,69.25"
+                    Point2="296,69.25"
+                    Point3="296,73.25" />
                   <mssgle:LineSegment
-                    End="212,138" />
+                    End="296,131" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -726,85 +726,15 @@ where [refTable].[LookUp_Description_Name] = ?</property>
         <NodeLayout
           Size="161,42"
           Id="Package\DFT_LoadDescriptionData\LKP_Description"
-          TopLeft="222,250.5" />
-        <NodeLayout
-          Size="196,42"
-          Id="Package\DFT_LoadDescriptionData\EXL_DescriptionSource"
-          TopLeft="240.5,53.5" />
-        <EdgeLayout
-          Id="Package\DFT_LoadDescriptionData.Paths[Excel Source Output]"
-          TopLeft="338.5,95.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="-36,155"
-              Start="0,0"
-              End="-36,147.5">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,73.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,73.5"
-                    Point2="0,77.5"
-                    Point3="-4,77.5" />
-                  <mssgle:LineSegment
-                    End="-32,77.5" />
-                  <mssgle:CubicBezierSegment
-                    Point1="-32,77.5"
-                    Point2="-36,77.5"
-                    Point3="-36,81.5" />
-                  <mssgle:LineSegment
-                    End="-36,147.5" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+          TopLeft="197,246.5" />
         <NodeLayout
           Size="207,42"
           Id="Package\DFT_LoadDescriptionData\RC_DescriptionRowCount"
           TopLeft="369,405" />
-        <EdgeLayout
-          Id="Package\DFT_LoadDescriptionData.Paths[Lookup No Match Output]"
-          TopLeft="302.5,292.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="170,112.5"
-              Start="0,0"
-              End="170,105">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,52.25" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,52.25"
-                    Point2="0,56.25"
-                    Point3="4,56.25" />
-                  <mssgle:LineSegment
-                    End="166,56.25" />
-                  <mssgle:CubicBezierSegment
-                    Point1="166,56.25"
-                    Point2="170,56.25"
-                    Point3="170,60.25" />
-                  <mssgle:LineSegment
-                    End="170,105" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <mssgm:EdgeLabel
-              BoundingBox="29.19361328125,61.25,111.6127734375,11.609375"
-              RelativePosition="Any" />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
+        <NodeLayout
+          Size="196,42"
+          Id="Package\DFT_LoadDescriptionData\EXL_DescriptionSource"
+          TopLeft="240.5,53.5" />
         <EdgeLayout
           Id="Package\DFT_LoadDescriptionData.Paths[Row Count Output 1]"
           TopLeft="472.5,447">
@@ -836,7 +766,81 @@ where [refTable].[LookUp_Description_Name] = ?</property>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_LoadDescriptionData.Paths[Lookup No Match Output]"
+          TopLeft="277.5,288.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="195,116.5"
+              Start="0,0"
+              End="195,109">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,54.25"
+                    Point2="0,58.25"
+                    Point3="4,58.25" />
+                  <mssgle:LineSegment
+                    End="191,58.25" />
+                  <mssgle:CubicBezierSegment
+                    Point1="191,58.25"
+                    Point2="195,58.25"
+                    Point3="195,62.25" />
+                  <mssgle:LineSegment
+                    End="195,109" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="41.69361328125,63.25,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_LoadDescriptionData.Paths[Excel Source Output]"
+          TopLeft="338.5,95.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-61,151"
+              Start="0,0"
+              End="-61,143.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,71.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,71.5"
+                    Point2="0,75.5"
+                    Point3="-4,75.5" />
+                  <mssgle:LineSegment
+                    End="-57,75.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-57,75.5"
+                    Point2="-61,75.5"
+                    Point3="-61,79.5" />
+                  <mssgle:LineSegment
+                    End="-61,143.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>

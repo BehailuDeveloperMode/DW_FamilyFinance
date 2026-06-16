@@ -26,13 +26,15 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DEVELOPER-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAAA7MZLvmbsbxwuuegm6PEznvrWpe5Sn1angSK8d8Sa49AAAAAAOgAAAAAIAACAAAACKaUZHkIVjjRcSAzsNCIRt6N6Vaa+VSXE5fCp8yBd5S5AAAACRJfuNKVKmpChkp8GKG66PaCPXaWTk/fuFKrWXodKBRwxDdzHL9kqexCUvNGcvlHQv8pGxN01D+dtQVeCLCFZ2zCxUiO40qZuEoEmSyDFTn6EQ5xCeGMKf4K5rGUY2sESV/K6CXBHH/6yZ3Z24HAZSU2VJZ+fHSbEyDXBBwgFA4gGIdG2CS4GbX/LMaG+c5fJAAAAAp7m6pwTGLTNFcSkJXDfv9jla+kLIeFLaCiBNyEacDmPPPa4cKqvDQcjVD3wXDBCyMhxU5tQq5FqANj1kpE5uwg==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAAC80WYJQWiuUqqs7AM9EbUHYYrtFbVdWvmHPyalAv3J7gAAAAAOgAAAAAIAACAAAADpXqlw7HCC+AyNjCGj9eYYidN5YYtJN5ng2v/SBJhl4JAAAADgXWIN1GlIMyAis3iLp4HEZ8D2zp8/neGQzxqNZFrc4VHR42z70H5WIJtaxnStWmdmYCO9yV4vpJl0eX4IcDKVElCCUCNsUclNv3WVprZ76tCD//owj6bWI36vNt7KDj96AWp2zrEkBfJLCIU7kQtk4Y4pC0BQTzuNWE2FOBvhZnKtue+O3FrvbBUvRws3XXtAAAAAkq9oqmkelp9wzhpZAd67qUFCO93TLXm6Fz/XEbhFxTfBV0JaSMWlqZXS6A7z7N1TmMkeRyKnxDSCGgkfjG2Gvw==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
           <SSIS:Package SSIS:Name="STG_LoadExpenseData.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="STG_LoadIncomeData.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="STG_LoadDescriptionData.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="STG_Master_FullLoad.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="STG_Master_Incremental.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="OLDB_STG.conmgr" />
@@ -479,10 +481,10 @@
                 <SSIS:Property SSIS:Name="Name">STG_LoadDescriptionData</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">30</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{BADB4627-5FBD-4EB0-9913-409263BBF7DB}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{AAF600BE-9EFF-4BEA-8E0C-85E34B349B46}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -515,7 +517,7 @@
                     <SSIS:Property SSIS:Name="IncludeInDebugDump">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Required">0</SSIS:Property>
                     <SSIS:Property SSIS:Name="Sensitive">0</SSIS:Property>
-                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_Description\STG_DescriptionLookUp.xlsx;Extended Properties="Excel 12.0 XML;HDR=YES";</SSIS:Property>
+                    <SSIS:Property SSIS:Name="Value">Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_Description\STG_DescriptionLookUp.xlsx;Extended Properties="EXCEL 12.0 XML;HDR=YES";</SSIS:Property>
                     <SSIS:Property SSIS:Name="DataType">18</SSIS:Property>
                   </SSIS:Properties>
                 </SSIS:Parameter>
@@ -622,6 +624,40 @@
                   </SSIS:Properties>
                 </SSIS:Parameter>
               </SSIS:Parameters>
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="STG_Master_FullLoad.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{268F18DF-E973-4185-958B-B48D12C6978D}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">STG_Master_FullLoad</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{5C3BD637-4D4F-4051-A36E-85BE1B5F7890}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="STG_Master_Incremental.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{1592C6F4-4960-41A4-B566-1AE3D8CE67FA}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">STG_Master_Incremental</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">5</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{6D8AAB1B-B75F-481D-8B0F-3BDB969AC4DF}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
             </SSIS:PackageMetaData>
           </SSIS:PackageInfo>
         </SSIS:DeploymentInfo>
