@@ -1,52 +1,200 @@
-\# DW\_FamilyFinance
+# DW_FamilyFinance
 
-Welcome to our family's personal repository for managing monthly expenses! This comprehensive system serves as an essential tool for organizing, tracking, and analyzing our household expenditures. Designed with efficiency and convenience in mind, our repository employs an Extract, Transform, Load (ETL) package to streamline the process of gathering, processing, and storing data related to our financial activities.
+## Overview
 
-At the core of our repository lies its sophisticated ETL package, which automates the extraction of data from various sources such as bank statements, receipts, and invoices. This extraction process ensures that all relevant financial information is systematically captured, eliminating the need for manual data entry and minimizing the risk of errors.
+DW_FamilyFinance is an end-to-end SQL Server Data Warehouse project designed to automate the collection, transformation, storage, and analysis of personal and family financial data.
 
-Once the data is extracted, it undergoes a series of transformations to enhance its quality and usability. This includes standardizing formats, categorizing expenses, and reconciling discrepancies. By standardizing the data, we ensure consistency and accuracy, enabling us to generate insightful reports and analyses with confidence.
+The solution integrates multiple financial data sources, including banking transactions, payroll records, and expense classification rules, into a centralized data warehouse that supports reporting, analytics, budgeting, and long-term financial planning.
 
-The transformed data is then loaded into our centralized repository, where it is securely stored and organized for easy access. Our repository is structured in a user-friendly manner, allowing us to navigate through different categories of expenses, view historical data, and generate customized reports tailored to our specific needs.
+This project demonstrates real-world Data Engineering, ETL Development, Data Warehousing, SQL Server Development, SSIS, and Power BI skills using industry-standard architecture and best practices.
 
-One of the key features of our repository is its ability to provide real-time insights into our spending patterns and trends. By regularly monitoring our expenses, we can identify areas where we may be overspending, set budgetary goals, and make informed decisions to optimize our financial health.
+---
 
-Moreover, our repository facilitates collaboration and transparency within our family unit. Each member has access to the system, allowing them to input their expenses and contribute to our collective financial management efforts. This collaborative approach fosters accountability and encourages open communication regarding our financial priorities and goals.
+## Project Architecture
 
-In addition to managing our monthly expenses, our repository also serves as a valuable resource for long-term financial planning. By analyzing historical data and forecasting future expenses, we can proactively anticipate financial challenges, identify opportunities for savings, and work towards achieving our financial objectives.
+```text
+Source Files
+    │
+    ▼
+STG_FamilyLiving
+    │
+    ▼
+DW_FamilyFinance
+    │
+    ▼
+Power BI Reporting
+```
 
-In summary, our family's personal repository for monthly expenses, powered by an advanced ETL package, serves as a comprehensive and efficient solution for managing our household finances. With its automated processes, insightful analyses, and collaborative features, it empowers us to make informed decisions, optimize our spending, and work towards a secure financial future for our family.
+### Source Systems
 
-Enterprise SQL Server Data Warehouse for Family Income and Expense Analytics.
+* Citi Bank Transactions
+* Wells Fargo Transactions
+* Payroll Income Records
+* Expense Classification Lookup Files
 
-\## Technology Stack
+---
 
-\- SQL Server 2022
+## Technology Stack
 
-\- SSIS
+### Database
 
-\- Power BI
+* SQL Server 2022 Developer Edition
 
-\- Git
+### ETL
 
-\- Visual Studio 2026
+* SQL Server Integration Services (SSIS)
 
-\## Databases
+### Reporting
 
-\- STG\_FamilyLiving
+* Power BI
 
-\- DW\_FamilyFinance
+### Development Tools
 
-\## Schemas
+* Visual Studio 2022
+* SQL Server Management Studio (SSMS)
+* Git
+* GitHub
 
-\- dim
+---
 
-\- fact
+## Database Architecture
 
-\- etl
+### Staging Database
 
-\- rpt
+**STG_FamilyLiving**
 
-\## Author
+Purpose:
 
-Behailu Tessema
+* Load raw source files
+* Perform data validation
+* Capture audit information
+* Support incremental loading
 
+Main Tables:
+
+* STG_FamilySourceData
+* Family_Income
+* STG_Description_LookUp
+
+Audit Tables:
+
+* STG_FileLoadAudit
+* STG_IncomeLoadAudit
+* STG_DescriptionLoadAudit
+
+---
+
+### Data Warehouse Database
+
+**DW_FamilyFinance**
+
+Schemas:
+
+#### Dimension Schema
+
+* dim.DimDate
+* dim.DimBank
+* dim.DimDescription
+* dim.DimIncomeSource
+
+#### Fact Schema
+
+* fact.FactExpense
+* fact.FactIncome
+
+#### ETL Schema
+
+* etl.usp_Load_DimDate
+* etl.usp_Load_DimBank
+* etl.usp_Load_DimDescription
+* etl.usp_Load_DimIncomeSource
+* etl.usp_Load_FactExpense
+* etl.usp_Load_FactIncome
+
+#### Reporting Schema
+
+* rpt.vw_ExpenseDetail
+* rpt.vw_IncomeDetail
+* rpt.vw_MonthlyFinancialSummary
+
+---
+
+## SSIS Solution
+
+### STG_LoadDescriptionData
+
+Features:
+
+* Incremental lookup loading
+* Duplicate prevention
+* Row count tracking
+* Audit logging
+
+### STG_LoadIncomeData
+
+Features:
+
+* Incremental loading using Pay_Day
+* Max date tracking
+* Row count tracking
+* Audit logging
+
+### STG_LoadExpenseData
+
+Features:
+
+* Dynamic file processing
+* OneDrive integration
+* Metadata extraction
+* File audit tracking
+* Incremental loading using FileModifiedDate
+* Automated reload of updated files
+
+### STG_Master_Incremental
+
+Master package that orchestrates all staging loads:
+
+```text
+STG_LoadDescriptionData
+        ↓
+STG_LoadIncomeData
+        ↓
+STG_LoadExpenseData
+```
+
+---
+
+## Key Features
+
+* Enterprise ETL Architecture
+* Incremental Data Loading
+* Dynamic File Processing
+* Audit Framework
+* Metadata Tracking
+* Star Schema Design
+* Fact and Dimension Modeling
+* Data Validation
+* Data Quality Controls
+* Power BI Reporting Layer
+
+---
+
+## Future Enhancements
+
+* SQL Server Agent Scheduling
+* Automated Email Notifications
+* Data Quality Dashboard
+* Forecasting and Budget Analytics
+* Azure Data Factory Integration
+* Cloud Data Warehouse Migration
+
+---
+
+## Author
+
+**Behailu Tessema**
+
+Data Engineer | BI Developer | SQL Server Developer
+
+GitHub:
+https://github.com/BehailuDeveloperMode
