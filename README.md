@@ -1,36 +1,27 @@
 # DW_FamilyFinance
 
-## Overview
+## Enterprise SQL Server Data Warehouse for Family Financial Analytics
 
-DW_FamilyFinance is an end-to-end SQL Server Data Warehouse project designed to automate the collection, transformation, storage, and analysis of personal and family financial data.
+DW_FamilyFinance is an end-to-end Data Warehouse and Business Intelligence solution designed to automate the collection, transformation, storage, and analysis of personal and family financial data.
 
-The solution integrates multiple financial data sources, including banking transactions, payroll records, and expense classification rules, into a centralized data warehouse that supports reporting, analytics, budgeting, and long-term financial planning.
-
-This project demonstrates real-world Data Engineering, ETL Development, Data Warehousing, SQL Server Development, SSIS, and Power BI skills using industry-standard architecture and best practices.
+The project integrates banking transactions, payroll records, and expense classification rules into a centralized SQL Server Data Warehouse that supports reporting, budgeting, expense tracking, and long-term financial planning. The solution follows enterprise data warehousing principles, including staging, dimensional modeling, ETL automation, audit tracking, and reporting.
 
 ---
 
 ## Project Architecture
 
 ```text
-Source Files
-    │
-    ▼
-STG_FamilyLiving
-    │
-    ▼
-DW_FamilyFinance
-    │
-    ▼
-Power BI Reporting
+Source Files (Excel / Google Sheets)
+                │
+                ▼
+       STG_FamilyLiving
+                │
+                ▼
+       DW_FamilyFinance
+                │
+                ▼
+          Power BI
 ```
-
-### Source Systems
-
-* Citi Bank Transactions
-* Wells Fargo Transactions
-* Payroll Income Records
-* Expense Classification Lookup Files
 
 ---
 
@@ -38,13 +29,13 @@ Power BI Reporting
 
 ### Database
 
-* SQL Server 2022 Developer Edition
+* SQL Server 2022
 
 ### ETL
 
 * SQL Server Integration Services (SSIS)
 
-### Reporting
+### Reporting & Analytics
 
 * Power BI
 
@@ -52,74 +43,85 @@ Power BI Reporting
 
 * Visual Studio 2022
 * SQL Server Management Studio (SSMS)
-* Git
-* GitHub
+* Git & GitHub
 
 ---
 
 ## Database Architecture
 
-### Staging Database
+### Staging Layer – STG_FamilyLiving
 
-**STG_FamilyLiving**
+The staging environment is responsible for collecting and validating source data before it is loaded into the data warehouse.
 
-Purpose:
-
-* Load raw source files
-* Perform data validation
-* Capture audit information
-* Support incremental loading
-
-Main Tables:
+#### Core Tables
 
 * STG_FamilySourceData
 * Family_Income
 * STG_Description_LookUp
 
-Audit Tables:
+#### Audit Tables
 
 * STG_FileLoadAudit
 * STG_IncomeLoadAudit
 * STG_DescriptionLoadAudit
 
----
+#### Key Features
 
-### Data Warehouse Database
-
-**DW_FamilyFinance**
-
-Schemas:
-
-#### Dimension Schema
-
-* dim.DimDate
-* dim.DimBank
-* dim.DimDescription
-* dim.DimIncomeSource
-
-#### Fact Schema
-
-* fact.FactExpense
-* fact.FactIncome
-
-#### ETL Schema
-
-* etl.usp_Load_DimDate
-* etl.usp_Load_DimBank
-* etl.usp_Load_DimDescription
-* etl.usp_Load_DimIncomeSource
-* etl.usp_Load_FactExpense
-* etl.usp_Load_FactIncome
-
-#### Reporting Schema
-
-* rpt.vw_ExpenseDetail
-* rpt.vw_IncomeDetail
-* rpt.vw_MonthlyFinancialSummary
+* Incremental loading
+* Audit logging
+* Dynamic file processing
+* Metadata tracking
+* Data validation
+* Duplicate prevention
 
 ---
 
-## SSIS Solution
+### Data Warehouse Layer – DW_FamilyFinance
+
+The data warehouse uses a Star Schema design to support efficient analytics and reporting.
+
+#### Dimension Tables
+
+* DimDate
+* DimBank
+* DimDescription
+* DimIncomeSource
+
+#### Fact Tables
+
+* FactExpense
+* FactIncome
+
+#### Reporting Views
+
+* Expense Detail
+* Income Detail
+* Monthly Financial Summary
+* Financial Reconciliation Reports
+
+---
+
+## SSIS ETL Framework
+
+### STG_LoadExpenseData
+
+Features:
+
+* Dynamic file processing
+* OneDrive integration
+* Metadata extraction
+* Incremental loading using File Modified Date
+* Audit tracking
+* Automated reload of updated files
+
+### STG_LoadIncomeData
+
+Features:
+
+* Incremental loading using Pay_Day
+* Max date tracking
+* Audit logging
+* Row count validation
 
 ### STG_LoadDescriptionData
 
@@ -130,29 +132,9 @@ Features:
 * Row count tracking
 * Audit logging
 
-### STG_LoadIncomeData
-
-Features:
-
-* Incremental loading using Pay_Day
-* Max date tracking
-* Row count tracking
-* Audit logging
-
-### STG_LoadExpenseData
-
-Features:
-
-* Dynamic file processing
-* OneDrive integration
-* Metadata extraction
-* File audit tracking
-* Incremental loading using FileModifiedDate
-* Automated reload of updated files
-
 ### STG_Master_Incremental
 
-Master package that orchestrates all staging loads:
+Master package responsible for orchestrating all staging processes:
 
 ```text
 STG_LoadDescriptionData
@@ -164,37 +146,34 @@ STG_LoadExpenseData
 
 ---
 
-## Key Features
+## Key Skills Demonstrated
 
-* Enterprise ETL Architecture
-* Incremental Data Loading
-* Dynamic File Processing
-* Audit Framework
-* Metadata Tracking
+* SQL Server Development
+* Data Warehousing
 * Star Schema Design
-* Fact and Dimension Modeling
+* ETL Development
+* SSIS Package Development
+* Incremental Loading Strategies
+* Data Modeling
 * Data Validation
-* Data Quality Controls
-* Power BI Reporting Layer
+* Audit Framework Design
+* Power BI Data Modeling
+* Git Version Control
 
 ---
 
-## Future Enhancements
+## Business Value
 
-* SQL Server Agent Scheduling
-* Automated Email Notifications
-* Data Quality Dashboard
-* Forecasting and Budget Analytics
-* Azure Data Factory Integration
-* Cloud Data Warehouse Migration
+This solution provides a centralized platform for managing family income and expenses while demonstrating real-world enterprise data engineering concepts. The project automates data collection, improves data quality, enables historical analysis, and supports data-driven financial decision-making.
 
 ---
 
 ## Author
 
-**Behailu Tessema**
+### Behailu Tessema
 
 Data Engineer | BI Developer | SQL Server Developer
 
-GitHub:
-https://github.com/BehailuDeveloperMode
+GitHub: https://github.com/BehailuDeveloperMode
+
+Website: https://www.developermode.dev
