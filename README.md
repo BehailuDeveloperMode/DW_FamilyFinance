@@ -1,52 +1,179 @@
-\# DW\_FamilyFinance
+# DW_FamilyFinance
 
-Welcome to our family's personal repository for managing monthly expenses! This comprehensive system serves as an essential tool for organizing, tracking, and analyzing our household expenditures. Designed with efficiency and convenience in mind, our repository employs an Extract, Transform, Load (ETL) package to streamline the process of gathering, processing, and storing data related to our financial activities.
+## Enterprise SQL Server Data Warehouse for Family Financial Analytics
 
-At the core of our repository lies its sophisticated ETL package, which automates the extraction of data from various sources such as bank statements, receipts, and invoices. This extraction process ensures that all relevant financial information is systematically captured, eliminating the need for manual data entry and minimizing the risk of errors.
+DW_FamilyFinance is an end-to-end Data Warehouse and Business Intelligence solution designed to automate the collection, transformation, storage, and analysis of personal and family financial data.
 
-Once the data is extracted, it undergoes a series of transformations to enhance its quality and usability. This includes standardizing formats, categorizing expenses, and reconciling discrepancies. By standardizing the data, we ensure consistency and accuracy, enabling us to generate insightful reports and analyses with confidence.
+The project integrates banking transactions, payroll records, and expense classification rules into a centralized SQL Server Data Warehouse that supports reporting, budgeting, expense tracking, and long-term financial planning. The solution follows enterprise data warehousing principles, including staging, dimensional modeling, ETL automation, audit tracking, and reporting.
 
-The transformed data is then loaded into our centralized repository, where it is securely stored and organized for easy access. Our repository is structured in a user-friendly manner, allowing us to navigate through different categories of expenses, view historical data, and generate customized reports tailored to our specific needs.
+---
 
-One of the key features of our repository is its ability to provide real-time insights into our spending patterns and trends. By regularly monitoring our expenses, we can identify areas where we may be overspending, set budgetary goals, and make informed decisions to optimize our financial health.
+## Project Architecture
 
-Moreover, our repository facilitates collaboration and transparency within our family unit. Each member has access to the system, allowing them to input their expenses and contribute to our collective financial management efforts. This collaborative approach fosters accountability and encourages open communication regarding our financial priorities and goals.
+```text
+Source Files (Excel / Google Sheets)
+                │
+                ▼
+       STG_FamilyLiving
+                │
+                ▼
+       DW_FamilyFinance
+                │
+                ▼
+          Power BI
+```
 
-In addition to managing our monthly expenses, our repository also serves as a valuable resource for long-term financial planning. By analyzing historical data and forecasting future expenses, we can proactively anticipate financial challenges, identify opportunities for savings, and work towards achieving our financial objectives.
+---
 
-In summary, our family's personal repository for monthly expenses, powered by an advanced ETL package, serves as a comprehensive and efficient solution for managing our household finances. With its automated processes, insightful analyses, and collaborative features, it empowers us to make informed decisions, optimize our spending, and work towards a secure financial future for our family.
+## Technology Stack
 
-Enterprise SQL Server Data Warehouse for Family Income and Expense Analytics.
+### Database
 
-\## Technology Stack
+* SQL Server 2022
 
-\- SQL Server 2022
+### ETL
 
-\- SSIS
+* SQL Server Integration Services (SSIS)
 
-\- Power BI
+### Reporting & Analytics
 
-\- Git
+* Power BI
 
-\- Visual Studio 2026
+### Development Tools
 
-\## Databases
+* Visual Studio 2022
+* SQL Server Management Studio (SSMS)
+* Git & GitHub
 
-\- STG\_FamilyLiving
+---
 
-\- DW\_FamilyFinance
+## Database Architecture
 
-\## Schemas
+### Staging Layer – STG_FamilyLiving
 
-\- dim
+The staging environment is responsible for collecting and validating source data before it is loaded into the data warehouse.
 
-\- fact
+#### Core Tables
 
-\- etl
+* STG_FamilySourceData
+* Family_Income
+* STG_Description_LookUp
 
-\- rpt
+#### Audit Tables
 
-\## Author
+* STG_FileLoadAudit
+* STG_IncomeLoadAudit
+* STG_DescriptionLoadAudit
 
-Behailu Tessema
+#### Key Features
 
+* Incremental loading
+* Audit logging
+* Dynamic file processing
+* Metadata tracking
+* Data validation
+* Duplicate prevention
+
+---
+
+### Data Warehouse Layer – DW_FamilyFinance
+
+The data warehouse uses a Star Schema design to support efficient analytics and reporting.
+
+#### Dimension Tables
+
+* DimDate
+* DimBank
+* DimDescription
+* DimIncomeSource
+
+#### Fact Tables
+
+* FactExpense
+* FactIncome
+
+#### Reporting Views
+
+* Expense Detail
+* Income Detail
+* Monthly Financial Summary
+* Financial Reconciliation Reports
+
+---
+
+## SSIS ETL Framework
+
+### STG_LoadExpenseData
+
+Features:
+
+* Dynamic file processing
+* OneDrive integration
+* Metadata extraction
+* Incremental loading using File Modified Date
+* Audit tracking
+* Automated reload of updated files
+
+### STG_LoadIncomeData
+
+Features:
+
+* Incremental loading using Pay_Day
+* Max date tracking
+* Audit logging
+* Row count validation
+
+### STG_LoadDescriptionData
+
+Features:
+
+* Incremental lookup loading
+* Duplicate prevention
+* Row count tracking
+* Audit logging
+
+### STG_Master_Incremental
+
+Master package responsible for orchestrating all staging processes:
+
+```text
+STG_LoadDescriptionData
+        ↓
+STG_LoadIncomeData
+        ↓
+STG_LoadExpenseData
+```
+
+---
+
+## Key Skills Demonstrated
+
+* SQL Server Development
+* Data Warehousing
+* Star Schema Design
+* ETL Development
+* SSIS Package Development
+* Incremental Loading Strategies
+* Data Modeling
+* Data Validation
+* Audit Framework Design
+* Power BI Data Modeling
+* Git Version Control
+
+---
+
+## Business Value
+
+This solution provides a centralized platform for managing family income and expenses while demonstrating real-world enterprise data engineering concepts. The project automates data collection, improves data quality, enables historical analysis, and supports data-driven financial decision-making.
+
+---
+
+## Author
+
+### Behailu Tessema
+
+Data Engineer | BI Developer | SQL Server Developer
+
+GitHub: https://github.com/BehailuDeveloperMode
+
+Website: https://www.developermode.dev
