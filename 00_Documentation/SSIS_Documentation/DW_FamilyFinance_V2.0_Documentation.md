@@ -80,15 +80,6 @@ Source Files (Excel / Google Sheets)
 * Validation Framework
 * Maintenance Framework
 
-### Deliverables
-
-* STG_FamilyLiving
-* DW_FamilyFinance
-* ETL Procedures
-* SSIS Packages
-* Maintenance Scripts
-* Data Validation Scripts
-
 ---
 
 ## Version 2.0 – Reporting & Business Intelligence
@@ -97,18 +88,10 @@ Source Files (Excel / Google Sheets)
 
 * Reporting Views
 * Power BI Semantic Model
-* KPI Development
+* KPI Framework
 * Dashboard Design Framework
 * Portfolio Documentation
 * GitHub Documentation
-
-### Deliverables
-
-* Reporting Views
-* Power BI Data Model
-* Executive Dashboard
-* Financial Analytics
-* Portfolio Assets
 
 ---
 
@@ -168,6 +151,7 @@ Provides calendar and time intelligence support for reporting and analytics.
 * QuarterNumber
 * MonthNumber
 * MonthName
+* MonthShortName
 * YearMonthNumber
 * YearMonthName
 * DayOfMonth
@@ -288,6 +272,8 @@ One row per paycheck.
 * IncomeFactKey
 * SourceIncomeID
 * IncomeSourceKey
+* PeriodBeginningDateKey
+* PeriodEndingDateKey
 * PayDateKey
 * GrossPayment
 * EmployerNetPay
@@ -440,7 +426,7 @@ rpt.vw_MonthlyIncomeTrend
 
 # Data Quality & Governance
 
-### Audit Framework
+## Audit Framework
 
 Tracks:
 
@@ -448,7 +434,7 @@ Tracks:
 * Income Loads
 * Description Loads
 
-### Validation Framework
+## Validation Framework
 
 Checks:
 
@@ -458,7 +444,7 @@ Checks:
 * Row Count Reconciliation
 * Fact-to-Dimension Integrity
 
-### Maintenance Framework
+## Maintenance Framework
 
 ```text
 Maintenance/
@@ -477,19 +463,19 @@ Supports:
 
 # Power BI Semantic Model
 
-### Dimensions
+## Dimensions
 
 * DimDate
 * DimBank
 * DimDescription
 * DimIncomeSource
 
-### Facts
+## Facts
 
 * FactExpense
 * FactIncome
 
-### Relationships
+## Relationships
 
 ```text
 DimDate
@@ -524,28 +510,28 @@ DimIncomeSource
 
 # Power BI Dashboard Roadmap
 
-### Executive Summary
+## Executive Summary
 
 * Total Income
 * Total Expense
 * Net Savings
 * Transaction Count
 
-### Expense Analysis
+## Expense Analysis
 
 * Expense by Category
 * Expense by SubCategory
 * Expense by Bank
 * Top Expenses
 
-### Income Analysis
+## Income Analysis
 
 * Income by Employer
 * Gross Income Trend
 * Net Income Trend
 * Tax Analysis
 
-### Savings Analysis
+## Savings Analysis
 
 * Monthly Savings
 * Income vs Expense
@@ -555,27 +541,27 @@ DimIncomeSource
 
 # Project Achievements
 
-### Data Engineering
+## Data Engineering
 
 * ETL Development
 * Incremental Loading
 * Data Validation
 * Metadata Management
 
-### Data Warehousing
+## Data Warehousing
 
 * Star Schema Design
 * Fact and Dimension Modeling
 * Surrogate Keys
 * Reporting Layer
 
-### Business Intelligence
+## Business Intelligence
 
 * Power BI Semantic Modeling
 * KPI Development
 * Dashboard Design
 
-### Software Development
+## Software Development
 
 * SQL Server Development
 * SSIS Package Development
