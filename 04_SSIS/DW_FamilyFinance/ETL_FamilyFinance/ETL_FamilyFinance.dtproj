@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DEVELOPER-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAAAazThu794rDSaPPIU2Wwk9Vc0X9DnacmbQ3WhYvcpxQQAAAAAOgAAAAAIAACAAAADTzHbPR+WB+PKQSXHqPf3SxeQyk66NGMK5f/V43SB74ZAAAABQaZrU/xnWZn046zDvyUwf0D3w+xHskE4zJsPHy5xP7v4fw4W3cpURwHFoIJIwVCLXDHl7gPJGqIlbZfLyM5pC8iGNsivKIFgDQijDFTffm16rfR43G4dKecDhAtc2rRbAIN8ttYiEVfUW9OURq9Xdu3RWg5GJzPMhZjZ9oi7tdpL9hmNibgoHlxoMvPx/W59AAAAAkLBkcfU3mmcgPW/9itl9pVJyIGwaEdydksQBdrmNiucjrVaIxK8iNK0tILWWZYIFKO72dUEeaO9ruudRlIKT2g==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAADF4Bc8bnCN05gEdumcWFAXDin6X88EGjmdLU703XSltgAAAAAOgAAAAAIAACAAAAAYsnA6JV/T2AevIpNgFRhlLo1a46i36vP1OyVppKaV25AAAAApk8NwK0cQkyRs/9u7UfnT0aSFWpL6l1mD3A29tBI67KbD309ldFl9LWsVQNXPuL62hgSfeSKdoREZJV3Ou4PEqx36TH7iSKqkSQGJts5uCRh/6vke8R4/3OnmRCoA+Oq3EDtW17H+8HRXCeEGx4G+0HfUyJd49gcl8Kv2hW05az7PnCtIq4cGUAPap2WNV7lAAAAAz+O/UxAWQlXAzpeg1G6DZcUPk2q3jBrjPNoNKsxOtPkiaLrSfa0oQWqFbcgAWzfSaLl6Sex6Fp6UqukKylQptg==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -35,6 +35,7 @@
           <SSIS:Package SSIS:Name="STG_LoadDescriptionData.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="STG_Master_FullLoad.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="STG_Master_Incremental.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="DW_Load_FamilyFinance.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="OLDB_STG.conmgr" />
@@ -652,6 +653,23 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{DA7C307C-CE02-4CC7-BECF-2EB249DACE18}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="DW_Load_FamilyFinance.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{56AFE443-7775-40FF-95C6-B42D2BA5E8AF}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">DW_Load_FamilyFinance</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{9D628A98-86DD-431D-835E-DD19A6FE461E}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
