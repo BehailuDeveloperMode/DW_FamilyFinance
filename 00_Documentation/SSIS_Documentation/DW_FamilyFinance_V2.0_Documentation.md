@@ -1,554 +1,622 @@
-DW\_FamilyFinance – Data Warehouse Documentation
+# DW_FamilyFinance – Enterprise Data Warehouse & Business Intelligence Platform
 
-Project Information
+## Project Information
 
+**Project Name:** DW_FamilyFinance
 
+**Current Version:** 2.0
 
-Project Name: DW\_FamilyFinance
+**Author:** Behailu Tessema
 
+**Website:** https://www.developermode.dev
 
+**GitHub:** https://github.com/BehailuDeveloperMode
 
-Version: 1.0
+---
 
+# Project Overview
 
+DW_FamilyFinance is an enterprise-style SQL Server Data Warehouse and Business Intelligence solution designed to centralize, organize, analyze, and visualize family income and expense data.
 
-Author: Behailu Tessema
+The project automates the collection of financial transactions from multiple sources, applies data quality and transformation rules, loads data into a dimensional warehouse model, and provides analytical reporting through Power BI dashboards.
 
+The solution demonstrates real-world Data Engineering, ETL Development, Data Warehousing, SQL Server Development, Business Intelligence, and Data Modeling practices.
 
+---
 
-Technology Stack:
+# Solution Architecture
 
+```text
+Source Files (Excel / Google Sheets)
+                │
+                ▼
+       STG_FamilyLiving
+                │
+                ▼
+       DW_FamilyFinance
+                │
+                ▼
+           Power BI
+```
 
+---
 
-SQL Server 2022
+# Technology Stack
 
-SSIS
+### Database
 
-Power BI
+* SQL Server 2022
 
-Visual Studio 2022
+### ETL
 
-Git \& GitHub
+* SQL Server Integration Services (SSIS)
 
-Project Overview
+### Reporting & Analytics
 
+* Power BI
 
+### Development Tools
 
-DW\_FamilyFinance is an enterprise-style SQL Server Data Warehouse designed to centralize, organize, and analyze family income and expense data.
+* Visual Studio 2022
+* SQL Server Management Studio (SSMS)
+* Git
+* GitHub
 
+---
 
+# Project Versions
 
-The solution follows a layered architecture consisting of:
+## Version 1.0 – Data Warehouse Foundation
 
+### Completed Components
 
+* Staging Environment
+* Incremental ETL Framework
+* Audit Framework
+* Dimension Tables
+* Fact Tables
+* ETL Stored Procedures
+* SSIS Automation
+* Validation Framework
+* Maintenance Framework
 
-Source Files
+### Deliverables
 
-&#x20;     │
+* STG_FamilyLiving
+* DW_FamilyFinance
+* ETL Procedures
+* SSIS Packages
+* Maintenance Scripts
+* Data Validation Scripts
 
-&#x20;     ▼
+---
 
-STG\_FamilyLiving
+## Version 2.0 – Reporting & Business Intelligence
 
-&#x20;     │
+### Completed Components
 
-&#x20;     ▼
+* Reporting Views
+* Power BI Semantic Model
+* KPI Development
+* Dashboard Design Framework
+* Portfolio Documentation
+* GitHub Documentation
 
-DW\_FamilyFinance
+### Deliverables
 
-&#x20;     │
+* Reporting Views
+* Power BI Data Model
+* Executive Dashboard
+* Financial Analytics
+* Portfolio Assets
 
-&#x20;     ▼
+---
 
-Power BI
+# Database Architecture
 
+## Database
 
+```text
+DW_FamilyFinance
+```
 
-The system automates data ingestion, transformation, dimensional modeling, auditing, and reporting.
+## Schemas
 
+### dim
 
+Contains descriptive business entities used for reporting and analytics.
 
-Data Warehouse Architecture
-
-Database
-
-DW\_FamilyFinance
-
-Schemas
-
-Dimension Schema
-
-dim
-
-
-
-Contains descriptive business entities used for reporting and analysis.
-
-
-
-Fact Schema
-
-fact
-
-
+### fact
 
 Contains measurable business transactions.
 
+### etl
 
+Contains warehouse loading procedures.
 
-ETL Schema
-
-etl
-
-
-
-Contains data warehouse loading procedures.
-
-
-
-Reporting Schema
-
-rpt
-
-
+### rpt
 
 Contains reporting and analytical views.
 
+---
 
+# Dimension Tables
 
-Dimension Tables
+## dim.DimDate
 
-dim.DimDate
-
-Purpose
-
-
+### Purpose
 
 Provides calendar and time intelligence support for reporting and analytics.
 
+### Date Range
 
-
-Key Columns
-
-Column	Description
-
-DateKey	YYYYMMDD surrogate key
-
-Date	Calendar date
-
-Year	Calendar year
-
-Month	Month number
-
-Day	Day of month
-
-YearMonthNumber	YYYYMM
-
-YearMonthName	Month and Year
-
-Current Row Count
-
-7,671
-
-
-
-Date Range:
-
-
-
+```text
 2020-01-01 through 2040-12-31
+```
 
-dim.DimBank
+### Current Row Count
 
-Purpose
+```text
+7,671
+```
 
+### Key Columns
 
+* DateKey
+* FullDate
+* Year
+* QuarterNumber
+* MonthNumber
+* MonthName
+* YearMonthNumber
+* YearMonthName
+* DayOfMonth
+* DayOfWeekName
+* WeekOfYear
+
+---
+
+## dim.DimBank
+
+### Purpose
 
 Stores financial institutions associated with expense transactions.
 
+### Current Row Count
 
+```text
+2
+```
 
-Current Row Count
+### Values
 
-3
+* Citi Bank
+* Wells Fargo Bank
 
+---
 
+## dim.DimDescription
 
-Examples:
+### Purpose
 
+Stores standardized expense classifications.
 
+### Current Row Count
 
-Citi Bank
-
-Wells Fargo
-
-Unknown
-
-dim.DimDescription
-
-Purpose
-
-
-
-Stores standardized expense descriptions and classification rules.
-
-
-
-Current Row Count
-
+```text
 941
+```
 
+### Key Columns
 
+* DescriptionKey
+* DescriptionName
+* Description
+* Category
+* SubCategory
+* ExpenseType
 
-Key Columns:
+---
 
+## dim.DimIncomeSource
 
+### Purpose
 
-DescriptionKey
+Stores employer and employee information.
 
-LookUp\_Description\_Name
+### Current Row Count
 
-LookUp\_Description
-
-LookUp\_SubCategory
-
-LookUp\_ExpenseType
-
-LookUp\_Category
-
-dim.DimIncomeSource
-
-Purpose
-
-
-
-Stores employer and income source information.
-
-
-
-Current Row Count
-
+```text
 5
+```
 
+### Examples
 
+* Casa Coloma
+* Windsor El Camino
+* CITIGUARD INC
 
-Examples:
+---
 
+# Fact Tables
 
+## fact.FactExpense
 
-Casa Coloma
-
-Windsor El Camino
-
-CITIGUARD INC
-
-Fact Tables
-
-fact.FactExpense
-
-Purpose
-
-
+### Purpose
 
 Stores individual expense transactions.
 
+### Grain
 
+One row per expense transaction.
 
-Grain
+### Current Row Count
 
-
-
-One row per source expense transaction.
-
-
-
-Current Row Count
-
+```text
 5,887
+```
 
-Key Columns
+### Key Columns
 
-Column	Description
+* ExpenseFactKey
+* SourceExpenseID
+* TransactionDateKey
+* BankKey
+* DescriptionKey
+* ExpenseAmount
 
-ExpenseFactKey	Surrogate Key
+---
 
-SourceExpenseID	Source Transaction Identifier
+## fact.FactIncome
 
-TransactionDateKey	Date Dimension Key
-
-BankKey	Bank Dimension Key
-
-DescriptionKey	Description Dimension Key
-
-ExpenseAmount	Transaction Amount
-
-LoadDate	DW Load Date
-
-fact.FactIncome
-
-Purpose
-
-
+### Purpose
 
 Stores payroll and income transactions.
 
-
-
-Grain
-
-
+### Grain
 
 One row per paycheck.
 
+### Current Row Count
 
-
-Current Row Count
-
+```text
 230
+```
 
-Key Columns
+### Key Columns
 
-Column	Description
+* IncomeFactKey
+* SourceIncomeID
+* IncomeSourceKey
+* PayDateKey
+* GrossPayment
+* EmployerNetPay
+* TotalTax
 
-IncomeFactKey	Surrogate Key
+---
 
-SourceIncomeID	Source Identifier
+# Staging Environment
 
-PayDateKey	Date Dimension Key
+## Database
 
-IncomeSourceKey	Employer Key
+```text
+STG_FamilyLiving
+```
 
-GrossPayment	Gross Income
+### Core Tables
 
-EmployerNetPay	Net Income
+* STG_FamilySourceData
+* Family_Income
+* STG_Description_LookUp
 
-TotalTax	Total Taxes
+### Audit Tables
 
-Work\_Place	Employer
+* STG_FileLoadAudit
+* STG_IncomeLoadAudit
+* STG_DescriptionLoadAudit
 
-Employee\_FullName	Employee Name
+### Features
 
-ETL Procedures
+* Incremental Loading
+* Audit Logging
+* Dynamic File Processing
+* File Metadata Tracking
+* Data Validation
+* Duplicate Prevention
 
-Dimension Loads
+---
 
-etl.usp\_Load\_DimDate
+# SSIS Framework
 
-etl.usp\_Load\_DimBank
+## STG_LoadDescriptionData
 
-etl.usp\_Load\_DimDescription
+Features:
 
-etl.usp\_Load\_DimIncomeSource
+* Incremental Description Loading
+* Duplicate Prevention
+* Audit Tracking
 
-Purpose
+## STG_LoadIncomeData
 
+Features:
 
+* Incremental Pay_Day Loading
+* Max Date Tracking
+* Audit Logging
 
-Load and maintain dimension tables.
+## STG_LoadExpenseData
 
+Features:
 
+* Dynamic File Processing
+* FileModifiedDate Incremental Logic
+* Metadata Extraction
+* Audit Tracking
 
-Fact Loads
+## STG_Master_Incremental
 
-etl.usp\_Load\_FactExpense
+Execution Order:
 
-etl.usp\_Load\_FactIncome
+```text
+STG_LoadDescriptionData
+        ↓
+STG_LoadIncomeData
+        ↓
+STG_LoadExpenseData
+```
 
-Purpose
+## DW_Initial_Setup
 
+Purpose:
 
+```text
+DimDate One-Time Load
+```
 
-Load transactional data from staging into fact tables.
+## DW_Load_FamilyFinance
 
+Execution Order:
 
+```text
+DimBank
+        ↓
+DimDescription
+        ↓
+DimIncomeSource
+        ↓
+FactExpense
+        ↓
+FactIncome
+```
 
-Data Sources
+---
 
-Expense Sources
+# ETL Procedures
 
-Citi Bank
+## Dimension Loads
 
-Wells Fargo
+```sql
+etl.usp_Load_DimDate
+etl.usp_Load_DimBank
+etl.usp_Load_DimDescription
+etl.usp_Load_DimIncomeSource
+```
 
-Income Sources
+## Fact Loads
 
-Payroll Excel Files
+```sql
+etl.usp_Load_FactExpense
+etl.usp_Load_FactIncome
+```
 
-Google Sheet Exports
+## DW Wrapper Procedure
 
-Description Source
+```sql
+etl.usp_Load_DW_FamilyFinance
+```
 
-Expense Classification Lookup Spreadsheet
+---
 
-Data Flow
+# Reporting Layer
 
-Expense Files
+## Detail Views
 
-&#x20;     │
+```sql
+rpt.vw_ExpenseDetail
+rpt.vw_IncomeDetail
+```
 
-&#x20;     ▼
+## Summary Views
 
-STG\_FamilySourceData
+```sql
+rpt.vw_MonthlyFinancialSummary
+rpt.vw_ExpenseByCategory
+rpt.vw_ExpenseByBank
+rpt.vw_MonthlyExpenseTrend
+rpt.vw_MonthlyIncomeTrend
+```
 
-&#x20;     │
+---
 
-&#x20;     ▼
+# Data Quality & Governance
+
+### Audit Framework
+
+Tracks:
+
+* File Loads
+* Income Loads
+* Description Loads
+
+### Validation Framework
+
+Checks:
+
+* Duplicate Records
+* Orphan Records
+* Missing Date Keys
+* Row Count Reconciliation
+* Fact-to-Dimension Integrity
+
+### Maintenance Framework
+
+```text
+Maintenance/
+└── Clean_DW_Data_And_Reload.sql
+```
+
+Supports:
+
+* Fact Cleanup
+* Dimension Cleanup
+* Identity Reseeding
+* Full Warehouse Reload
+* Validation Testing
+
+---
+
+# Power BI Semantic Model
+
+### Dimensions
+
+* DimDate
+* DimBank
+* DimDescription
+* DimIncomeSource
+
+### Facts
+
+* FactExpense
+* FactIncome
+
+### Relationships
+
+```text
+DimDate
+    ├── FactExpense
+    └── FactIncome
 
 DimBank
+    └── FactExpense
 
 DimDescription
-
-DimDate
-
-&#x20;     │
-
-&#x20;     ▼
-
-FactExpense
-
-Income File
-
-&#x20;     │
-
-&#x20;     ▼
-
-Family\_Income
-
-&#x20;     │
-
-&#x20;     ▼
+    └── FactExpense
 
 DimIncomeSource
+    └── FactIncome
+```
 
-DimDate
+---
 
-&#x20;     │
+# Key Performance Indicators (KPIs)
 
-&#x20;     ▼
+* Total Income
+* Total Expense
+* Net Savings
+* Expense Transactions
+* Income Transactions
+* Monthly Income Trend
+* Monthly Expense Trend
+* Expense by Category
+* Expense by Bank
 
-FactIncome
+---
 
-Reporting Layer
+# Power BI Dashboard Roadmap
 
-Available Views
+### Executive Summary
 
-rpt.vw\_ExpenseDetail
+* Total Income
+* Total Expense
+* Net Savings
+* Transaction Count
 
+### Expense Analysis
 
+* Expense by Category
+* Expense by SubCategory
+* Expense by Bank
+* Top Expenses
 
-Detailed expense transactions.
+### Income Analysis
 
+* Income by Employer
+* Gross Income Trend
+* Net Income Trend
+* Tax Analysis
 
+### Savings Analysis
 
-rpt.vw\_IncomeDetail
+* Monthly Savings
+* Income vs Expense
+* Savings Trend
 
+---
 
+# Project Achievements
 
-Detailed income transactions.
+### Data Engineering
 
+* ETL Development
+* Incremental Loading
+* Data Validation
+* Metadata Management
 
+### Data Warehousing
 
-rpt.vw\_MonthlyFinancialSummary
+* Star Schema Design
+* Fact and Dimension Modeling
+* Surrogate Keys
+* Reporting Layer
 
+### Business Intelligence
 
+* Power BI Semantic Modeling
+* KPI Development
+* Dashboard Design
 
-Monthly financial summary including:
+### Software Development
 
+* SQL Server Development
+* SSIS Package Development
+* Git Version Control
+* Technical Documentation
 
+---
 
-Total Income
+# Current Project Status
 
-Total Expense
+## DW_FamilyFinance Version 2.0
 
-Net Savings
+### Completed
 
-Validation Results
+* Staging Layer
+* Data Warehouse Layer
+* ETL Framework
+* Audit Framework
+* Validation Framework
+* Reporting Layer
+* Power BI Semantic Model Design
+* Documentation
+* Maintenance Framework
 
-Table	Rows
+### Next Enhancements
 
-DimDate	7,671
+* Power BI Dashboard Development
+* Budget vs Actual Reporting
+* Financial Forecasting
+* SQL Server Agent Scheduling
+* Azure Data Factory Integration
+* Cloud Data Warehouse Migration
 
-DimBank	3
+---
 
-DimDescription	941
+# Author
 
-DimIncomeSource	5
-
-FactExpense	5,887
-
-FactIncome	230
-
-
-
-Validation Status:
-
-
-
-PASS
-
-
-
-No orphan records detected.
-
-
-
-No duplicate fact records detected.
-
-
-
-Project Status
-
-DW\_FamilyFinance Version 1.0
-
-Completed
-
-Staging Layer
-
-Incremental Loading Framework
-
-Audit Framework
-
-Dimension Tables
-
-Fact Tables
-
-ETL Procedures
-
-Reporting Views
-
-SSIS Automation
-
-Power BI Integration Ready
-
-Next Phase
-
-Power BI Dashboard Development
-
-KPI Reporting
-
-Financial Trend Analysis
-
-Budget vs Actual Reporting
-
-Author
-
-
-
-Behailu Tessema
-
-
+**Behailu Tessema**
 
 Data Engineer | BI Developer | SQL Server Developer
 
+GitHub: https://github.com/BehailuDeveloperMode
 
-
-GitHub:
-
-https://github.com/BehailuDeveloperMode
-
-
-
-Website:
-
-https://www.developermode.dev
-
+Website: https://www.developermode.dev
