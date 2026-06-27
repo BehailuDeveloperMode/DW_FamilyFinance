@@ -1,71 +1,93 @@
 # DW_FamilyFinance
 
-## Enterprise SQL Server Data Warehouse for Family Financial Analytics
+# Enterprise SQL Server Data Warehouse for Family Financial Analytics
 
-DW_FamilyFinance is an end-to-end Data Warehouse and Business Intelligence solution designed to automate the collection, transformation, storage, and analysis of personal and family financial data.
+## Project Overview
 
-The project integrates banking transactions, payroll records, and expense classification rules into a centralized SQL Server Data Warehouse that supports reporting, budgeting, expense tracking, and long-term financial planning. The solution follows enterprise data warehousing principles, including staging, dimensional modeling, ETL automation, audit tracking, and reporting.
+**DW_FamilyFinance** is an end-to-end Business Intelligence (BI) and Data Warehouse solution designed to automate the collection, transformation, storage, and analysis of family financial data.
+
+The project consolidates banking transactions, payroll records, and expense classification data into a centralized SQL Server Data Warehouse that supports executive reporting, budgeting, expense tracking, payroll analysis, and long-term financial planning.
+
+The solution follows enterprise data warehousing best practices, including:
+
+* Staging and Data Warehouse architecture
+* Star Schema dimensional modeling
+* Incremental ETL processing
+* Audit logging and data validation
+* SQL Server stored procedures
+* SSIS package automation
+* Power BI Semantic Model
+* Enterprise DAX Measure Library
+* Executive dashboard reporting
 
 ---
 
-## Project Architecture
+# Solution Architecture
 
 ```text
-Source Files (Excel / Google Sheets)
-                │
-                ▼
-       STG_FamilyLiving
-                │
-                ▼
-       DW_FamilyFinance
-                │
-                ▼
-          Power BI
+                Source Files
+      (Excel / Google Sheets / Payroll)
+                    │
+                    ▼
+             STG_FamilyLiving
+             (Staging Database)
+                    │
+                    ▼
+            DW_FamilyFinance
+       (Enterprise Data Warehouse)
+                    │
+                    ▼
+         Power BI Semantic Model
+                    │
+                    ▼
+        Executive Analytics Dashboards
 ```
 
 ---
 
-## Technology Stack
+# Technology Stack
 
-### Database
+## Database
 
 * SQL Server 2022
 
-### ETL
+## ETL
 
 * SQL Server Integration Services (SSIS)
 
-### Reporting & Analytics
+## Reporting & Analytics
 
-* Power BI
+* Power BI Desktop
+* DAX (Data Analysis Expressions)
 
-### Development Tools
+## Development Tools
 
 * Visual Studio 2022
 * SQL Server Management Studio (SSMS)
-* Git & GitHub
+* Git
+* GitHub
 
 ---
 
-## Database Architecture
+# Database Architecture
 
-### Staging Layer – STG_FamilyLiving
+## Staging Layer — STG_FamilyLiving
 
-The staging environment is responsible for collecting and validating source data before it is loaded into the data warehouse.
+The staging database is responsible for collecting, validating, and preparing source data before loading it into the enterprise data warehouse.
 
-#### Core Tables
+### Core Tables
 
 * STG_FamilySourceData
 * Family_Income
 * STG_Description_LookUp
 
-#### Audit Tables
+### Audit Tables
 
 * STG_FileLoadAudit
 * STG_IncomeLoadAudit
 * STG_DescriptionLoadAudit
 
-#### Key Features
+### Key Features
 
 * Incremental loading
 * Audit logging
@@ -73,26 +95,27 @@ The staging environment is responsible for collecting and validating source data
 * Metadata tracking
 * Data validation
 * Duplicate prevention
+* Row count verification
 
 ---
 
-### Data Warehouse Layer – DW_FamilyFinance
+## Data Warehouse Layer — DW_FamilyFinance
 
-The data warehouse uses a Star Schema design to support efficient analytics and reporting.
+The enterprise data warehouse follows a Star Schema design to provide high-performance analytics and reporting.
 
-#### Dimension Tables
+### Dimension Tables
 
 * DimDate
 * DimBank
 * DimDescription
 * DimIncomeSource
 
-#### Fact Tables
+### Fact Tables
 
 * FactExpense
 * FactIncome
 
-#### Reporting Views
+### Reporting Views
 
 * Expense Detail
 * Income Detail
@@ -101,52 +124,88 @@ The data warehouse uses a Star Schema design to support efficient analytics and 
 
 ---
 
-## SSIS ETL Framework
+# SSIS ETL Framework
 
-### STG_LoadExpenseData
+The ETL framework automates data movement from the staging environment into the enterprise data warehouse.
 
-Features:
+## STG_LoadExpenseData
+
+Features
 
 * Dynamic file processing
 * OneDrive integration
 * Metadata extraction
 * Incremental loading using File Modified Date
 * Audit tracking
-* Automated reload of updated files
+* Automatic reload of updated files
 
-### STG_LoadIncomeData
+---
 
-Features:
+## STG_LoadIncomeData
 
-* Incremental loading using Pay_Day
-* Max date tracking
+Features
+
+* Incremental loading using Pay Day
+* Maximum date tracking
 * Audit logging
 * Row count validation
 
-### STG_LoadDescriptionData
+---
 
-Features:
+## STG_LoadDescriptionData
+
+Features
 
 * Incremental lookup loading
 * Duplicate prevention
-* Row count tracking
+* Row count verification
 * Audit logging
 
-### STG_Master_Incremental
+---
 
-Master package responsible for orchestrating all staging processes:
+## STG_Master_Incremental
+
+Master ETL package responsible for orchestrating all staging processes.
 
 ```text
 STG_LoadDescriptionData
-        ↓
+          │
+          ▼
 STG_LoadIncomeData
-        ↓
+          │
+          ▼
 STG_LoadExpenseData
 ```
 
 ---
 
-## Key Skills Demonstrated
+# Power BI Solution
+
+The reporting layer is built using Power BI and follows enterprise semantic modeling best practices.
+
+## Dashboard Pages
+
+* Executive Summary
+* Expense Analysis
+* Income Analysis
+* Savings Analysis
+* Data Validation
+
+## Power BI Features
+
+* Star Schema Semantic Model
+* Enterprise DAX Measure Library
+* Executive KPI Dashboard
+* Dynamic Titles
+* Time Intelligence
+* Conditional Formatting
+* Interactive Slicers
+* Financial Analytics
+* Payroll Analytics
+
+---
+
+# Key Skills Demonstrated
 
 * SQL Server Development
 * Data Warehousing
@@ -155,25 +214,61 @@ STG_LoadExpenseData
 * SSIS Package Development
 * Incremental Loading Strategies
 * Data Modeling
+* SQL Stored Procedures
+* Power BI Development
+* DAX Development
+* Power BI Semantic Modeling
 * Data Validation
 * Audit Framework Design
-* Power BI Data Modeling
+* Financial Analytics
+* Business Intelligence
 * Git Version Control
 
 ---
 
-## Business Value
+# Business Value
 
-This solution provides a centralized platform for managing family income and expenses while demonstrating real-world enterprise data engineering concepts. The project automates data collection, improves data quality, enables historical analysis, and supports data-driven financial decision-making.
+DW_FamilyFinance demonstrates how enterprise data engineering and business intelligence techniques can be applied to financial analytics.
+
+The solution automates data collection, improves data quality, centralizes financial information, and enables interactive reporting for income analysis, expense tracking, payroll monitoring, budgeting, and long-term financial planning.
+
+The project showcases a complete end-to-end BI solution, from raw data ingestion to executive dashboards, following enterprise development standards.
 
 ---
 
-## Author
+# Privacy Notice
 
-### Behailu Tessema
+The original Power BI (.pbix) file and source datasets are intentionally excluded from this repository because they contain personal financial and payroll information.
 
-Data Engineer | BI Developer | SQL Server Developer
+This repository focuses on the solution architecture, SQL Server implementation, ETL framework, semantic model, DAX measure library, and dashboard design while protecting sensitive personal data.
 
-GitHub: https://github.com/BehailuDeveloperMode
+---
 
-Website: https://www.developermode.dev
+# Future Enhancements
+
+* Microsoft Fabric Integration
+* Azure SQL Database Deployment
+* Power BI Service Deployment
+* Row-Level Security (RLS)
+* Calculation Groups
+* Budget Forecasting
+* Financial Trend Forecasting
+* Automated Data Quality Monitoring
+
+---
+
+# Author
+
+## Behailu Tessema
+
+**Data Engineer | Business Intelligence Developer | SQL Server Developer**
+
+### Connect with Me
+
+**GitHub**
+
+https://github.com/BehailuDeveloperMode
+
+**Portfolio**
+
+https://www.developermode.dev
