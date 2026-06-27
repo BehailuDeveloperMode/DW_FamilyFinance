@@ -1,4 +1,4 @@
-# DW_FamilyFinance – Enterprise Data Warehouse & Business Intelligence Platform
+# DW_FamilyFinance Enterprise Data Warehouse & Business Intelligence Platform
 
 ## Project Information
 
@@ -18,9 +18,16 @@
 
 DW_FamilyFinance is an enterprise-style SQL Server Data Warehouse and Business Intelligence solution designed to centralize, organize, analyze, and visualize family income and expense data.
 
-The project automates the collection of financial transactions from multiple sources, applies data quality and transformation rules, loads data into a dimensional warehouse model, and provides analytical reporting through Power BI dashboards.
+The project automates the collection of financial transactions from multiple source systems, applies data quality and transformation rules, loads data into a dimensional data warehouse, and delivers analytical reporting through Power BI dashboards.
 
-The solution demonstrates real-world Data Engineering, ETL Development, Data Warehousing, SQL Server Development, Business Intelligence, and Data Modeling practices.
+The solution demonstrates real-world practices in:
+
+* Data Engineering
+* ETL Development
+* Data Warehousing
+* SQL Server Development
+* Business Intelligence
+* Data Modeling
 
 ---
 
@@ -28,34 +35,34 @@ The solution demonstrates real-world Data Engineering, ETL Development, Data War
 
 ```text
 Source Files (Excel / Google Sheets)
-                │
-                ▼
-       STG_FamilyLiving
-                │
-                ▼
-       DW_FamilyFinance
-                │
-                ▼
-           Power BI
+            │
+            ▼
+   STG_FamilyLiving
+            │
+            ▼
+   DW_FamilyFinance
+            │
+            ▼
+        Power BI
 ```
 
 ---
 
 # Technology Stack
 
-### Database
+## Database
 
 * SQL Server 2022
 
-### ETL
+## ETL
 
 * SQL Server Integration Services (SSIS)
 
-### Reporting & Analytics
+## Reporting & Analytics
 
 * Power BI
 
-### Development Tools
+## Development Tools
 
 * Visual Studio 2022
 * SQL Server Management Studio (SSMS)
@@ -99,25 +106,23 @@ Source Files (Excel / Google Sheets)
 
 ## Database
 
-```text
 DW_FamilyFinance
-```
 
-## Schemas
+### Schemas
 
-### dim
+#### dim
 
 Contains descriptive business entities used for reporting and analytics.
 
-### fact
+#### fact
 
 Contains measurable business transactions.
 
-### etl
+#### etl
 
-Contains warehouse loading procedures.
+Contains warehouse loading stored procedures.
 
-### rpt
+#### rpt
 
 Contains reporting and analytical views.
 
@@ -133,15 +138,7 @@ Provides calendar and time intelligence support for reporting and analytics.
 
 ### Date Range
 
-```text
 2020-01-01 through 2040-12-31
-```
-
-### Current Row Count
-
-```text
-7,671
-```
 
 ### Key Columns
 
@@ -166,13 +163,7 @@ Provides calendar and time intelligence support for reporting and analytics.
 
 Stores financial institutions associated with expense transactions.
 
-### Current Row Count
-
-```text
-2
-```
-
-### Values
+### Example Values
 
 * Citi Bank
 * Wells Fargo Bank
@@ -184,12 +175,6 @@ Stores financial institutions associated with expense transactions.
 ### Purpose
 
 Stores standardized expense classifications.
-
-### Current Row Count
-
-```text
-941
-```
 
 ### Key Columns
 
@@ -208,17 +193,13 @@ Stores standardized expense classifications.
 
 Stores employer and employee information.
 
-### Current Row Count
-
-```text
-5
-```
-
-### Examples
+### Example Values
 
 * Casa Coloma
 * Windsor El Camino
 * CITIGUARD INC
+* ClipBoard
+* Family Tax
 
 ---
 
@@ -233,12 +214,6 @@ Stores individual expense transactions.
 ### Grain
 
 One row per expense transaction.
-
-### Current Row Count
-
-```text
-5,887
-```
 
 ### Key Columns
 
@@ -261,12 +236,6 @@ Stores payroll and income transactions.
 
 One row per paycheck.
 
-### Current Row Count
-
-```text
-230
-```
-
 ### Key Columns
 
 * IncomeFactKey
@@ -285,9 +254,7 @@ One row per paycheck.
 
 ## Database
 
-```text
 STG_FamilyLiving
-```
 
 ### Core Tables
 
@@ -316,90 +283,98 @@ STG_FamilyLiving
 
 ## STG_LoadDescriptionData
 
-Features:
+### Features
 
 * Incremental Description Loading
 * Duplicate Prevention
 * Audit Tracking
 
+---
+
 ## STG_LoadIncomeData
 
-Features:
+### Features
 
-* Incremental Pay_Day Loading
-* Max Date Tracking
+* Incremental Pay Day Loading
+* Maximum Date Tracking
 * Audit Logging
+
+---
 
 ## STG_LoadExpenseData
 
-Features:
+### Features
 
 * Dynamic File Processing
-* FileModifiedDate Incremental Logic
+* File Modified Date Incremental Logic
 * Metadata Extraction
 * Audit Tracking
 
+---
+
 ## STG_Master_Incremental
 
-Execution Order:
+### Execution Order
 
 ```text
 STG_LoadDescriptionData
-        ↓
+          │
+          ▼
 STG_LoadIncomeData
-        ↓
+          │
+          ▼
 STG_LoadExpenseData
 ```
 
+---
+
 ## DW_Initial_Setup
 
-Purpose:
+### Purpose
 
-```text
-DimDate One-Time Load
-```
+Performs the one-time initialization of the data warehouse, including the initial load of the Date dimension.
+
+---
 
 ## DW_Load_FamilyFinance
 
-Execution Order:
+### Execution Order
 
 ```text
 DimBank
-        ↓
+     │
+     ▼
 DimDescription
-        ↓
+     │
+     ▼
 DimIncomeSource
-        ↓
+     │
+     ▼
 FactExpense
-        ↓
+     │
+     ▼
 FactIncome
 ```
 
 ---
 
-# ETL Procedures
+# ETL Stored Procedures
 
 ## Dimension Loads
 
-```sql
-etl.usp_Load_DimDate
-etl.usp_Load_DimBank
-etl.usp_Load_DimDescription
-etl.usp_Load_DimIncomeSource
-```
+* etl.usp_Load_DimDate
+* etl.usp_Load_DimBank
+* etl.usp_Load_DimDescription
+* etl.usp_Load_DimIncomeSource
 
 ## Fact Loads
 
-```sql
-etl.usp_Load_FactExpense
-etl.usp_Load_FactIncome
-```
+* etl.usp_Load_FactExpense
+* etl.usp_Load_FactIncome
 
-## DW Wrapper Procedure
+## Master Procedure
 
-```sql
-etl.usp_Load_DW_FamilyFinance
-```
+* etl.usp_Load_DW_FamilyFinance
 
 ---
 
@@ -407,20 +382,16 @@ etl.usp_Load_DW_FamilyFinance
 
 ## Detail Views
 
-```sql
-rpt.vw_ExpenseDetail
-rpt.vw_IncomeDetail
-```
+* rpt.vw_ExpenseDetail
+* rpt.vw_IncomeDetail
 
 ## Summary Views
 
-```sql
-rpt.vw_MonthlyFinancialSummary
-rpt.vw_ExpenseByCategory
-rpt.vw_ExpenseByBank
-rpt.vw_MonthlyExpenseTrend
-rpt.vw_MonthlyIncomeTrend
-```
+* rpt.vw_MonthlyFinancialSummary
+* rpt.vw_ExpenseByCategory
+* rpt.vw_ExpenseByBank
+* rpt.vw_MonthlyExpenseTrend
+* rpt.vw_MonthlyIncomeTrend
 
 ---
 
@@ -434,9 +405,11 @@ Tracks:
 * Income Loads
 * Description Loads
 
+---
+
 ## Validation Framework
 
-Checks:
+Performs validation for:
 
 * Duplicate Records
 * Orphan Records
@@ -444,10 +417,12 @@ Checks:
 * Row Count Reconciliation
 * Fact-to-Dimension Integrity
 
-## Maintenance Framework
+---
+
+# Maintenance Framework
 
 ```text
-Maintenance/
+Maintenance
 └── Clean_DW_Data_And_Reload.sql
 ```
 
@@ -463,14 +438,14 @@ Supports:
 
 # Power BI Semantic Model
 
-## Dimensions
+## Dimension Tables
 
 * DimDate
 * DimBank
 * DimDescription
 * DimIncomeSource
 
-## Facts
+## Fact Tables
 
 * FactExpense
 * FactIncome
@@ -534,7 +509,7 @@ DimIncomeSource
 ## Savings Analysis
 
 * Monthly Savings
-* Income vs Expense
+* Income vs. Expense
 * Savings Trend
 
 ---
@@ -553,7 +528,6 @@ DimIncomeSource
 * Star Schema Design
 * Fact and Dimension Modeling
 * Surrogate Keys
-* Reporting Layer
 
 ## Business Intelligence
 
@@ -572,9 +546,9 @@ DimIncomeSource
 
 # Current Project Status
 
-## DW_FamilyFinance Version 2.0
+**DW_FamilyFinance Version 2.0**
 
-### Completed
+Completed:
 
 * Staging Layer
 * Data Warehouse Layer
@@ -582,14 +556,16 @@ DimIncomeSource
 * Audit Framework
 * Validation Framework
 * Reporting Layer
-* Power BI Semantic Model Design
+* Power BI Semantic Model
 * Documentation
 * Maintenance Framework
 
-### Next Enhancements
+---
 
-* Power BI Dashboard Development
-* Budget vs Actual Reporting
+# Planned Enhancements
+
+* Complete Power BI Dashboard Development
+* Budget vs. Actual Reporting
 * Financial Forecasting
 * SQL Server Agent Scheduling
 * Azure Data Factory Integration
@@ -597,12 +573,24 @@ DimIncomeSource
 
 ---
 
+# Summary
+
+DW_FamilyFinance Version 2.0 demonstrates a complete enterprise-style Business Intelligence solution built with SQL Server, SSIS, Power BI, and DAX.
+
+The project follows modern data warehousing principles, including layered architecture, Star Schema design, incremental ETL processing, data validation, audit logging, semantic modeling, and executive dashboard reporting. It provides a scalable and maintainable foundation for financial analytics while showcasing end-to-end Data Engineering and Business Intelligence development practices.
+
+---
+
 # Author
 
-**Behailu Tessema**
+## Behailu Tessema
 
-Data Engineer | BI Developer | SQL Server Developer
+**Data Engineer | Business Intelligence Developer | SQL Server Developer**
 
-GitHub: https://github.com/BehailuDeveloperMode
+**GitHub**
 
-Website: https://www.developermode.dev
+https://github.com/BehailuDeveloperMode
+
+**Portfolio**
+
+https://www.developermode.dev

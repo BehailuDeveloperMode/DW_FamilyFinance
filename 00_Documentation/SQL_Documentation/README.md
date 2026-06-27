@@ -1,55 +1,113 @@
-# Source Layer Documentation
+# SQL Documentation
 
-## Purpose
+## Overview
 
-The Source layer represents the origin of all data used within the DW_FamilyFinance platform.
+This folder contains the SQL documentation for the **DW_FamilyFinance** project.
 
-Source files are maintained outside the Git repository to protect sensitive financial and payroll information.
+The documentation describes the SQL Server architecture, staging database, enterprise data warehouse, ETL processes, and supporting database objects used throughout the solution.
 
-## Source Location
+---
 
-OneDrive\Family Finance
+## Documentation Included
 
-## Source Folders
+The SQL documentation covers the following components:
 
-### STG_FamilyLiving_Expense
+* STG_FamilyLiving Database
+* DW_FamilyFinance Database
+* Database Architecture
+* ETL Process
+* Star Schema Design
+* SQL Stored Procedures
+* Database Maintenance
+* Reporting Views
 
-Stores bank transaction source files used for expense reporting.
+---
 
-### Income_Statement
+## Source Data
+
+The DW_FamilyFinance project uses financial and payroll data collected from multiple source systems.
+
+Source files are maintained **outside** the Git repository to protect sensitive financial information and personally identifiable information (PII).
+
+### Source Location
+
+```text
+OneDrive
+└── Family Finance
+```
+
+### Source Folders
+
+#### STG_FamilyLiving_Expense
+
+Stores bank transaction files used for expense reporting.
+
+#### Income_Statement
 
 Stores payroll and income source files.
 
-### STG_Description
+#### STG_Description
 
-Stores description lookup files used for categorization and standardization.
+Stores lookup files used to standardize expense descriptions.
 
-### Description_NoMatching
+#### Description_NoMatching
 
-Stores descriptions that require review and mapping.
+Stores descriptions that require manual review and mapping.
 
-### STG_Report
+#### STG_Report
 
 Stores legacy reporting and validation files.
 
+---
+
 ## Data Flow
 
+```text
 Google Forms
-↓
+      │
+      ▼
 Excel Files
-↓
+      │
+      ▼
 OneDrive
-↓
+      │
+      ▼
 SSIS
-↓
+      │
+      ▼
 STG_FamilyLiving
-↓
-DW_DataWarehouse
-↓
+      │
+      ▼
+DW_FamilyFinance
+      │
+      ▼
 Power BI
+```
 
-## Git Policy
+---
 
-Real financial data, payroll files, bank statements, and personally identifiable information (PII) are not stored in the Git repository.
+## Git Repository Policy
 
-Only documentation, templates, and sanitized sample files may be stored in Source\Samples.
+To protect sensitive financial information, the following items are **not** stored in this Git repository:
+
+* Bank statements
+* Payroll files
+* Personal financial data
+* Personally Identifiable Information (PII)
+* Production source files
+
+The repository contains only:
+
+* SQL scripts
+* Documentation
+* Sample templates
+* Architecture diagrams
+* Sanitized examples
+
+---
+
+## Purpose
+
+The SQL documentation serves as a reference for understanding the database architecture, ETL framework, and reporting components of the DW_FamilyFinance solution.
+
+It is intended to support development, maintenance, knowledge sharing, and future enhancements while following enterprise SQL Server development practices.
