@@ -1,0 +1,2859 @@
+// ============================================================================
+// DW_FamilyFinance
+// Enterprise DAX Measure Library
+//
+// Author  : Behailu Tessema
+// Version : 2.0
+// Purpose : Documents all Power BI DAX measures, calculated columns, and
+//           calculated tables used in the DW_FamilyFinance semantic model.
+//
+// Documentation Standard:
+//     Each measure includes a business purpose, business question, usage area,
+//     dependencies, and expected return type. This makes the DAX library easier
+//     to maintain, review, and present as a portfolio artifact.
+// ============================================================================
+
+// ==========================================
+// 1. CORE FINANCIAL MEASURES
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Measure Name : Gross Payment
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total gross earnings before payroll taxes and deductions.
+//
+// Business Question:
+//     How much income was earned before taxes?
+//
+// Used In:
+//     Executive Summary; Income Analysis; Gross vs Net comparisons
+//
+// Dependencies:
+//     FactFamilyIncome[GrossPayment]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Gross Payment] = 
+SUM ( FactFamilyIncome[GrossPayment] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Salary
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total take-home salary after payroll taxes and deductions.
+//
+// Business Question:
+//     How much income was actually received?
+//
+// Used In:
+//     Executive Summary; Income Analysis; Savings Analysis
+//
+// Dependencies:
+//     FactFamilyIncome[EmployerNetPay]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Net Salary] = 
+SUM ( FactFamilyIncome[EmployerNetPay] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Income
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates net income for dashboard visuals. In this model it is equivalent to Net Salary.
+//
+// Business Question:
+//     How much usable income is available after payroll deductions?
+//
+// Used In:
+//     Executive Summary; Income Analysis; Savings Analysis
+//
+// Dependencies:
+//     FactFamilyIncome[EmployerNetPay]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Net Income] = 
+-- Duplicate of Net Salary used across separate visual cards
+SUM ( FactFamilyIncome[EmployerNetPay] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total household spending across all expense transactions and returns zero when no expenses exist.
+//
+// Business Question:
+//     How much money was spent during the selected period?
+//
+// Used In:
+//     Executive Summary; Expense Analysis; Savings Analysis
+//
+// Dependencies:
+//     FactFamilyExpense[ExpenseAmount]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Expense] = 
+VAR Result = SUM ( 'FactFamilyExpense'[ExpenseAmount] )
+RETURN
+    IF ( ISBLANK ( Result ), 0, Result )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Savings
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates remaining income after subtracting total expenses from net salary.
+//
+// Business Question:
+//     Did the household save money during the selected period?
+//
+// Used In:
+//     Executive Summary; Savings Analysis; KPI cards
+//
+// Dependencies:
+//     [Net Salary]; [Total Expense]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Net Savings] = 
+[Net Salary] - [Total Expense]
+
+// ----------------------------------------------------------------------------
+// Measure Name : Count of Pay Days
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Counts distinct pay dates in the payroll fact table.
+//
+// Business Question:
+//     How many pay days occurred in the selected period?
+//
+// Used In:
+//     Income Analysis; Operational KPI cards
+//
+// Dependencies:
+//     FactFamilyIncome[PayDateKey]
+//
+// Returns:
+//     Whole number
+// ----------------------------------------------------------------------------
+
+[Count of Pay Days] = 
+DISTINCTCOUNT ( FactFamilyIncome[PayDateKey] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Daily Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates expenses classified as daily expenses.
+//
+// Business Question:
+//     How much spending belongs to daily expense activity?
+//
+// Used In:
+//     Expense Analysis; Category drilldowns
+//
+// Dependencies:
+//     [Total Expense]; DimDescription[ExpenseType]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Daily Expense] = 
+CALCULATE ( [Total Expense], DimDescription[ExpenseType] = "DAILY EXPENSES" )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Fixed Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates yearly fixed expense while preserving the current year context.
+//
+// Business Question:
+//     How much fixed spending occurred by year?
+//
+// Used In:
+//     Expense Analysis; yearly comparisons
+//
+// Dependencies:
+//     [Total Expense]; DimDate[Year]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Fixed Expense] = 
+CALCULATE ( [Total Expense], ALLEXCEPT( ( 'FactFamilyExpense' ), DimDate[Year]))
+
+// ----------------------------------------------------------------------------
+// Measure Name : Fixed Salary
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates yearly salary while preserving the current year context.
+//
+// Business Question:
+//     How much salary was earned by year?
+//
+// Used In:
+//     Income Analysis; yearly comparisons
+//
+// Dependencies:
+//     [Net Salary]; DimDate[Year]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Fixed Salary] = 
+CALCULATE ( [Net Salary], ALLEXCEPT( ( 'FactFamilyExpense' ), DimDate[Year]))
+
+
+// ==========================================
+// 2. TAX MEASURES
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Tax
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total payroll tax withheld.
+//
+// Business Question:
+//     How much income was withheld for taxes?
+//
+// Used In:
+//     Executive Summary; Income Analysis; Tax Breakdown
+//
+// Dependencies:
+//     FactFamilyIncome[TotalTax]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Tax] = 
+SUM ( FactFamilyIncome[TotalTax] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Federal Tax
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates federal income tax withheld.
+//
+// Business Question:
+//     How much federal tax was paid?
+//
+// Used In:
+//     Income Analysis; Tax Breakdown
+//
+// Dependencies:
+//     FactFamilyIncome[FederalTax]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Federal Tax] = 
+SUM ( FactFamilyIncome[FederalTax] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total SS Tax
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates Social Security tax withheld.
+//
+// Business Question:
+//     How much Social Security tax was paid?
+//
+// Used In:
+//     Income Analysis; Tax Breakdown
+//
+// Dependencies:
+//     FactFamilyIncome[SSTax]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total SS Tax] = 
+SUM ( FactFamilyIncome[SSTax] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Medical Tax
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates Medicare tax withheld.
+//
+// Business Question:
+//     How much Medicare tax was paid?
+//
+// Used In:
+//     Income Analysis; Tax Breakdown
+//
+// Dependencies:
+//     FactFamilyIncome[MedicareTax]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Medical Tax] = 
+SUM ( FactFamilyIncome[MedicareTax] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total CA State Tax
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates California state income tax withheld.
+//
+// Business Question:
+//     How much California state tax was paid?
+//
+// Used In:
+//     Income Analysis; Tax Breakdown
+//
+// Dependencies:
+//     FactFamilyIncome[CAStateTax]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total CA State Tax] = 
+SUM ( FactFamilyIncome[CAStateTax] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total CA SDI Tax
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates California SDI tax withheld.
+//
+// Business Question:
+//     How much CA SDI tax was paid?
+//
+// Used In:
+//     Income Analysis; Tax Breakdown
+//
+// Dependencies:
+//     FactFamilyIncome[CASDITax]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total CA SDI Tax] = 
+SUM ( FactFamilyIncome[CASDITax] )
+
+
+// ==========================================
+// 3. BUDGET STATUS & COLOR CODES
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Measure Name : Salary Color Code
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a simple text color status by comparing net salary to total expense.
+//
+// Business Question:
+//     Is income greater than, equal to, or less than expenses?
+//
+// Used In:
+//     Conditional formatting; KPI cards
+//
+// Dependencies:
+//     [Net Salary]; [Total Expense]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Salary Color Code] = 
+IF (
+    [Net Salary] > [Total Expense],
+        "Green",
+    IF (
+        [Net Salary] = [Total Expense],
+            "Yellow",
+        "Red"
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Income Color Code
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a simple color status based on positive or negative net savings.
+//
+// Business Question:
+//     Is the selected period financially positive or negative?
+//
+// Used In:
+//     Conditional formatting; KPI cards
+//
+// Dependencies:
+//     [Net Savings]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Income Color Code] = 
+IF ( [Net Savings] > 0, "Green", "Red" )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Expense Color Code
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a color status by comparing total expense against net salary.
+//
+// Business Question:
+//     Are expenses over, equal to, or under income?
+//
+// Used In:
+//     Conditional formatting; KPI cards
+//
+// Dependencies:
+//     [Total Expense]; [Net Salary]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Expense Color Code] = 
+IF (
+    [Total Expense] > [Net Salary],
+        "Red",
+    IF (
+        [Total Expense] = [Net Salary],
+            "Yellow",
+        "Green"
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Expense Status
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Classifies spending status using numeric indicators for under, on, or over budget.
+//
+// Business Question:
+//     Is spending under budget, on budget, or over budget?
+//
+// Used In:
+//     Conditional formatting; status labels
+//
+// Dependencies:
+//     [Total Expense]; [Net Salary]
+//
+// Returns:
+//     Integer status
+// ----------------------------------------------------------------------------
+
+[Expense Status] = 
+VAR Exp = [Total Expense]
+VAR Sal = [Net Salary]
+RETURN
+IF (
+    ISBLANK ( Exp ) || ISBLANK ( Sal ),
+    BLANK(),
+    SWITCH (
+        TRUE(),
+        Exp < Sal, -1, // Under budget
+        Exp = Sal,  0, // On budget
+        Exp > Sal,  1  // Over budget
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Expense Color (Hex)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a hexadecimal color code based on expense status.
+//
+// Business Question:
+//     What color should represent the expense status?
+//
+// Used In:
+//     Conditional formatting by field value
+//
+// Dependencies:
+//     [Expense Status]
+//
+// Returns:
+//     Hex color text
+// ----------------------------------------------------------------------------
+
+[Expense Color (Hex)] = 
+SWITCH (
+    [Expense Status],
+    -1, "#00B050", // Green
+     0, "#FFC000", // Yellow
+     1, "#C00000", // Red
+    BLANK()
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Savings Status
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Classifies net savings as surplus, balanced, or deficit.
+//
+// Business Question:
+//     Did the household save money or run a deficit?
+//
+// Used In:
+//     KPI cards; conditional formatting
+//
+// Dependencies:
+//     [Net Savings]
+//
+// Returns:
+//     Integer status
+// ----------------------------------------------------------------------------
+
+[Net Savings Status] = 
+VAR _Savings = [Net Savings]
+RETURN
+    SWITCH (
+        TRUE (),
+        ISBLANK ( _Savings ), BLANK (),
+        _Savings > 0, 1,
+        _Savings = 0, 0,
+        -1
+    )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Savings Color
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a text color label based on net savings status.
+//
+// Business Question:
+//     What color category represents savings performance?
+//
+// Used In:
+//     Conditional formatting
+//
+// Dependencies:
+//     [Net Savings Status]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Net Savings Color] = 
+SWITCH (
+    [Net Savings Status],
+    1, "Green",
+    0, "Yellow",
+    -1, "Red",
+    BLANK ()
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Savings Color Hex
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a hexadecimal color code based on net savings status.
+//
+// Business Question:
+//     What exact hex color should be used for savings status?
+//
+// Used In:
+//     Conditional formatting by field value
+//
+// Dependencies:
+//     [Net Savings Status]
+//
+// Returns:
+//     Hex color text
+// ----------------------------------------------------------------------------
+
+[Net Savings Color Hex] = 
+SWITCH (
+    [Net Savings Status],
+    1, "#00B050",
+    0, "#FFC000",
+    -1, "#C00000",
+    BLANK ()
+)
+
+
+// ==========================================
+// 4. KPI CARDS & CONTRIBUTIONS
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Income Status
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Classifies net savings as surplus, balanced, or deficit for KPI text.
+//
+// Business Question:
+//     Is the selected period a surplus, balanced, or deficit period?
+//
+// Used In:
+//     Executive KPI labels
+//
+// Dependencies:
+//     [Net Savings]
+//
+// Returns:
+//     Integer status
+// ----------------------------------------------------------------------------
+
+[Net Income Status] = 
+VAR income = [Net Savings]
+RETURN
+IF (
+    ISBLANK(income),
+    BLANK(),
+    SWITCH ( TRUE(),
+        income > 0,  1,
+        income = 0,  0,
+        -1
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Income Arrow
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a directional symbol based on net income status.
+//
+// Business Question:
+//     Should the KPI show an up, flat, or down indicator?
+//
+// Used In:
+//     Executive KPI labels
+//
+// Dependencies:
+//     [Net Income Status]
+//
+// Returns:
+//     Text symbol
+// ----------------------------------------------------------------------------
+
+[Net Income Arrow] = 
+SWITCH (
+    [Net Income Status],
+     1, "▲",
+     0, "■",
+    -1, "▼",
+    BLANK()
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Net Income KPI (Amount)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Formats net savings as a compact KPI label with amount, arrow, and status text.
+//
+// Business Question:
+//     What is the selected period financial result in a user-friendly KPI format?
+//
+// Used In:
+//     Executive Summary; Savings Analysis
+//
+// Dependencies:
+//     [Net Savings]; [Net Income Status]; [Net Income Arrow]
+//
+// Returns:
+//     Formatted text
+// ----------------------------------------------------------------------------
+
+[Net Income KPI (Amount)] = 
+VAR Income    = [Net Savings]
+VAR StatusTxt =
+    SWITCH ( [Net Income Status],
+        1, "Surplus",
+        0, "Balanced",
+       -1, "Deficit",
+        BLANK()
+    )
+VAR AbsIncome = ABS ( Income )
+VAR Scale =
+    SWITCH ( TRUE(),
+        AbsIncome >= 1e12, 1e12,
+        AbsIncome >= 1e9,  1e9,
+        AbsIncome >= 1e6,  1e6,
+        AbsIncome >= 1e3,  1e3,
+        1
+    )
+VAR Suffix =
+    SWITCH ( TRUE(),
+        AbsIncome >= 1e12, "T",
+        AbsIncome >= 1e9,  "B",
+        AbsIncome >= 1e6,  "M",
+        AbsIncome >= 1e3,  "K",
+        ""
+    )
+VAR Scaled = DIVIDE( Income, Scale )
+VAR AmtTxt = "$" & FORMAT( Scaled, "0.00" ) & Suffix
+RETURN
+IF (
+    ISBLANK ( Income ),
+    BLANK(),
+    AmtTxt & " " & [Net Income Arrow] & " " & StatusTxt
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Budget Delta (Expense - Salary)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates the dollar difference between total expense and net salary.
+//
+// Business Question:
+//     How far over or under income are expenses?
+//
+// Used In:
+//     Budget status visuals
+//
+// Dependencies:
+//     [Total Expense]; [Net Salary]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Budget Delta (Expense - Salary)] = 
+VAR Exp = [Total Expense]
+VAR Sal = [Net Salary]
+RETURN
+IF ( ISBLANK(Exp) || ISBLANK(Sal), BLANK(), Exp - Sal )
+
+// ----------------------------------------------------------------------------
+// Measure Name : KPI Budget Over/Under %
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates expense variance as a percentage of net salary.
+//
+// Business Question:
+//     What percentage over or under income is spending?
+//
+// Used In:
+//     Budget KPI cards
+//
+// Dependencies:
+//     [Total Expense]; [Net Salary]
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[KPI Budget Over/Under %] = 
+VAR Exp = [Total Expense]
+VAR Sal = [Net Salary]
+RETURN IF ( ISBLANK(Exp) || ISBLANK(Sal) || Sal = 0, BLANK(), DIVIDE( Exp - Sal, Sal ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Budget Over/Under %
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Creates a dynamic text label showing budget variance percentage, arrow, and status.
+//
+// Business Question:
+//     What is the budget status for the current selection?
+//
+// Used In:
+//     Budget KPI labels; dynamic cards
+//
+// Dependencies:
+//     [KPI Budget Over/Under %]; [Expense Status]
+//
+// Returns:
+//     Formatted text
+// ----------------------------------------------------------------------------
+
+[Budget Over/Under %] = 
+VAR YearsCount   = COUNTROWS ( VALUES ( 'DimDate'[Year] ) )
+VAR MonthsCount  = COUNTROWS ( VALUES ( 'DimDate'[MonthCode] ) )
+VAR NoneSelected = YearsCount = 0 && MonthsCount = 0
+VAR MultiSelected = YearsCount > 1 || MonthsCount > 1
+RETURN
+IF (
+    NoneSelected,
+    "Budget % Overview",
+    VAR PctAggregated =
+        IF (
+            MultiSelected,
+            VAR NetSel = CALCULATE ( [Net Salary],   ALLSELECTED ( 'DimDate' ) )
+            VAR ExpSel = CALCULATE ( [Total Expense], ALLSELECTED ( 'DimDate' ) )
+            RETURN DIVIDE ( NetSel - ExpSel, NetSel ),
+            [KPI Budget Over/Under %]
+        )
+    VAR StatusVal =
+        IF (
+            MultiSelected,
+            SWITCH (
+                TRUE(),
+                ISBLANK ( PctAggregated ), BLANK(),
+                PctAggregated > 0, -1,
+                PctAggregated = 0,  0,
+                1
+            ),
+            [Expense Status]
+        )
+    VAR Arrow = SWITCH ( StatusVal, -1, "▼", 0, "■", 1, "▲", BLANK() )
+    VAR StatusText = SWITCH ( StatusVal, -1, "Under Budget", 0, "On Budget", 1, "Over Budget", BLANK() )
+    RETURN
+        IF (
+            ISBLANK ( PctAggregated ),
+            BLANK(),
+            FORMAT ( PctAggregated, "0.0%" ) & " " & Arrow & " " & StatusText
+        )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Category Contribution %
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates current category spending as a share of total spending across categories.
+//
+// Business Question:
+//     Which categories contribute most to total expense?
+//
+// Used In:
+//     Expense Analysis; category contribution chart
+//
+// Dependencies:
+//     [Total Expense]; DimDescription[Category]
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[Category Contribution %] = 
+DIVIDE (
+    [Total Expense],
+    CALCULATE ( [Total Expense], ALL ( DimDescription[Category] ) )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Sub_Category Contribution %
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates current subcategory spending as a share of total spending across subcategories.
+//
+// Business Question:
+//     Which subcategories contribute most to total expense?
+//
+// Used In:
+//     Expense Analysis; subcategory analysis
+//
+// Dependencies:
+//     [Total Expense]; DimDescription[SubCategory]
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[Sub_Category Contribution %] = 
+DIVIDE (
+    [Total Expense],
+    CALCULATE ( [Total Expense], ALL ( DimDescription[SubCategory] ) )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Description Contribution %
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates current description spending as a share of total spending across descriptions.
+//
+// Business Question:
+//     Which individual descriptions contribute most to total expense?
+//
+// Used In:
+//     Expense Analysis; Top expenses
+//
+// Dependencies:
+//     [Total Expense]; DimDescription[Description]
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[Description Contribution %] = 
+DIVIDE (
+    [Total Expense],
+    CALCULATE ( [Total Expense], ALL ( DimDescription[Description] ) )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Salary Pie Value
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns either total tax or net salary depending on the selected salary pie category.
+//
+// Business Question:
+//     How is gross salary split between taxes and net salary?
+//
+// Used In:
+//     Income Analysis; salary composition pie/donut
+//
+// Dependencies:
+//     Salary Pie Category[Category]; [Total Tax]; [Net Salary]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Salary Pie Value] = 
+SWITCH(
+    SELECTEDVALUE('Salary Pie Category'[Category]),
+    "Total Tax", [Total Tax],
+    "Net Salary", [Net Salary]
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Salary Pie % of Gross
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates the selected salary pie value as a percentage of gross payment.
+//
+// Business Question:
+//     What percentage of gross income is tax versus net pay?
+//
+// Used In:
+//     Income Analysis; gross-to-net breakdown
+//
+// Dependencies:
+//     [Salary Pie Value]; [Gross Payment]
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[Salary Pie % of Gross] = 
+DIVIDE(
+    [Salary Pie Value],
+    [Gross Payment]
+)
+
+
+// ==========================================
+// 5. TIME INTELLIGENCE & AVERAGES
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Measure Name : Months Count
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Counts distinct year-month periods in the current filter context.
+//
+// Business Question:
+//     How many reporting months are included in the current selection?
+//
+// Used In:
+//     Average monthly measures
+//
+// Dependencies:
+//     DimDate[YearMonthNumber]
+//
+// Returns:
+//     Whole number
+// ----------------------------------------------------------------------------
+
+[Months Count] = 
+DISTINCTCOUNT ( DimDate[YearMonthNumber] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : AVG By Year
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates average expense by distinct selected years.
+//
+// Business Question:
+//     What is average expense per selected year?
+//
+// Used In:
+//     Expense Analysis; summary cards
+//
+// Dependencies:
+//     [Total Expense]; DimDate[Year]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[AVG By Year] = 
+DIVIDE ( [Total Expense], DISTINCTCOUNT ( 'DimDate'[Year] ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Avg Expense per Month
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates average expense per selected reporting month.
+//
+// Business Question:
+//     What is the average monthly spending?
+//
+// Used In:
+//     Expense Analysis; KPI cards
+//
+// Dependencies:
+//     [Total Expense]; [Months Count]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Avg Expense per Month] = 
+DIVIDE ( [Total Expense], [Months Count] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Avg Expense per Year
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates average expense across selected years using year-level iteration.
+//
+// Business Question:
+//     What is the average annual spending?
+//
+// Used In:
+//     Expense Analysis; yearly comparisons
+//
+// Dependencies:
+//     [Total Expense]; DimDate[Year]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Avg Expense per Year] = 
+AVERAGEX ( VALUES ( DimDate[Year] ), [Total Expense] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Avg per Month (×12)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Annualizes average monthly expense by multiplying by twelve.
+//
+// Business Question:
+//     What would annual expense be if current monthly average continued?
+//
+// Used In:
+//     Expense forecasting; summary KPIs
+//
+// Dependencies:
+//     [Avg Expense per Month]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Avg per Month (×12)] = 
+[Avg Expense per Month] * 12
+
+// ----------------------------------------------------------------------------
+// Measure Name : Avg per Year (/12)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Converts average yearly expense into an estimated monthly average.
+//
+// Business Question:
+//     What is monthly spending based on yearly average?
+//
+// Used In:
+//     Expense Analysis; averages
+//
+// Dependencies:
+//     [Avg Expense per Year]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Avg per Year (/12)] = 
+DIVIDE ( [Avg Expense per Year], 12 )
+
+// ----------------------------------------------------------------------------
+// Measure Name : AVG_Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates average expense across month numbers in the selected context.
+//
+// Business Question:
+//     What is the average expense by month number?
+//
+// Used In:
+//     Expense Analysis; trend checks
+//
+// Dependencies:
+//     [Total Expense]; DimDate[MonthNumber]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[AVG_Expense] = 
+DIVIDE ( [Total Expense], DISTINCTCOUNT ( 'DimDate'[MonthNumber] ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Average Income per Month
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates average net income per selected month.
+//
+// Business Question:
+//     What is the average monthly income?
+//
+// Used In:
+//     Income Analysis; Savings Analysis
+//
+// Dependencies:
+//     [Net Income]; [Months Count]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Average Income per Month] = 
+DIVIDE ( [Net Income], [Months Count] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : MoM % Change
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates month-over-month percentage change in expense.
+//
+// Business Question:
+//     How much did spending change compared with the prior month?
+//
+// Used In:
+//     Expense Trend; KPI cards
+//
+// Dependencies:
+//     [Total Expense]; [Previous Month Expense]
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[MoM % Change] = 
+DIVIDE ( [Total Expense] - [Previous Month Expense], [Previous Month Expense] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Monthly Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates expenses classified specifically as monthly expenses.
+//
+// Business Question:
+//     How much spending belongs to recurring monthly expenses?
+//
+// Used In:
+//     Expense Analysis; monthly expense trend
+//
+// Dependencies:
+//     [Total Expense]; DimDescription[ExpenseType]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Monthly Expense] = 
+CALCULATE (
+    [Total Expense],
+    KEEPFILTERS ( 'DimDescription'[ExpenseType] = "MONTHLY EXPENSE" )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Monthly Expense Trend
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates month-to-date expense for trend analysis.
+//
+// Business Question:
+//     How is spending accumulating during the current month?
+//
+// Used In:
+//     Expense Trend visuals
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Monthly Expense Trend] = 
+CALCULATE ( [Total Expense], DATESMTD ( DimDate[FullDate] ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Rolling 3 Full Months Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense over the most recent rolling three-month period.
+//
+// Business Question:
+//     How much was spent in the last three months?
+//
+// Used In:
+//     Expense Trend; rolling analysis
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Rolling 3 Full Months Expense] = 
+CALCULATE (
+    [Total Expense],
+    DATESBETWEEN (
+        DimDate[FullDate],
+        EOMONTH ( MAX ( DimDate[FullDate] ), -3 ) + 1,
+        MAX ( DimDate[FullDate] )
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Rolling 3 Month vs Prev
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Compares current rolling three-month expense against the previous rolling three-month period.
+//
+// Business Question:
+//     Did recent three-month spending increase or decrease?
+//
+// Used In:
+//     Expense Trend; KPI comparison
+//
+// Dependencies:
+//     [Rolling 3 Full Months Expense]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Rolling 3 Month vs Prev] = 
+[Rolling 3 Full Months Expense]
+    - CALCULATE (
+        [Rolling 3 Full Months Expense],
+        DATEADD ( DimDate[FullDate], -3, MONTH )
+    )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Rolling 6 Full Months Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense over the most recent rolling six-month period.
+//
+// Business Question:
+//     How much was spent in the last six months?
+//
+// Used In:
+//     Expense Trend; rolling analysis
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Rolling 6 Full Months Expense] = 
+CALCULATE (
+    [Total Expense],
+    DATESBETWEEN (
+        DimDate[FullDate],
+        EOMONTH ( MAX ( DimDate[FullDate] ), -6 ) + 1,
+        MAX ( DimDate[FullDate] )
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Rolling 12 Full Months Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense over the most recent rolling twelve-month period.
+//
+// Business Question:
+//     What is spending over the last full year?
+//
+// Used In:
+//     Expense Trend; long-term analysis
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Rolling 12 Full Months Expense] = 
+CALCULATE (
+    [Total Expense],
+    DATESBETWEEN (
+        DimDate[FullDate],
+        EOMONTH ( MAX ( DimDate[FullDate] ), -12 ) + 1,
+        MAX ( DimDate[FullDate] )
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Previous Month Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense for the previous calendar month.
+//
+// Business Question:
+//     How much was spent last month?
+//
+// Used In:
+//     Expense Trend; MoM comparison
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Previous Month Expense] = 
+CALCULATE ( [Total Expense], PREVIOUSMONTH ( DimDate[FullDate] ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : YTD Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates year-to-date expense from the start of the current year.
+//
+// Business Question:
+//     How much has been spent so far this year?
+//
+// Used In:
+//     Executive Summary; Expense Analysis
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[YTD Expense] = 
+TOTALYTD ( [Total Expense], DimDate[FullDate] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Expense Current Year
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates current year-to-date expense using the date table.
+//
+// Business Question:
+//     How much has been spent in the current year to date?
+//
+// Used In:
+//     Expense Analysis; YoY comparison
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Expense Current Year] = 
+CALCULATE ( [Total Expense], DATESYTD ( DimDate[FullDate] ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Expense Current Year (Full)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense for the current calendar year regardless of selected date range.
+//
+// Business Question:
+//     What is total spending for the current calendar year?
+//
+// Used In:
+//     YoY comparison
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Expense Current Year (Full)] = 
+CALCULATE ( [Total Expense], YEAR ( DimDate[FullDate]) = YEAR ( TODAY () ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Current Year Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense for the current calendar year.
+//
+// Business Question:
+//     What is current year spending?
+//
+// Used In:
+//     Expense Analysis; KPI comparisons
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Current Year Expense] = 
+CALCULATE (
+    [Total Expense],
+    YEAR ( DimDate[FullDate] ) = YEAR ( TODAY () )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Current Year Income
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates net income for the current calendar year.
+//
+// Business Question:
+//     What is current year net income?
+//
+// Used In:
+//     Income Analysis; KPI comparisons
+//
+// Dependencies:
+//     [Net Income]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Current Year Income] = 
+CALCULATE (
+    [Net Income],
+    YEAR ( DimDate[FullDate] ) = YEAR ( TODAY () )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Expense Last Year (Full)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense for the previous calendar year.
+//
+// Business Question:
+//     What was total spending last year?
+//
+// Used In:
+//     YoY comparison
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Expense Last Year (Full)] = 
+CALCULATE ( [Total Expense], YEAR ( DimDate[FullDate] ) = YEAR ( TODAY () ) - 1 )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Expense Same Period Last Year
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates expenses for the same period in the prior year.
+//
+// Business Question:
+//     How does this period compare to the same period last year?
+//
+// Used In:
+//     YoY trend analysis
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Expense Same Period Last Year] = 
+CALCULATE ( [Total Expense], SAMEPERIODLASTYEAR ( DimDate[FullDate] ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Total Expense YTD Last Year
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates year-to-date expense for the previous year.
+//
+// Business Question:
+//     What was YTD spending at the same point last year?
+//
+// Used In:
+//     YoY YTD comparison
+//
+// Dependencies:
+//     [Total Expense]; DimDate[FullDate]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Total Expense YTD Last Year] = 
+CALCULATE (
+    [Total Expense],
+    DATESYTD (
+        DATEADD ( DimDate[FullDate], -1, YEAR ),
+        "12/31"
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : YoY Change (Full Year)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates dollar change between current year and prior year full-year expenses.
+//
+// Business Question:
+//     How much did annual expense change year over year?
+//
+// Used In:
+//     Expense Analysis; YoY visuals
+//
+// Dependencies:
+//     Current/last year expense measures
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[YoY Change (Full Year)] = 
+[Total Expense Current Year (Full)] - [Total Expense Last Year (Full)]
+
+// ----------------------------------------------------------------------------
+// Measure Name : YoY Change (YTD)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates dollar change between current YTD expense and previous YTD expense.
+//
+// Business Question:
+//     How much has YTD spending changed year over year?
+//
+// Used In:
+//     Expense Analysis; YoY visuals
+//
+// Dependencies:
+//     YTD expense measures
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[YoY Change (YTD)] = 
+[Total Expense Current Year] - [Total Expense YTD Last Year]
+
+// ----------------------------------------------------------------------------
+// Measure Name : YoY % (Full Year)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates full-year year-over-year expense percentage change.
+//
+// Business Question:
+//     What is the percentage change in annual spending?
+//
+// Used In:
+//     Expense Analysis; YoY KPI
+//
+// Dependencies:
+//     YoY full-year measures
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[YoY % (Full Year)] = 
+DIVIDE ( [YoY Change (Full Year)], [Total Expense Last Year (Full)] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : YoY % (YTD)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates year-to-date year-over-year expense percentage change.
+//
+// Business Question:
+//     What is the percentage change in YTD spending?
+//
+// Used In:
+//     Expense Analysis; YoY KPI
+//
+// Dependencies:
+//     YoY YTD measures
+//
+// Returns:
+//     Percentage
+// ----------------------------------------------------------------------------
+
+[YoY % (YTD)] = 
+DIVIDE ( [YoY Change (YTD)], [Total Expense YTD Last Year] )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Monthly Total (Ignore Other Dims)
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates monthly total expense while ignoring selected description and income source filters.
+//
+// Business Question:
+//     What is the overall monthly spending trend regardless of category or income filters?
+//
+// Used In:
+//     Expense Trend; reference lines
+//
+// Dependencies:
+//     [Total Expense]; DimDate
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Monthly Total (Ignore Other Dims)] = 
+CALCULATE (
+    [Total Expense],
+    ALLEXCEPT ( DimDate, DimDate[Year], DimDate[MonthNumber] ),
+    REMOVEFILTERS ( DimDescription ),
+    REMOVEFILTERS ( DimIncomeSource )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Period Expense
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Calculates total expense for the selected year and/or month while respecting report selections.
+//
+// Business Question:
+//     What is spending for the selected reporting period?
+//
+// Used In:
+//     Expense Analysis; dynamic period visuals
+//
+// Dependencies:
+//     [Total Expense]; DimDate[Year]; DimDate[MonthCode]
+//
+// Returns:
+//     Currency
+// ----------------------------------------------------------------------------
+
+[Selected Period Expense] = 
+VAR YearSel  = SELECTEDVALUE ( DimDate[Year] )
+VAR MonthSel = SELECTEDVALUE ( DimDate[MonthCode] )
+RETURN
+IF (
+    ISBLANK ( YearSel ) && ISBLANK ( MonthSel ),
+    [Total Expense],
+    CALCULATE (
+        [Total Expense],
+        REMOVEFILTERS ( DimDate ),
+        FILTER (
+            ALLSELECTED ( DimDate ),
+            ( ISBLANK ( YearSel )  || DimDate[Year]      = YearSel )
+                && 
+            ( ISBLANK ( MonthSel ) || DimDate[MonthCode] = MonthSel )
+        )
+    )
+)
+
+// ----------------------------------------------------------------------------
+// Measure Name : Refresh By
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a text label showing when the report was refreshed or viewed.
+//
+// Business Question:
+//     When was the dashboard refreshed?
+//
+// Used In:
+//     Report footer; audit labels
+//
+// Dependencies:
+//     NOW()
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Refresh By] = 
+CONCATENATE ( "Refresh By  ", NOW () )
+
+
+// ==========================================
+// 6. DYNAMIC TEXT & TITLES
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Year
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns the selected year or All Years when no single year is selected.
+//
+// Business Question:
+//     Which year is currently selected?
+//
+// Used In:
+//     Dynamic titles; slicer context labels
+//
+// Dependencies:
+//     DimDate[Year]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Selected Year] = 
+VAR _Year = SELECTEDVALUE ( DimDate[Year] )
+RETURN
+    IF ( 
+        ISBLANK ( _Year ), 
+        "All Years", 
+        FORMAT ( _Year, "0" ) 
+    )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Month
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns the selected month or All Months when no single month is selected.
+//
+// Business Question:
+//     Which month is currently selected?
+//
+// Used In:
+//     Dynamic titles; slicer context labels
+//
+// Dependencies:
+//     DimDate[MonthName]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Selected Month] = 
+VAR _Month = SELECTEDVALUE ( DimDate[MonthName] )
+RETURN
+    COALESCE ( _Month, "All Months" )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Category
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns the selected expense category or a default title label.
+//
+// Business Question:
+//     Which expense category is selected?
+//
+// Used In:
+//     Dynamic titles; category analysis
+//
+// Dependencies:
+//     DimDescription[Category]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Selected Category] = 
+SELECTEDVALUE ( 'DimDescription'[Category], "Total Expense By Year" )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Category %
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns the selected category for contribution-percentage visuals.
+//
+// Business Question:
+//     Which category contribution is currently being viewed?
+//
+// Used In:
+//     Dynamic titles; category contribution chart
+//
+// Dependencies:
+//     DimDescription[Category]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Selected Category %] = 
+SELECTEDVALUE ( 'DimDescription'[Category], "Category % " )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Budget Status Label
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a readable budget status label based on expense compared with salary.
+//
+// Business Question:
+//     Is the selected period over budget, on budget, or under budget?
+//
+// Used In:
+//     Budget KPI cards; report labels
+//
+// Dependencies:
+//     [Total Expense]; [Net Salary]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Budget Status Label] = 
+VAR Exp = [Total Expense]
+VAR Sal = [Net Salary]
+RETURN
+IF ( ISBLANK(Exp) || ISBLANK(Sal), BLANK(),
+     IF ( Exp > Sal, "Over budget",
+          IF ( Exp = Sal, "On budget", "Under budget") ) )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Date Range
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a compact text label for the selected date range.
+//
+// Business Question:
+//     What reporting period is currently selected?
+//
+// Used In:
+//     Page headers; dashboard titles
+//
+// Dependencies:
+//     DimDate[FullDate]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Selected Date Range] = 
+VAR _MinDate = MIN ( DimDate[FullDate] )
+VAR _MaxDate = MAX ( DimDate[FullDate] )
+VAR _MinMonth = FORMAT ( _MinDate, "MMM yyyy" )
+VAR _MaxMonth = FORMAT ( _MaxDate, "MMM yyyy" )
+RETURN
+    IF (
+        _MinMonth = _MaxMonth,
+        _MinMonth,
+        _MinMonth & " - " & _MaxMonth
+    )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Selected Month Range
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Returns a detailed month range label based on current year and month selections.
+//
+// Business Question:
+//     What month or month range is selected?
+//
+// Used In:
+//     Dynamic headers; page subtitles
+//
+// Dependencies:
+//     DimDate[FullDate]; DimDate[MonthName]; DimDate[Year]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Selected Month Range] = 
+VAR HasMonth = HASONEVALUE ( DimDate[MonthName] )
+VAR HasYear = HASONEVALUE ( DimDate[Year] )
+VAR YearSel = SELECTEDVALUE ( DimDate[Year] )
+VAR MinD = MIN ( DimDate[FullDate] )
+VAR MaxD = MAX ( DimDate[FullDate] )
+VAR IsSingleMonth = NOT ISBLANK ( MinD ) && YEAR ( MinD ) = YEAR ( MaxD ) && MONTH ( MinD ) = MONTH ( MaxD )
+VAR StartM = DATE ( YEAR ( MinD ), MONTH ( MinD ), 1 )
+VAR EndM = EOMONTH ( MinD, 0 )
+RETURN
+    SWITCH (
+        TRUE (),
+        NOT HasMonth,
+            "Month Range"
+                & IF ( NOT ISBLANK ( YearSel ), " For Selected Year " & FORMAT ( YearSel, "0" ), "" ),
+        HasMonth && NOT HasYear, SELECTEDVALUE ( DimDate[MonthName], "Selected Month" ),
+        HasMonth && HasYear && IsSingleMonth, FORMAT ( StartM, "MM/dd/yyyy" ) & " - " & FORMAT ( EndM, "MM/dd/yyyy" ),
+        BLANK ()
+    )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Chart Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Builds a dynamic title for expense versus income visuals using the selected date context.
+//
+// Business Question:
+//     What time period does the expense versus income chart represent?
+//
+// Used In:
+//     Executive Summary; trend visuals
+//
+// Dependencies:
+//     DimDate columns
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Chart Title] = 
+VAR YearSel      = SELECTEDVALUE ( DimDate[Year] )
+VAR MonthNameSel = SELECTEDVALUE ( DimDate[MonthName] )
+VAR MonthCodeSel = SELECTEDVALUE ( DimDate[MonthCode] )
+VAR QuarterSel   = SELECTEDVALUE ( DimDate[QuarterName] )
+VAR MonthDisp    = COALESCE ( MonthCodeSel, MonthNameSel )
+VAR MinMonthNum  = CALCULATE ( MIN ( DimDate[MonthNumber] ) )
+VAR MaxMonthNum  = CALCULATE ( MAX ( DimDate[MonthNumber] ) )
+VAR MinMonTxt    = IF ( NOT ISBLANK ( MinMonthNum ), FORMAT ( DATE ( 2000, MinMonthNum, 1 ), "MMM" ) )
+VAR MaxMonTxt    = IF ( NOT ISBLANK ( MaxMonthNum ), FORMAT ( DATE ( 2000, MaxMonthNum, 1 ), "MMM" ) )
+VAR RangeTxt     = IF ( NOT ISBLANK ( QuarterSel ), " (" & MinMonTxt & " - " & MaxMonTxt & ")" )
+VAR Suffix =
+    IF (
+        NOT ISBLANK ( YearSel ),
+        IF (
+            NOT ISBLANK ( MonthDisp ),
+            MonthDisp & " " & YearSel,
+            IF ( NOT ISBLANK ( QuarterSel ), YearSel & " " & QuarterSel & RangeTxt, YearSel )
+        ),
+        IF (
+            NOT ISBLANK ( MonthDisp ),
+            MonthDisp,
+            IF ( NOT ISBLANK ( QuarterSel ), QuarterSel & RangeTxt, BLANK() )
+        )
+    )
+RETURN
+    "EXPENSE Vs INCOME" & IF ( NOT ISBLANK ( Suffix ), " – " & Suffix )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Map Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Builds a dynamic title for salary income by location visuals.
+//
+// Business Question:
+//     What period is represented in the location-based income visual?
+//
+// Used In:
+//     Income map/location analysis
+//
+// Dependencies:
+//     DimDate columns
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Map Title] = 
+VAR YearSel      = SELECTEDVALUE ( DimDate[Year] )
+VAR MonthNameSel = SELECTEDVALUE ( DimDate[MonthName] )
+VAR MonthCodeSel = SELECTEDVALUE ( DimDate[MonthCode] )
+VAR QuarterSel   = SELECTEDVALUE ( DimDate[QuarterName] )
+VAR MonthDisp    = COALESCE ( MonthCodeSel, MonthNameSel )
+VAR MinMonthNum  = CALCULATE ( MIN ( DimDate[MonthNumber] ) )
+VAR MaxMonthNum  = CALCULATE ( MAX ( DimDate[MonthNumber] ) )
+VAR MinMonTxt    = IF ( NOT ISBLANK ( MinMonthNum ), FORMAT ( DATE ( 2000, MinMonthNum, 1 ), "MMM" ) )
+VAR MaxMonTxt    = IF ( NOT ISBLANK ( MaxMonthNum ), FORMAT ( DATE ( 2000, MaxMonthNum, 1 ), "MMM" ) )
+VAR RangeTxt     = IF ( NOT ISBLANK ( QuarterSel ), " (" & MinMonTxt & " - " & MaxMonTxt & ")" )
+VAR Suffix =
+    IF (
+        NOT ISBLANK ( YearSel ),
+        IF (
+            NOT ISBLANK ( MonthDisp ),
+            MonthDisp & " " & YearSel,
+            IF ( NOT ISBLANK ( QuarterSel ), YearSel & " " & QuarterSel & RangeTxt, YearSel )
+        ),
+        IF (
+            NOT ISBLANK ( MonthDisp ),
+            MonthDisp,
+            IF ( NOT ISBLANK ( QuarterSel ), QuarterSel & RangeTxt, BLANK() )
+        )
+    )
+RETURN
+    "Salary Income By Location" & IF ( NOT ISBLANK ( Suffix ), " For – " & Suffix )
+
+// ----------------------------------------------------------------------------
+// Measure Name : Dynamic Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Builds a dynamic gross salary breakdown title using selected year and location.
+//
+// Business Question:
+//     Which year and location are being analyzed?
+//
+// Used In:
+//     Income Analysis; salary breakdown visuals
+//
+// Dependencies:
+//     DimDate; DimLocation
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Dynamic Title] = 
+VAR _Year = SELECTEDVALUE ( 'DimDate'[Year], "All Years" )
+VAR _Place = SELECTEDVALUE ( DimLocation[Work_Place], "All Locations" )
+RETURN
+"Gross Salary Breakdown (Tax vs Net) – " & _Place & " – " & _Year
+
+// ----------------------------------------------------------------------------
+// Measure Name : Dashboard Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Creates the main dashboard title with the selected date range.
+//
+// Business Question:
+//     What period does the overall dashboard represent?
+//
+// Used In:
+//     Executive Summary header
+//
+// Dependencies:
+//     [Selected Date Range]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Dashboard Title] = 
+"Family Finance Dashboard | " & [Selected Date Range]
+
+// ----------------------------------------------------------------------------
+// Measure Name : Expense Analysis Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Creates the expense analysis page title based on selected category and date range.
+//
+// Business Question:
+//     What category and time period are being analyzed?
+//
+// Used In:
+//     Expense Analysis page header
+//
+// Dependencies:
+//     [Selected Category]; [Selected Date Range]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Expense Analysis Title] = 
+"Expense Analysis | " & [Selected Category] & " | " & [Selected Date Range]
+
+// ----------------------------------------------------------------------------
+// Measure Name : Income Analysis Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Creates the income analysis page title based on selected date range.
+//
+// Business Question:
+//     What income period is being analyzed?
+//
+// Used In:
+//     Income Analysis page header
+//
+// Dependencies:
+//     [Selected Date Range]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Income Analysis Title] = 
+"Income Analysis | " & [Selected Date Range]
+
+// ----------------------------------------------------------------------------
+// Measure Name : Income vs Expense Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Creates a dynamic title for income versus expense comparison visuals.
+//
+// Business Question:
+//     What period is used for the income versus expense comparison?
+//
+// Used In:
+//     Executive Summary; Savings Analysis
+//
+// Dependencies:
+//     [Selected Date Range]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Income vs Expense Title] = 
+"Income vs Expense | " & [Selected Date Range]
+
+// ----------------------------------------------------------------------------
+// Measure Name : Savings Analysis Title
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Creates the savings analysis page title based on selected date range.
+//
+// Business Question:
+//     What savings period is being analyzed?
+//
+// Used In:
+//     Savings Analysis page header
+//
+// Dependencies:
+//     [Selected Date Range]
+//
+// Returns:
+//     Text
+// ----------------------------------------------------------------------------
+
+[Savings Analysis Title] = 
+"Savings Analysis | " & [Selected Date Range]
+
+
+// ==========================================
+// 7. CALCULATED COLUMNS (DIMDATE)
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[MonthCode]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[MonthCode] = 
+FORMAT(DimDate[FullDate], "MMM")
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[YearWeek]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[YearWeek] = 
+FORMAT(DimDate[FullDate], "YYYY") & "-W" & FORMAT(WEEKNUM(DimDate[FullDate], 2), "00")
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_Thursday]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_Thursday] = 
+'DimDate'[FullDate] - WEEKDAY(DimDate[FullDate], 2) + 4
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_Year]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_Year] = 
+YEAR ( 'DimDate'[ISO_Thursday] )
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_Week]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_Week] = 
+WEEKNUM ( 'DimDate'[ISO_Thursday], 2 )
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_YearWeek]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_YearWeek] = 
+FORMAT ( 'DimDate'[ISO_Year], "0000" ) & "-W" & FORMAT ( 'DimDate'[ISO_Week], "00" )
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_YearWeek_Sort]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_YearWeek_Sort] = 
+'DimDate'[ISO_Year] * 100 + 'DimDate'[ISO_Week]
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_WeekStart]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_WeekStart] = 
+VAR th = 'DimDate'[ISO_Thursday]
+RETURN th - WEEKDAY ( th, 2 ) + 1
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_WeekEnd]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_WeekEnd] = 
+'DimDate'[ISO_WeekStart] + 6
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[ISO_YearWeek_Label]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[ISO_YearWeek_Label] = 
+DimDate[ISO_YearWeek] & " (" &
+FORMAT ( DimDate[ISO_WeekStart], "MM/dd" ) & "–" &
+FORMAT ( DimDate[ISO_WeekEnd],   "MM/dd" ) & ")"
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimDate[QuarterName]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimDate[QuarterName] = 
+FORMAT(DimDate[FullDate], "\QQ")
+
+
+// ==========================================
+// 8. CALCULATED COLUMNS (DIM & FACT TABLES)
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimIncomeSource[Address]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimIncomeSource[Address] = 
+SWITCH (
+    DimIncomeSource[WorkPlace],
+    "Casa Coloma",       "10410 Coloma Rd, Rancho Cordova, CA 95670",
+    "CITIGUARD INC",     "700 N 10th St, Sacramento, CA 95811",
+    "Windsor El Camino", "2540 Carmichael Way, Carmichael, CA 95608",
+    "Family Tax",        "7610 Auburn Blvd, Citrus Heights, CA 95610",
+    "ClipBoard",         "5407 Nyoda Way, Carmichael, CA 95608",
+    BLANK()
+)
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimIncomeSource[First_Name]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimIncomeSource[First_Name] = 
+SWITCH (
+    DimIncomeSource[EmployeeFullName],
+    "Behailu Tessema", "Behailu",
+    "Mignote Tumoro",  "Mignote",
+    DimIncomeSource[EmployeeFullName]
+)
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : FactFamilyIncome[Work Period]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+FactFamilyIncome[Work Period] = 
+VAR d   = RELATED ( DimDate[FullDate] )
+VAR y   = YEAR ( d )
+VAR m   = MONTH ( d )
+VAR dom = DAY ( d )
+VAR StartDate = IF ( dom <= 15, DATE ( y, m, 1 ),  DATE ( y, m, 16 ) )
+VAR EndDate   = IF ( dom <= 15, DATE ( y, m, 15 ), EOMONTH ( d, 0 ) )
+RETURN
+    FORMAT ( StartDate, "MM/dd/yyyy" ) & " - " & FORMAT ( EndDate, "MM/dd/yyyy" )
+
+// ----------------------------------------------------------------------------
+// Calculated Column Name : DimLocation[Color Code]
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimLocation[Color Code] = 
+SWITCH (
+    TRUE(),
+    DimLocation[Work_Place] = "Casa Coloma", "Red",
+    DimLocation[Work_Place] = "CITIGUARD INC", "Green",
+    DimLocation[Work_Place] = "Windsor El Camino", "Purple",
+    DimLocation[Work_Place] = "Family Tax", "Blue",
+    "Yellow" // Fallback default value instead of broken nested IF
+)
+
+
+// ==========================================
+// 9. CALCULATED TABLES
+// ==========================================
+
+// ----------------------------------------------------------------------------
+// Calculated Table Name : DimLocation
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+DimLocation = 
+DATATABLE (
+    "Work_Place", STRING,
+    "Street",     STRING,
+    "City",       STRING,
+    "State",      STRING,
+    "ZIP",        STRING,
+    "Address",    STRING,
+    {
+        { "Casa Coloma",       "10410 Coloma Rd",     "Rancho Cordova", "CA", "95670", "10410 Coloma Rd, Rancho Cordova, CA 95670" },
+        { "CITIGUARD INC",     "700 N 10th St",       "Sacramento",     "CA", "95811", "700 N 10th St, Sacramento, CA 95811" },
+        { "Windsor El Camino", "2540 Carmichael Way", "Carmichael",     "CA", "95608", "2540 Carmichael Way, Carmichael, CA 95608" },
+        { "Family Tax",        "7610 Auburn Blvd",    "Citrus Heights", "CA", "95610", "7610 Auburn Blvd, Citrus Heights, CA 95610" },
+        { "CLIPBOARD",         "5407 Nyoda Way",      "Carmichael",     "CA", "95608", "5407 Nyoda Way, Carmichael, CA 95610" }
+    }
+)
+
+// ----------------------------------------------------------------------------
+// Calculated Table Name : Salary Pie Category
+// Project      : DW_FamilyFinance
+// Author       : Behailu Tessema
+// Version      : 2.0
+//
+// Purpose:
+//     Supports the DW_FamilyFinance Power BI semantic model and dashboard reporting.
+//
+// Business Question:
+//     What business insight does this calculation provide?
+//
+// Used In:
+//     Power BI report pages and supporting visuals
+//
+// Dependencies:
+//     See DAX expression below
+//
+// Returns:
+//     Depends on expression result
+// ----------------------------------------------------------------------------
+
+Salary Pie Category = 
+DATATABLE(
+    "Category", STRING,
+    {
+        {"Total Tax"},
+        {"Net Salary"}
+    }
+)
+
+// ============================================================================
+// Notes:
+//     1. Review table names before deployment. If your current Power BI model
+//        uses FactIncome / FactExpense instead of FactFamilyIncome /
+//        FactFamilyExpense, update the table references accordingly.
+//     2. Validate measures against the 00_Model_Validation report page after
+//        changes.
+//     3. Keep technical measure names in the model, but use business-friendly
+//        visual titles on report pages.
+// ============================================================================
