@@ -28,9 +28,10 @@ The SSIS solution is responsible for:
 ```text
 04_SSIS
 │
-├── Documentation
-├── Packages
+├── DW_FamilyFinance
+├── ETL_FamilyFinance
 ├── ScriptTasks
+├── DW_FamilyFinance.sln
 └── README.md
 ```
 
@@ -38,30 +39,42 @@ The SSIS solution is responsible for:
 
 # Components
 
-## Documentation
+## DW_FamilyFinance
 
-Contains technical documentation describing the SSIS solution, package design, ETL workflow, version history, and implementation details.
+Contains supporting files and solution resources used by the SSIS project.
 
-## Packages
+## ETL_FamilyFinance
 
-Contains all SSIS packages used throughout the project.
+Contains the complete SSIS project, including:
 
-Examples include:
+* SSIS Packages (.dtsx)
+* Project configuration files
+* Connection Managers
+* Project Parameters
 
+Key packages include:
+
+* DW_Initial_Setup.dtsx
+* DW_Load_FamilyFinance.dtsx
+* STG_LoadDescriptionData.dtsx
 * STG_LoadExpenseData.dtsx
 * STG_LoadIncomeData.dtsx
-* STG_LoadDescriptionData.dtsx
+* STG_Master_FullLoad.dtsx
 * STG_Master_Incremental.dtsx
 
 ## ScriptTasks
 
-Contains custom Script Task code used by SSIS packages.
+Contains custom Script Task source code and supporting documentation.
 
 Examples include:
 
-* File metadata extraction
-* Dynamic file processing
-* Custom ETL logic
+* ExtractFileMetadata.vb
+* ExtractFileMetadata.md
+* ExtractFileMetadata_Task.png
+
+## DW_FamilyFinance.sln
+
+Visual Studio solution file used to manage and develop the complete SSIS solution.
 
 ---
 
@@ -100,18 +113,16 @@ Power BI
 
 # Documentation
 
-Additional SSIS documentation is available in the **Documentation** folder.
-
-Topics include:
+The SSIS solution is supported by technical documentation located throughout the repository, including:
 
 * STG Environment Documentation
-* SSIS Package Design
-* Incremental Loading
-* Audit Framework
-* ETL Process
+* ETL Process Documentation
+* Data Warehouse Documentation
+* Database Architecture
+* Script Task Documentation
 
 ---
 
 # Summary
 
-The **SSIS** folder contains the complete ETL solution for the DW_FamilyFinance project. It automates the movement of financial data from source files into the SQL Server staging environment while ensuring data quality, auditability, and reliable downstream reporting.
+The **SSIS** solution provides the automated ETL framework for the DW_FamilyFinance project. It manages the movement of financial data from source files into the SQL Server staging environment while ensuring data quality, incremental processing, auditability, and reliable downstream reporting.
