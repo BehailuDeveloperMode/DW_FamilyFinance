@@ -11,12 +11,2497 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="Load_Bank_Transactions"
   DTS:PackageType="5"
-  DTS:VersionBuild="1"
-  DTS:VersionGUID="{4FC89D5F-1F4D-461D-B412-3353BC59AA52}">
+  DTS:VersionBuild="105"
+  DTS:VersionGUID="{EB1D8580-66A5-4074-8BB9-37F0F6388709}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:Variables />
-  <DTS:Executables />
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EXCEL_DST_CitiBank]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{341E0185-12E1-4046-9AD6-66C4D86E5B36}"
+      DTS:ObjectName="EXCEL_DST_CitiBank">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::Citi_DestinationFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2026.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EXCEL_DST_WellsFargo]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{CD455090-A641-4827-AE04-6715DAA6C348}"
+      DTS:ObjectName="EXCEL_DST_WellsFargo">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::WellsFargo_DestinationFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\WellsFargo_YTD_2026.xlsx;Extended Properties=&quot;Excel 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EXCEL_SRC_CitiBank]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{F388C343-F1F1-4864-852A-76ED31CB7A0C}"
+      DTS:ObjectName="EXCEL_SRC_CitiBank">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::Citi_SourceFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\ETL_STG_Family\RowData_CitiBank.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EXCEL_SRC_WellsFargo]"
+      DTS:CreationName="EXCEL"
+      DTS:DTSID="{D80F756A-4C84-4500-B3F5-9AE8CB43DDF6}"
+      DTS:ObjectName="EXCEL_SRC_WellsFargo">
+      <DTS:PropertyExpression
+        DTS:Name="ExcelFilePath">@[User::WellsFargo_SourceFilePath]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectRetryCount="0"
+          DTS:ConnectRetryInterval="0"
+          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\ETL_STG_Family\RowData_WellsFargoBank.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8B29AAEE-BBED-4D49-AFEF-2F65F2D46320}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_DestinationFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">Citi_YTD_2026.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8F91146D-155A-4AAC-829B-6C74C43D5299}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::DestinationFolderPath] + @[User::Citi_DestinationFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_DestinationFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\Citi_YTD_2026.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{18BFF0CF-E763-4FC7-82B6-39D193DF4E90}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_DestinationSheetName">
+      <DTS:VariableValue
+        DTS:DataType="8">Sheet$</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{558C757C-40CE-47A6-A646-CFFD8681A2D9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_MaxDate_Obj">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{431B1AA0-9343-44F1-B54E-EC0DB10F22E4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_MaxDate_Str">
+      <DTS:VariableValue
+        DTS:DataType="8">1900-01-01</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{67CF72B2-F714-41E4-AA8E-D0326482F3B8}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_SourceFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">RowData_CitiBank.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B497A675-96F4-4CB2-88C6-DAB08790E381}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::SourceFolderPath] + @[User::Citi_SourceFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_SourceFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\ETL_STG_Family\RowData_CitiBank.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D92D8287-8E06-49F3-8876-00ACD6A91D45}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="Citi_SourceSheetName">
+      <DTS:VariableValue
+        DTS:DataType="8">Citi_ETL$ExternalData_1</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0952DBC4-376D-4B2B-B97C-B1214F99690F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="DestinationFolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7818E91C-9134-41D8-B784-D016997CA282}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceFolderPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\ETL_STG_Family\</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{BC0048ED-F62D-41F1-9839-208D4DA3A158}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_DestinationFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">WellsFargo_YTD_2026.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{62869DD0-3172-4BB3-AE9D-8DC6CF2CBB33}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::DestinationFolderPath] + @[User::WellsFargo_DestinationFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_DestinationFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\STG_FamilyLiving_Expense\WellsFargo_YTD_2026.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E5BF0EFE-54A1-4B6B-A73B-5D2F58A08FA6}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_DestinationSheetName">
+      <DTS:VariableValue
+        DTS:DataType="8">Sheet$</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3941DFF1-698B-4629-94D3-42F9764BC0F4}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_MaxDate_Obj">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{053E4711-5F0D-487D-8864-E6DA5787D575}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_MaxDate_Str">
+      <DTS:VariableValue
+        DTS:DataType="8">1900-01-01</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{59AD685D-0300-42CA-9134-6454B396DEEC}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_SourceFileName">
+      <DTS:VariableValue
+        DTS:DataType="8">RowData_WellsFargoBank.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{501B0F53-760E-4694-AF38-6E663DACB989}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::SourceFolderPath] + @[User::WellsFargo_SourceFileName]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_SourceFilePath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\ETL_STG_Family\RowData_WellsFargoBank.xlsx</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5793EE10-CD18-42E6-BFAB-BDDD4A96164E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="WellsFargo_SourceSheetName">
+      <DTS:VariableValue
+        DTS:DataType="8">WellsFargo_ETL$ExternalData_1</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT_LoadTransactions_Citi"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1FF49A30-22E4-4A5B-A90A-AC7BD99D1B61}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_LoadTransactions_Citi"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPLIT_NewCitiTransactions"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input].Columns[Date]"
+                      cachedDataType="date"
+                      cachedName="Date"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Date]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[New Citi Transactions]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="New Citi Transactions"
+                  synchronousInputId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Date]} &gt; (DT_DATE)@[User::Citi_MaxDate_Str]</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Date &gt; (DT_DATE)@[User::Citi_MaxDate_Str]</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank"
+              componentClassID="Microsoft.ExcelDestination"
+              contactInfo="Excel Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Excel Destination"
+              name="EX_DST_CitiBank"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Sheet$</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable">User::Citi_DestinationSheetName</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EXCEL_DST_CitiBank]"
+                  connectionManagerRefId="Package.ConnectionManagers[EXCEL_DST_CitiBank]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Excel Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].Columns[Date]"
+                      cachedDataType="date"
+                      cachedName="Date"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Date]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Date]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Description]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].Columns[Debit]"
+                      cachedDataType="cy"
+                      cachedName="Debit"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Debit]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Debit]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].Columns[Credit]"
+                      cachedDataType="cy"
+                      cachedName="Credit"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Credit]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Credit]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Category]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].Columns[SourceName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SourceName"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[SourceName]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[SourceName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Date]"
+                      dataType="date"
+                      name="Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Debit]"
+                      dataType="cy"
+                      name="Debit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Credit]"
+                      dataType="cy"
+                      name="Credit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input].ExternalColumns[SourceName]"
+                      dataType="wstr"
+                      length="255"
+                      name="SourceName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Outputs[Excel Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Excel Destination Error Output"
+                  synchronousInputId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="EX_SRC_CitiBank"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">Citi_ETL$ExternalData_1</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable">User::Citi_SourceSheetName</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EXCEL_SRC_CitiBank]"
+                  connectionManagerRefId="Package.ConnectionManagers[EXCEL_SRC_CitiBank]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Date]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Date]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Date]"
+                      name="Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Description]"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Debit]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Debit]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Debit]"
+                      name="Debit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Credit]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Credit]"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Credit]"
+                      name="Credit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[SourceName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[SourceName]"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].Columns[SourceName]"
+                      name="SourceName"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Date]"
+                      dataType="date"
+                      name="Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Debit]"
+                      dataType="cy"
+                      name="Debit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Credit]"
+                      dataType="cy"
+                      name="Credit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output].ExternalColumns[SourceName]"
+                      dataType="wstr"
+                      length="255"
+                      name="SourceName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Date]"
+                      dataType="date"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Date]"
+                      name="Date" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Debit]"
+                      dataType="cy"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Debit]"
+                      name="Debit" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Credit]"
+                      dataType="cy"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Credit]"
+                      name="Credit" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[SourceName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[SourceName]"
+                      name="SourceName" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_LoadTransactions_Citi.Paths[Excel Source Output]"
+              endId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]"
+              name="Excel Source Output"
+              startId="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\DFT_LoadTransactions_Citi.Paths[New Citi Transactions]"
+              endId="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank.Inputs[Excel Destination Input]"
+              name="New Citi Transactions"
+              startId="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions.Outputs[New Citi Transactions]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\DFT_LoadTransactions_WellsFargo"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{2E21A354-878F-4AE8-9CE8-11715A38AAF8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT_LoadTransactions_WellsFargo"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPLIT_NewCitiTransactions"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input].Columns[Date]"
+                      cachedDataType="date"
+                      cachedName="Date"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Date]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[New WellsFargo Transactions]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="New WellsFargo Transactions"
+                  synchronousInputId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Date]} &gt; (DT_DATE)@[User::WellsFargo_MaxDate_Str]</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Date &gt; (DT_DATE)@[User::WellsFargo_MaxDate_Str]</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo"
+              componentClassID="Microsoft.ExcelDestination"
+              contactInfo="Excel Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Excel Destination"
+              name="EXCEL_DST_WellsFargo"
+              usesDispositions="true">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable">User::WellsFargo_DestinationSheetName</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EXCEL_DST_WellsFargo]"
+                  connectionManagerRefId="Package.ConnectionManagers[EXCEL_DST_WellsFargo]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="Excel Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].Columns[Date]"
+                      cachedDataType="date"
+                      cachedName="Date"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Date]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Date]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].Columns[Description]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Description]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].Columns[Debit]"
+                      cachedDataType="cy"
+                      cachedName="Debit"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Debit]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Debit]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].Columns[Credit]"
+                      cachedDataType="cy"
+                      cachedName="Credit"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Credit]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Credit]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].Columns[Category]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Category"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Category]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Category]" />
+                    <inputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].Columns[SourceName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="SourceName"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[SourceName]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[SourceName]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Date]"
+                      dataType="date"
+                      name="Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Debit]"
+                      dataType="cy"
+                      name="Debit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Credit]"
+                      dataType="cy"
+                      name="Credit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input].ExternalColumns[SourceName]"
+                      dataType="wstr"
+                      length="255"
+                      name="SourceName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Outputs[Excel Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Excel Destination Error Output"
+                  synchronousInputId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Outputs[Excel Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Outputs[Excel Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo"
+              componentClassID="Microsoft.ExcelSource"
+              contactInfo="Excel Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Excel Source"
+              name="EXCEL_SRC_WellsFargo"
+              usesDispositions="true"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable">User::WellsFargo_SourceSheetName</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">1</property>
+                <property
+                  dataType="System.String"
+                  description="The mapping from parameters in the SQL command to variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Connections[OleDbConnection]"
+                  connectionManagerID="Package.ConnectionManagers[EXCEL_SRC_WellsFargo]"
+                  connectionManagerRefId="Package.ConnectionManagers[EXCEL_SRC_WellsFargo]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output]"
+                  name="Excel Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Date]"
+                      dataType="date"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Date]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Date]"
+                      name="Date"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Description]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Description]"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Debit]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Debit]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Debit]"
+                      name="Debit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Credit]"
+                      dataType="cy"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Credit]"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Credit]"
+                      name="Credit"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Category]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[Category]"
+                      name="Category"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[SourceName]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[SourceName]"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].Columns[SourceName]"
+                      name="SourceName"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Date]"
+                      dataType="date"
+                      name="Date" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Debit]"
+                      dataType="cy"
+                      name="Debit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Credit]"
+                      dataType="cy"
+                      name="Credit" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      name="Category" />
+                    <externalMetadataColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output].ExternalColumns[SourceName]"
+                      dataType="wstr"
+                      length="255"
+                      name="SourceName" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output]"
+                  isErrorOut="true"
+                  name="Excel Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Date]"
+                      dataType="date"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Date]"
+                      name="Date" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Description]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Debit]"
+                      dataType="cy"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Debit]"
+                      name="Debit" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Credit]"
+                      dataType="cy"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Credit]"
+                      name="Credit" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Category]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[Category]"
+                      name="Category" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[SourceName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[SourceName]"
+                      name="SourceName" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT_LoadTransactions_WellsFargo.Paths[Excel Source Output]"
+              endId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Inputs[Conditional Split Input]"
+              name="Excel Source Output"
+              startId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo.Outputs[Excel Source Output]" />
+            <path
+              refId="Package\DFT_LoadTransactions_WellsFargo.Paths[New WellsFargo Transactions]"
+              endId="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo.Inputs[Excel Destination Input]"
+              name="New WellsFargo Transactions"
+              startId="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions.Outputs[New WellsFargo Transactions]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\EST_GetMaxDate_Citi"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A126453A-674D-458C-A8FE-9BEEB17F212D}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EST_GetMaxDate_Citi"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{341E0185-12E1-4046-9AD6-66C4D86E5B36}"
+          SQLTask:SqlStatementSource="SELECT CSTR(MAX([Date])) AS MaxDate&#xA;FROM [Sheet$]"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::Citi_MaxDate_Obj" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\EST_GetMaxDate_WellsFargo"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{DEE6AEB1-611D-4306-AEDA-9644D9E7B7A2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EST_GetMaxDate_WellsFargo"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2025; © 2025 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{CD455090-A641-4827-AE04-6715DAA6C348}"
+          SQLTask:SqlStatementSource="SELECT CSTR(MAX([Date])) AS MaxDate&#xA;FROM [Sheet$]"
+          SQLTask:ResultType="ResultSetType_Rowset" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="0"
+            SQLTask:DtsVariableName="User::WellsFargo_MaxDate_Obj" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SCR_ConvertMaxDate_Citi"
+      DTS:CreationName="Microsoft.ScriptTask"
+      DTS:Description="Script Task"
+      DTS:DTSID="{09A6CA9C-8311-443F-8BA9-898D7C2F577E}"
+      DTS:ExecutableType="Microsoft.ScriptTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SCR_ConvertMaxDate_Citi"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_61c9a3aa26744eb18e52936e5f805ba0"
+          VSTAMajorVersion="17"
+          VSTAMinorVersion="0"
+          Language="CSharp"
+          ReadOnlyVariables="User::Citi_MaxDate_Obj"
+          ReadWriteVariables="User::Citi_MaxDate_Str">
+          <ProjectItem
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.cs"
+            Encoding="UTF8"><![CDATA[using System;
+using System.Data;
+using System.Data.OleDb;
+using Microsoft.SqlServer.Dts.Runtime;
+
+namespace ST_21e99102c7b549c197ae990c30a7c280
+{
+    [Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute]
+    public partial class ScriptMain : Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+    {
+        public void Main()
+        {
+            try
+            {
+                const string fallbackDate = "1900-01-01";
+
+                object resultObject = Dts.Variables["User::Citi_MaxDate_Obj"].Value;
+
+                string maxDateValue = GetMaxDateFromResultSet(resultObject, fallbackDate);
+
+                Dts.Variables["User::Citi_MaxDate_Str"].Value = maxDateValue;
+
+                bool fireAgain = true;
+                Dts.Events.FireInformation(
+                    0,
+                    "SCR_ConvertMaxDate_Citi",
+                    "Citi maximum transaction date captured: " + maxDateValue,
+                    string.Empty,
+                    0,
+                    ref fireAgain
+                );
+
+                Dts.TaskResult = (int)ScriptResults.Success;
+            }
+            catch (Exception ex)
+            {
+                Dts.Events.FireError(
+                    0,
+                    "SCR_ConvertMaxDate_Citi",
+                    "Failed to convert Citi maximum transaction date. Error: " + ex.Message,
+                    string.Empty,
+                    0
+                );
+
+                Dts.TaskResult = (int)ScriptResults.Failure;
+            }
+        }
+
+        private string GetMaxDateFromResultSet(object resultObject, string fallbackDate)
+        {
+            if (resultObject == null)
+            {
+                return fallbackDate;
+            }
+
+            DataTable dt = new DataTable();
+
+            using (OleDbDataAdapter adapter = new OleDbDataAdapter())
+            {
+                adapter.Fill(dt, resultObject);
+            }
+
+            if (dt.Rows.Count == 0)
+            {
+                return fallbackDate;
+            }
+
+            object maxDate = dt.Rows[0][0];
+
+            if (maxDate == null || maxDate == DBNull.Value)
+            {
+                return fallbackDate;
+            }
+
+            return maxDate.ToString();
+        }
+
+        enum ScriptResults
+        {
+            Success = DTSExecResult.Success,
+            Failure = DTSExecResult.Failure
+        }
+    }
+}]]></ProjectItem>
+          <ProjectItem
+            Name="ST_61c9a3aa26744eb18e52936e5f805ba0.csproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29C0C7AE-3B2A-4F11-8197-7AEEDB099377}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ST_61c9a3aa26744eb18e52936e5f805ba0</RootNamespace>
+    <AssemblyName>ST_61c9a3aa26744eb18e52936e5f805ba0</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <TargetFrameworkProfile></TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.ScriptTask, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ScriptMain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptTask" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_ST170</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></ProjectItem>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
+  <msb:PropertyGroup>
+    <msb:CodeName>ST_61c9a3aa26744eb18e52936e5f805ba0</msb:CodeName>
+    <msb:Language>msBuild</msb:Language>
+    <msb:DisplayName>ST_61c9a3aa26744eb18e52936e5f805ba0</msb:DisplayName>
+    <msb:ProjectId>{A762686F-89C8-40AA-BF27-ECE8109545A6}</msb:ProjectId>
+  </msb:PropertyGroup>
+  <msb:ItemGroup>
+    <msb:Project Include="ST_61c9a3aa26744eb18e52936e5f805ba0.csproj" />
+    <msb:File Include="ScriptMain.cs" />
+    <msb:File Include="Properties\Settings.settings" />
+    <msb:File Include="Properties\AssemblyInfo.cs" />
+    <msb:File Include="Properties\Resources.resx" />
+    <msb:File Include="Properties\Resources.Designer.cs" />
+    <msb:File Include="Properties\Settings.Designer.cs" />
+  </msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Settings.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_61c9a3aa26744eb18e52936e5f805ba0.Properties.Settings.get_Default():ST_61c9a3aa26744eb18e52936e5f805ba0.Properties.Sett" +
+    "ings")]
+
+namespace ST_61c9a3aa26744eb18e52936e5f805ba0.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_61c9a3aa26744eb18e52936e5f805ba0")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_61c9a3aa26744eb18e52936e5f805ba0")]
+[assembly: AssemblyCopyright("Copyright @  2026")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Resources.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_61c9a3aa26744eb18e52936e5f805ba0.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_61c9a3aa26744eb18e52936e5f805ba0.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_61c9a3aa26744eb18e52936e5f805ba0.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace ST_61c9a3aa26744eb18e52936e5f805ba0.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ST_61c9a3aa26744eb18e52936e5f805ba0.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}]]></ProjectItem>
+          <BinaryItem
+            Name="ST_61c9a3aa26744eb18e52936e5f805ba0.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDAF96RmoAAAAAAAAAAOAAIiALATAAABQAAAAIAAAAAAAAajIA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAABgyAABPAAAAAEAAAHgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAAcBIAAAAgAAAAFAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAHgEAAAAQAAAAAYAAAAWAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAHAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAABM
+MgAAAAAAAEgAAAACAAUACCIAAFgPAAABAAAAAAAAAGAxAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAABswBwC5AAAAAQAAEQIoEAAACm8RAAAKcgEAAHBvEgAACm8T
+AAAKCgIGci8AAHAoAgAABgsCKBAAAApvEQAACnJFAABwbxIAAAoHbxQAAAoXDAIoEAAACm8VAAAK
+FnJzAABwcqMAAHAHKBYAAAp+FwAAChYSAm8YAAAKAigQAAAKFm8ZAAAK3jwNAigQAAAKbxUAAAoW
+cnMAAHBy9QAAcAlvGgAACigWAAAKfhcAAAoWbxsAAAomAigQAAAKF28ZAAAK3gAqAAAAARAAAAAA
+AAB8fAA8EAAAARswAwBcAAAAAgAAEQMtAgQqcxwAAAoKcx0AAAoMCAYDbx4AAAom3goILAYIbx8A
+AArcBm8gAAAKbyEAAAotAgQqBm8gAAAKFm8iAAAKFm8jAAAKCwcsCAd+JAAACjMCBCoHbyUAAAoq
+ARAAAAIAEQALHAAKAAAAAB4CKCYAAAoqHgIoJwAACiqufgEAAAQtHnJnAQBw0AMAAAIoKAAACm8p
+AAAKcyoAAAqAAQAABH4BAAAEKhp+AgAABCoeAoACAAAEKhp+AwAABCoeAigrAAAKKi5zCQAABoAD
+AAAEKgAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAAiAQAACN+AAD0BAAAtAYA
+ACNTdHJpbmdzAAAAAKgLAADcAQAAI1VTAIQNAAAQAAAAI0dVSUQAAACUDQAAxAEAACNCbG9iAAAA
+AAAAAAIAAAFXHaIBCQMAAAD6ATMAFgAAAQAAACcAAAAFAAAABgAAAAoAAAADAAAAKwAAAAIAAAAQ
+AAAAAgAAAAIAAAADAAAABAAAAAEAAAAFAAAAAQAAAAEAAAAAABMEAQAAAAAABgC5AkoFBgBIA0oF
+BgAFAjcFDwC+BQAABgAyAq0EBgCcAq0EBgB9Aq0EBgAvA60EBgDZAq0EBgDyAq0EBgBJAq0EBgBk
+AoADCgANA8IDCgBUAcIDBgBSBlAEBgDRBFAEDgC8AHkADgAPBYUABgBXBFAEBgDoATcFBgDrBGoF
+BgDbBJgEEgC4Af0DEgAZAv0DEgCLAYMEBgDNAUoFCgDrA8IDFgAABv8AFgDGAP8ACgD7BMIDBgCc
+A1AEBgDPAFAEDgC/BHkADgBwAXkADgCWBnkABgBABFAEBgAfAVAEBgDbAFAEBgCiBq0EAAAAAEkA
+AAAAAAEAAQABABAAaAQBADkAAQABAAAAEABxBc0FPQABAAQAAAEQAAoGzQVlAAMACAADAQAAIwYA
+AE0ABAALABEAXAS/ABEARAHDABEAoADHAAYGcQDLAFaAEwbOAFaAJAHOAFAgAAAAAIYAbgQGAAEA
+KCEAAAAAgQBZBtIAAQCgIQAAAACGGCoFBgADAKghAAAAAIMYKgUGAAMAsCEAAAAAkwjnBNgAAwDc
+IQAAAACTCCwB3QADAOMhAAAAAJMIOAHiAAMA6yEAAAAAlghxBugABADyIQAAAACGGCoFBgAEAPoh
+AAAAAJEYMAXtAAQAAAABAEwGAAACAKsBAAABAHoDCQAqBQEAEQAqBQYAGQAqBQoAKQAqBRAAMQAq
+BRAAOQAqBRAAQQAqBRAASQAqBRAAUQAqBRAAWQAqBRAAYQAqBRAAaQAqBQYAoQAqBQYAwQAqBRUA
+0QAqBQYAcQAbBiMA2QD8BSgA4QBHBC0A6QBmAzMA6QBwAzcA2QAxBjwA+QBFBkEA+QCrBkcA8QBz
+BEoA2QB9BgEAgQCwAFUA8QAgBVkAiQAqBQYAkQAqBQYAkQA7BGoAAQGjAQYAiQA8BnEAEQGMBncA
+CQFHBHsAGQFHBIIAIQF0A4cAeQCaA1UAcQAqBQYAeQAqBQYAKQHtAIwAKQGeBpUAqQAqBZsAyQAq
+BQYACAAUALUACAAYALoAKQBzACgBLgALAAABLgATAAkBLgAbACgBLgAjADEBLgArAFoBLgAzAFoB
+LgA7AFoBLgBDADEBLgBLAGABLgBTAFoBLgBbAHcBQwBjALoASQBzACgBYQB7ALoAYwBrALoAGwBi
+AAMAAQAEAAMAAADrBPEAAABMAfYAAAB1BvsAAgAFAAMAAgAGAAUAAQAHAAUAAgAIAAcABIAAAAEA
+AADPJfc2AAAAAAAAJQAAAAQAAAAAAAAAAAAAAKMAlwAAAAAAEQAAAAAAAAAAAAAArACjAwAAAAAE
+AAAAAAAAAAAAAACjAHkAAAAAAAQAAAAAAAAAAAAAAKMAUAQAAAAAEQAAAAAAAAAAAAAArABSAAAA
+AAAAAAAAAQAAAHsFAAAFAAIAAAAAU1RfMjFlOTkxMDJjN2I1NDljMTk3YWU5OTBjMzBhN2MyODAA
+U1RfNjFjOWEzYWEyNjc0NGViMThlNTI5MzZlNWY4MDViYTAAPE1vZHVsZT4ATWljcm9zb2Z0LlNx
+bFNlcnZlci5NYW5hZ2VkRFRTAHZhbHVlX18AU3lzdGVtLkRhdGEAU3lzdGVtLkRhdGEuT2xlRGIA
+bXNjb3JsaWIAZGVmYXVsdEluc3RhbmNlAGdldF9NZXNzYWdlAERhdGFUYWJsZQBWYXJpYWJsZQBJ
+RGlzcG9zYWJsZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBlRnJvbUhhbmRsZQBNaWNyb3NvZnQu
+U3FsU2VydmVyLkR0cy5SdW50aW1lAFR5cGUARmFpbHVyZQBnZXRfQ3VsdHVyZQBzZXRfQ3VsdHVy
+ZQByZXNvdXJjZUN1bHR1cmUAVlNUQVJUU2NyaXB0T2JqZWN0TW9kZWxCYXNlAEludGVybmFsRGF0
+YUNvbGxlY3Rpb25CYXNlAEFwcGxpY2F0aW9uU2V0dGluZ3NCYXNlAERpc3Bvc2UAZmFsbGJhY2tE
+YXRlAEVkaXRvckJyb3dzYWJsZVN0YXRlAENvbXBpbGVyR2VuZXJhdGVkQXR0cmlidXRlAERlYnVn
+Z2VyTm9uVXNlckNvZGVBdHRyaWJ1dGUARGVidWdnYWJsZUF0dHJpYnV0ZQBFZGl0b3JCcm93c2Fi
+bGVBdHRyaWJ1dGUAQXNzZW1ibHlUaXRsZUF0dHJpYnV0ZQBBc3NlbWJseVRyYWRlbWFya0F0dHJp
+YnV0ZQBUYXJnZXRGcmFtZXdvcmtBdHRyaWJ1dGUAQXNzZW1ibHlDb25maWd1cmF0aW9uQXR0cmli
+dXRlAEFzc2VtYmx5RGVzY3JpcHRpb25BdHRyaWJ1dGUAQ29tcGlsYXRpb25SZWxheGF0aW9uc0F0
+dHJpYnV0ZQBBc3NlbWJseVByb2R1Y3RBdHRyaWJ1dGUAQXNzZW1ibHlDb3B5cmlnaHRBdHRyaWJ1
+dGUAU1NJU1NjcmlwdFRhc2tFbnRyeVBvaW50QXR0cmlidXRlAEFzc2VtYmx5Q29tcGFueUF0dHJp
+YnV0ZQBSdW50aW1lQ29tcGF0aWJpbGl0eUF0dHJpYnV0ZQBnZXRfVmFsdWUAc2V0X1ZhbHVlAHZh
+bHVlAFN5c3RlbS5SdW50aW1lLlZlcnNpb25pbmcAVG9TdHJpbmcATWljcm9zb2Z0LlNxbFNlcnZl
+ci5TY3JpcHRUYXNrAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlRhc2tzLlNjcmlwdFRhc2sAU2Ny
+aXB0T2JqZWN0TW9kZWwAU3lzdGVtLkNvbXBvbmVudE1vZGVsAFNUXzYxYzlhM2FhMjY3NDRlYjE4
+ZTUyOTM2ZTVmODA1YmEwLmRsbABGaWxsAERCTnVsbABnZXRfSXRlbQBTeXN0ZW0ARW51bQByZXNv
+dXJjZU1hbgBTY3JpcHRNYWluAEZpcmVJbmZvcm1hdGlvbgBTeXN0ZW0uQ29uZmlndXJhdGlvbgBT
+eXN0ZW0uR2xvYmFsaXphdGlvbgBTeXN0ZW0uUmVmbGVjdGlvbgBEYXRhUm93Q29sbGVjdGlvbgBF
+eGNlcHRpb24AQ3VsdHVyZUluZm8AZ2V0X1Jlc291cmNlTWFuYWdlcgBFdmVudHNPYmplY3RXcmFw
+cGVyAE9sZURiRGF0YUFkYXB0ZXIARmlyZUVycm9yAC5jdG9yAC5jY3RvcgBTeXN0ZW0uRGlhZ25v
+c3RpY3MAU3lzdGVtLlJ1bnRpbWUuQ29tcGlsZXJTZXJ2aWNlcwBTeXN0ZW0uUmVzb3VyY2VzAFNU
+XzYxYzlhM2FhMjY3NDRlYjE4ZTUyOTM2ZTVmODA1YmEwLlByb3BlcnRpZXMuUmVzb3VyY2VzLnJl
+c291cmNlcwBEZWJ1Z2dpbmdNb2RlcwBTVF82MWM5YTNhYTI2NzQ0ZWIxOGU1MjkzNmU1ZjgwNWJh
+MC5Qcm9wZXJ0aWVzAGdldF9WYXJpYWJsZXMAU2V0dGluZ3MAU3VjY2VzcwBnZXRfRHRzAFNjcmlw
+dFJlc3VsdHMAZ2V0X0V2ZW50cwBnZXRfUm93cwBDb25jYXQAcmVzdWx0T2JqZWN0AEdldE1heERh
+dGVGcm9tUmVzdWx0U2V0AGdldF9EZWZhdWx0AHNldF9UYXNrUmVzdWx0AGdldF9Db3VudABEYXRh
+Um93AGdldF9Bc3NlbWJseQBFbXB0eQAAAAAALVUAcwBlAHIAOgA6AEMAaQB0AGkAXwBNAGEAeABE
+AGEAdABlAF8ATwBiAGoAABUxADkAMAAwAC0AMAAxAC0AMAAxAAEtVQBzAGUAcgA6ADoAQwBpAHQA
+aQBfAE0AYQB4AEQAYQB0AGUAXwBTAHQAcgAAL1MAQwBSAF8AQwBvAG4AdgBlAHIAdABNAGEAeABE
+AGEAdABlAF8AQwBpAHQAaQAAUUMAaQB0AGkAIABtAGEAeABpAG0AdQBtACAAdAByAGEAbgBzAGEA
+YwB0AGkAbwBuACAAZABhAHQAZQAgAGMAYQBwAHQAdQByAGUAZAA6ACAAAHFGAGEAaQBsAGUAZAAg
+AHQAbwAgAGMAbwBuAHYAZQByAHQAIABDAGkAdABpACAAbQBhAHgAaQBtAHUAbQAgAHQAcgBhAG4A
+cwBhAGMAdABpAG8AbgAgAGQAYQB0AGUALgAgAEUAcgByAG8AcgA6ACAAAHFTAFQAXwA2ADEAYwA5
+AGEAMwBhAGEAMgA2ADcANAA0AGUAYgAxADgAZQA1ADIAOQAzADYAZQA1AGYAOAAwADUAYgBhADAA
+LgBQAHIAbwBwAGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIAYwBlAHMAAAAAAJgtwo+L2f9JpN6I
+rkq0AxsABCABAQgDIAABBSABARERBCABAQ4FIAEBEV0HBwQcDgISQQQgABJtBCAAEnEFIAESdRwD
+IAAcBCABARwEIAASeQUAAg4ODgIGDgogBgEIDg4OCBACAyAADgggBQIIDg4OCAcHAxJFHBJJBiAC
+CBJFHAUgABKAhQMgAAgGIAESgI0IBCABHAgEBhKAkQgAARKAlRGAmQUgABKAnQcgAgEOEoCdCLd6
+XFYZNOCJCImEXc2AgMyRBAAAAAAEAQAAAAMGElUDBhJZAwYSEAIGCAMGERQFIAIOHA4EAAASVQQA
+ABJZBQABARJZBAAAEhADAAABBAgAElUECAASWQQIABIQCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9u
+RXhjZXB0aW9uVGhyb3dzAQgBAAIAAAAAACgBACNTVF82MWM5YTNhYTI2NzQ0ZWIxOGU1MjkzNmU1
+ZjgwNWJhMAAABQEAAAAAFgEAEUNvcHlyaWdodCBAICAyMDI2AABJAQAaLk5FVEZyYW1ld29yayxW
+ZXJzaW9uPXY0LjcBAFQOFEZyYW1ld29ya0Rpc3BsYXlOYW1lEi5ORVQgRnJhbWV3b3JrIDQuNwAA
+ALQAAADOyu++AQAAAJEAAABsU3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3Js
+aWIsIFZlcnNpb249NC4wLjAuMCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdh
+NWM1NjE5MzRlMDg5I1N5c3RlbS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAA
+AAAAUEFEUEFEULQAAABAMgAAAAAAAAAAAABaMgAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAATDIA
+AAAAAAAAAAAAAABfQ29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAQAQAAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAA
+SAAAAFhAAAAaBAAAAAAAAAAAAAAaBDQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAA
+AAAAvQTv/gAAAQAAAAEA9zbPJQAAAQD3Ns8lPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQA
+AAABAFYAYQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBu
+AAAAAAAAALAEegMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAVgMAAAEAMAAwADAA
+MAAwADQAYgAwAAAAGgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBu
+AHkATgBhAG0AZQAAAAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAA
+AABTAFQAXwA2ADEAYwA5AGEAMwBhAGEAMgA2ADcANAA0AGUAYgAxADgAZQA1ADIAOQAzADYAZQA1
+AGYAOAAwADUAYgBhADAAAAA+AA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4A
+OQA2ADcAOQAuADEANAAwADcAMQAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABT
+AFQAXwA2ADEAYwA5AGEAMwBhAGEAMgA2ADcANAA0AGUAYgAxADgAZQA1ADIAOQAzADYAZQA1AGYA
+OAAwADUAYgBhADAALgBkAGwAbAAAAEgAEgABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAA
+AEMAbwBwAHkAcgBpAGcAaAB0ACAAQAAgACAAMgAwADIANgAAACoAAQABAEwAZQBnAGEAbABUAHIA
+YQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBh
+AG0AZQAAAFMAVABfADYAMQBjADkAYQAzAGEAYQAyADYANwA0ADQAZQBiADEAOABlADUAMgA5ADMA
+NgBlADUAZgA4ADAANQBiAGEAMAAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBl
+AAAAAABTAFQAXwA2ADEAYwA5AGEAMwBhAGEAMgA2ADcANAA0AGUAYgAxADgAZQA1ADIAOQAzADYA
+ZQA1AGYAOAAwADUAYgBhADAAAABCAA8AAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAx
+AC4AMAAuADkANgA3ADkALgAxADQAMAA3ADEAAAAAAEYADwABAEEAcwBzAGUAbQBiAGwAeQAgAFYA
+ZQByAHMAaQBvAG4AAAAxAC4AMAAuADkANgA3ADkALgAxADQAMAA3ADEAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAMAAAAbDIAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SCR_ConvertMaxDate_WellsFargo"
+      DTS:CreationName="Microsoft.ScriptTask"
+      DTS:Description="Script Task"
+      DTS:DTSID="{DE50CE78-39CE-465F-A924-7ACB1555AAFA}"
+      DTS:ExecutableType="Microsoft.ScriptTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SCR_ConvertMaxDate_WellsFargo"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ScriptProject
+          Name="ST_49069046005842329fd751388f4c034b"
+          VSTAMajorVersion="17"
+          VSTAMinorVersion="0"
+          Language="CSharp"
+          ReadOnlyVariables="User::WellsFargo_MaxDate_Obj"
+          ReadWriteVariables="User::WellsFargo_MaxDate_Str">
+          <ProjectItem
+            Name="Properties\Resources.resx"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Settings.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_49069046005842329fd751388f4c034b.Properties.Settings.get_Default():ST_49069046005842329fd751388f4c034b.Properties.Sett" +
+    "ings")]
+
+namespace ST_49069046005842329fd751388f4c034b.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}]]></ProjectItem>
+          <ProjectItem
+            Name="ScriptMain.cs"
+            Encoding="UTF8"><![CDATA[using System;
+using System.Data;
+using System.Data.OleDb;
+using Microsoft.SqlServer.Dts.Runtime;
+
+namespace ST_WellsFargo_MaxDate
+{
+    [Microsoft.SqlServer.Dts.Tasks.ScriptTask.SSISScriptTaskEntryPointAttribute]
+    public partial class ScriptMain : Microsoft.SqlServer.Dts.Tasks.ScriptTask.VSTARTScriptObjectModelBase
+    {
+        public void Main()
+        {
+            try
+            {
+                const string fallbackDate = "1900-01-01";
+
+                object resultObject = Dts.Variables["User::WellsFargo_MaxDate_Obj"].Value;
+
+                string maxDateValue = GetMaxDateFromResultSet(resultObject, fallbackDate);
+
+                Dts.Variables["User::WellsFargo_MaxDate_Str"].Value = maxDateValue;
+
+                bool fireAgain = true;
+                Dts.Events.FireInformation(
+                    0,
+                    "SCR_ConvertMaxDate_WellsFargo",
+                    "Wells Fargo maximum transaction date captured: " + maxDateValue,
+                    string.Empty,
+                    0,
+                    ref fireAgain
+                );
+
+                Dts.TaskResult = (int)ScriptResults.Success;
+            }
+            catch (Exception ex)
+            {
+                Dts.Events.FireError(
+                    0,
+                    "SCR_ConvertMaxDate_WellsFargo",
+                    "Failed to convert Wells Fargo maximum transaction date. Error: " + ex.Message,
+                    string.Empty,
+                    0
+                );
+
+                Dts.TaskResult = (int)ScriptResults.Failure;
+            }
+        }
+
+        private string GetMaxDateFromResultSet(object resultObject, string fallbackDate)
+        {
+            if (resultObject == null)
+            {
+                return fallbackDate;
+            }
+
+            DataTable dt = new DataTable();
+
+            using (OleDbDataAdapter adapter = new OleDbDataAdapter())
+            {
+                adapter.Fill(dt, resultObject);
+            }
+
+            if (dt.Rows.Count == 0)
+            {
+                return fallbackDate;
+            }
+
+            object maxDate = dt.Rows[0][0];
+
+            if (maxDate == null || maxDate == DBNull.Value)
+            {
+                return fallbackDate;
+            }
+
+            return maxDate.ToString();
+        }
+
+        enum ScriptResults
+        {
+            Success = DTSExecResult.Success,
+            Failure = DTSExecResult.Failure
+        }
+    }
+}]]></ProjectItem>
+          <ProjectItem
+            Name="ST_49069046005842329fd751388f4c034b.csproj"
+            Encoding="UTF8"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{29C0C7AE-3B2A-4F11-8197-7AEEDB099377}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ST_49069046005842329fd751388f4c034b</RootNamespace>
+    <AssemblyName>ST_49069046005842329fd751388f4c034b</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.ManagedDTS, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.ScriptTask, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="ScriptMain.cs">
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptTask" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_ST170</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></ProjectItem>
+          <ProjectItem
+            Name="Project"
+            Encoding="UTF16LE"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+  <msb:PropertyGroup>
+    <msb:Language>msBuild</msb:Language>
+    <msb:CodeName>ST_49069046005842329fd751388f4c034b</msb:CodeName>
+    <msb:DisplayName>ST_49069046005842329fd751388f4c034b</msb:DisplayName>
+    <msb:ProjectId>{BFFF354E-37CD-4474-9A3E-F5AC40ADF069}</msb:ProjectId>
+  </msb:PropertyGroup>
+  <msb:ItemGroup>
+    <msb:Project Include="ST_49069046005842329fd751388f4c034b.csproj" />
+    <msb:File Include="Properties\Settings.settings" />
+    <msb:File Include="Properties\AssemblyInfo.cs" />
+    <msb:File Include="Properties\Resources.resx" />
+    <msb:File Include="Properties\Resources.Designer.cs" />
+    <msb:File Include="Properties\Settings.Designer.cs" />
+    <msb:File Include="ScriptMain.cs" />
+  </msb:ItemGroup>
+</c:Project>]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\AssemblyInfo.cs"
+            Encoding="UTF8"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("ST_49069046005842329fd751388f4c034b")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("ST_49069046005842329fd751388f4c034b")]
+[assembly: AssemblyCopyright("Copyright @  2026")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Settings.settings"
+            Encoding="UTF8"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></ProjectItem>
+          <ProjectItem
+            Name="Properties\Resources.Designer.cs"
+            Encoding="UTF8"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_49069046005842329fd751388f4c034b.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_49069046005842329fd751388f4c034b.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="ST_49069046005842329fd751388f4c034b.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace ST_49069046005842329fd751388f4c034b.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("ST_49069046005842329fd751388f4c034b.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}]]></ProjectItem>
+          <BinaryItem
+            Name="ST_49069046005842329fd751388f4c034b.dll">TVqQAAMAAAAEAAAA//8AALgAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAgAAAAA4fug4AtAnNIbgBTM0hVGhpcyBwcm9ncmFtIGNhbm5vdCBiZSBydW4gaW4gRE9TIG1v
+ZGUuDQ0KJAAAAAAAAABQRQAATAEDALCdRmoAAAAAAAAAAOAAIiALATAAABQAAAAIAAAAAAAAnjIA
+AAAgAAAAQAAAAAAAEAAgAAAAAgAABAAAAAAAAAAGAAAAAAAAAACAAAAAAgAAAAAAAAMAYIUAABAA
+ABAAAAAAEAAAEAAAAAAAABAAAAAAAAAAAAAAAEwyAABPAAAAAEAAAHgEAAAAAAAAAAAAAAAAAAAA
+AAAAAGAAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAIAAACAAAAAAAAAAAAAAACCAAAEgAAAAAAAAAAAAAAC50ZXh0AAAApBIAAAAgAAAAFAAAAAIA
+AAAAAAAAAAAAAAAAACAAAGAucnNyYwAAAHgEAAAAQAAAAAYAAAAWAAAAAAAAAAAAAAAAAABAAABA
+LnJlbG9jAAAMAAAAAGAAAAACAAAAHAAAAAAAAAAAAAAAAAAAQAAAQgAAAAAAAAAAAAAAAAAAAACA
+MgAAAAAAAEgAAAACAAUACCIAAIwPAAABAAAAAAAAAJQxAAC4AAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAABswBwC5AAAAAQAAEQIoEAAACm8RAAAKcgEAAHBvEgAACm8T
+AAAKCgIGcjsAAHAoAgAABgsCKBAAAApvEQAACnJRAABwbxIAAAoHbxQAAAoXDAIoEAAACm8VAAAK
+FnKLAABwcscAAHAHKBYAAAp+FwAAChYSAm8YAAAKAigQAAAKFm8ZAAAK3jwNAigQAAAKbxUAAAoW
+cosAAHByJwEAcAlvGgAACigWAAAKfhcAAAoWbxsAAAomAigQAAAKF28ZAAAK3gAqAAAAARAAAAAA
+AAB8fAA8EAAAARswAwBcAAAAAgAAEQMtAgQqcxwAAAoKcx0AAAoMCAYDbx4AAAom3goILAYIbx8A
+AArcBm8gAAAKbyEAAAotAgQqBm8gAAAKFm8iAAAKFm8jAAAKCwcsCAd+JAAACjMCBCoHbyUAAAoq
+ARAAAAIAEQALHAAKAAAAAB4CKCYAAAoqHgIoJwAACiqufgEAAAQtHnKnAQBw0AMAAAIoKAAACm8p
+AAAKcyoAAAqAAQAABH4BAAAEKhp+AgAABCoeAoACAAAEKhp+AwAABCoeAigrAAAKKi5zCQAABoAD
+AAAEKgAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAAiAQAACN+AAD0BAAApAYA
+ACNTdHJpbmdzAAAAAJgLAAAcAgAAI1VTALQNAAAQAAAAI0dVSUQAAADEDQAAyAEAACNCbG9iAAAA
+AAAAAAIAAAFXHaIBCQMAAAD6ATMAFgAAAQAAACcAAAAFAAAABgAAAAoAAAADAAAAKwAAAAIAAAAQ
+AAAAAgAAAAIAAAADAAAABAAAAAEAAAAFAAAAAQAAAAEAAAAAAAUEAQAAAAAABgCrAjwFBgA6AzwF
+BgD3ASkFDwCwBQAABgAkAp8EBgCOAp8EBgBvAp8EBgAhA58EBgDLAp8EBgDkAp8EBgA7Ap8EBgBW
+AnIDCgD/ArQDCgAwAbQDBgBEBkIEBgDDBEIEDgCYADEADgABBWEABgBJBEIEBgDaASkFBgDdBFwF
+BgDNBIoEEgCqAe8DEgALAu8DEgBnAXUEBgC/ATwFCgDdA7QDFgDyBdsAFgCiANsACgDtBLQDBgCO
+A0IEBgCrAEIEDgCxBDEADgBMATEADgCIBjEABgAyBEIEBgD7AEIEBgC3AEIEBgCUBp8EAAAAAAEA
+AAAAAAEAAQABABAAWgSUATkAAQABAAAAEABjBb8FPQABAAQAAAEQAPwFvwVlAAMACAADAQAAFQYA
+AE0ABAALABEATgS/ABEAIAHDABEAfADHAAYGKQDLAFaABQbOAFaAAAHOAFAgAAAAAIYAYAQGAAEA
+KCEAAAAAgQBLBtIAAQCgIQAAAACGGBwFBgADAKghAAAAAIMYHAUGAAMAsCEAAAAAkwjZBNgAAwDc
+IQAAAACTCAgB3QADAOMhAAAAAJMIFAHiAAMA6yEAAAAAlghjBugABADyIQAAAACGGBwFBgAEAPoh
+AAAAAJEYIgXtAAQAAAABAD4GAAACAIcBAAABAGwDCQAcBQEAEQAcBQYAGQAcBQoAKQAcBRAAMQAc
+BRAAOQAcBRAAQQAcBRAASQAcBRAAUQAcBRAAWQAcBRAAYQAcBRAAaQAcBQYAoQAcBQYAwQAcBRUA
+0QAcBQYAcQANBiMA2QDuBSgA4QA5BC0A6QBYAzMA6QBiAzcA2QAjBjwA+QA3BkEA+QCdBkcA8QBl
+BEoA2QBvBgEAgQCMAFUA8QASBVkAiQAcBQYAkQAcBQYAkQAtBGoAAQF/AQYAiQAuBnEAEQF+BncA
+CQE5BHsAGQE5BIIAIQFmA4cAeQCMA1UAcQAcBQYAeQAcBQYAKQHJAIwAKQGQBpUAqQAcBZsAyQAc
+BQYACAAUALUACAAYALoAKQBzACgBLgALAAABLgATAAkBLgAbACgBLgAjADEBLgArAFoBLgAzAFoB
+LgA7AFoBLgBDADEBLgBLAGABLgBTAFoBLgBbAHcBQwBjALoASQBzACgBYQB7ALoAYwBrALoAGwBi
+AAMAAQAEAAMAAADdBPEAAAAoAfYAAABnBvsAAgAFAAMAAgAGAAUAAQAHAAUAAgAIAAcABIAAAAEA
+AADPJaBIAAAAAAAAPQAAAAQAAAAAAAAAAAAAAKMAcwAAAAAAEQAAAAAAAAAAAAAArACVAwAAAAAE
+AAAAAAAAAAAAAACjADEAAAAAAAQAAAAAAAAAAAAAAKMAQgQAAAAAEQAAAAAAAAAAAAAArAAKAAAA
+AAAAAAAAAQAAAG0FAAAFAAIAAAAAPE1vZHVsZT4ATWljcm9zb2Z0LlNxbFNlcnZlci5NYW5hZ2Vk
+RFRTAHZhbHVlX18AU3lzdGVtLkRhdGEAU1RfNDkwNjkwNDYwMDU4NDIzMjlmZDc1MTM4OGY0YzAz
+NGIAU3lzdGVtLkRhdGEuT2xlRGIAbXNjb3JsaWIAZGVmYXVsdEluc3RhbmNlAGdldF9NZXNzYWdl
+AERhdGFUYWJsZQBWYXJpYWJsZQBJRGlzcG9zYWJsZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBl
+RnJvbUhhbmRsZQBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5SdW50aW1lAFR5cGUARmFpbHVyZQBn
+ZXRfQ3VsdHVyZQBzZXRfQ3VsdHVyZQByZXNvdXJjZUN1bHR1cmUAVlNUQVJUU2NyaXB0T2JqZWN0
+TW9kZWxCYXNlAEludGVybmFsRGF0YUNvbGxlY3Rpb25CYXNlAEFwcGxpY2F0aW9uU2V0dGluZ3NC
+YXNlAERpc3Bvc2UAZmFsbGJhY2tEYXRlAFNUX1dlbGxzRmFyZ29fTWF4RGF0ZQBFZGl0b3JCcm93
+c2FibGVTdGF0ZQBDb21waWxlckdlbmVyYXRlZEF0dHJpYnV0ZQBEZWJ1Z2dlck5vblVzZXJDb2Rl
+QXR0cmlidXRlAERlYnVnZ2FibGVBdHRyaWJ1dGUARWRpdG9yQnJvd3NhYmxlQXR0cmlidXRlAEFz
+c2VtYmx5VGl0bGVBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRyaWJ1dGUAVGFyZ2V0RnJh
+bWV3b3JrQXR0cmlidXRlAEFzc2VtYmx5Q29uZmlndXJhdGlvbkF0dHJpYnV0ZQBBc3NlbWJseURl
+c2NyaXB0aW9uQXR0cmlidXRlAENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRyaWJ1dGUAQXNzZW1i
+bHlQcm9kdWN0QXR0cmlidXRlAEFzc2VtYmx5Q29weXJpZ2h0QXR0cmlidXRlAFNTSVNTY3JpcHRU
+YXNrRW50cnlQb2ludEF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlBdHRyaWJ1dGUAUnVudGltZUNv
+bXBhdGliaWxpdHlBdHRyaWJ1dGUAZ2V0X1ZhbHVlAHNldF9WYWx1ZQB2YWx1ZQBTeXN0ZW0uUnVu
+dGltZS5WZXJzaW9uaW5nAFRvU3RyaW5nAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuU2NyaXB0VGFzawBN
+aWNyb3NvZnQuU3FsU2VydmVyLkR0cy5UYXNrcy5TY3JpcHRUYXNrAFNjcmlwdE9iamVjdE1vZGVs
+AFN5c3RlbS5Db21wb25lbnRNb2RlbABTVF80OTA2OTA0NjAwNTg0MjMyOWZkNzUxMzg4ZjRjMDM0
+Yi5kbGwARmlsbABEQk51bGwAZ2V0X0l0ZW0AU3lzdGVtAEVudW0AcmVzb3VyY2VNYW4AU2NyaXB0
+TWFpbgBGaXJlSW5mb3JtYXRpb24AU3lzdGVtLkNvbmZpZ3VyYXRpb24AU3lzdGVtLkdsb2JhbGl6
+YXRpb24AU3lzdGVtLlJlZmxlY3Rpb24ARGF0YVJvd0NvbGxlY3Rpb24ARXhjZXB0aW9uAEN1bHR1
+cmVJbmZvAGdldF9SZXNvdXJjZU1hbmFnZXIARXZlbnRzT2JqZWN0V3JhcHBlcgBPbGVEYkRhdGFB
+ZGFwdGVyAEZpcmVFcnJvcgAuY3RvcgAuY2N0b3IAU3lzdGVtLkRpYWdub3N0aWNzAFN5c3RlbS5S
+dW50aW1lLkNvbXBpbGVyU2VydmljZXMAU3lzdGVtLlJlc291cmNlcwBTVF80OTA2OTA0NjAwNTg0
+MjMyOWZkNzUxMzg4ZjRjMDM0Yi5Qcm9wZXJ0aWVzLlJlc291cmNlcy5yZXNvdXJjZXMARGVidWdn
+aW5nTW9kZXMAU1RfNDkwNjkwNDYwMDU4NDIzMjlmZDc1MTM4OGY0YzAzNGIuUHJvcGVydGllcwBn
+ZXRfVmFyaWFibGVzAFNldHRpbmdzAFN1Y2Nlc3MAZ2V0X0R0cwBTY3JpcHRSZXN1bHRzAGdldF9F
+dmVudHMAZ2V0X1Jvd3MAQ29uY2F0AHJlc3VsdE9iamVjdABHZXRNYXhEYXRlRnJvbVJlc3VsdFNl
+dABnZXRfRGVmYXVsdABzZXRfVGFza1Jlc3VsdABnZXRfQ291bnQARGF0YVJvdwBnZXRfQXNzZW1i
+bHkARW1wdHkAAAA5VQBzAGUAcgA6ADoAVwBlAGwAbABzAEYAYQByAGcAbwBfAE0AYQB4AEQAYQB0
+AGUAXwBPAGIAagAAFTEAOQAwADAALQAwADEALQAwADEAATlVAHMAZQByADoAOgBXAGUAbABsAHMA
+RgBhAHIAZwBvAF8ATQBhAHgARABhAHQAZQBfAFMAdAByAAA7UwBDAFIAXwBDAG8AbgB2AGUAcgB0
+AE0AYQB4AEQAYQB0AGUAXwBXAGUAbABsAHMARgBhAHIAZwBvAABfVwBlAGwAbABzACAARgBhAHIA
+ZwBvACAAbQBhAHgAaQBtAHUAbQAgAHQAcgBhAG4AcwBhAGMAdABpAG8AbgAgAGQAYQB0AGUAIABj
+AGEAcAB0AHUAcgBlAGQAOgAgAAB/RgBhAGkAbABlAGQAIAB0AG8AIABjAG8AbgB2AGUAcgB0ACAA
+VwBlAGwAbABzACAARgBhAHIAZwBvACAAbQBhAHgAaQBtAHUAbQAgAHQAcgBhAG4AcwBhAGMAdABp
+AG8AbgAgAGQAYQB0AGUALgAgAEUAcgByAG8AcgA6ACAAAHFTAFQAXwA0ADkAMAA2ADkAMAA0ADYA
+MAAwADUAOAA0ADIAMwAyADkAZgBkADcANQAxADMAOAA4AGYANABjADAAMwA0AGIALgBQAHIAbwBw
+AGUAcgB0AGkAZQBzAC4AUgBlAHMAbwB1AHIAYwBlAHMAAAAAAHTSucYvsp9Crjoj7ftQQ8gABCAB
+AQgDIAABBSABARERBCABAQ4FIAEBEV0HBwQcDgISQQQgABJtBCAAEnEFIAESdRwDIAAcBCABARwE
+IAASeQUAAg4ODgIGDgogBgEIDg4OCBACAyAADgggBQIIDg4OCAcHAxJFHBJJBiACCBJFHAUgABKA
+hQMgAAgGIAESgI0IBCABHAgEBhKAkQgAARKAlRGAmQUgABKAnQcgAgEOEoCdCLd6XFYZNOCJCImE
+Xc2AgMyRBAAAAAAEAQAAAAMGElUDBhJZAwYSEAIGCAMGERQFIAIOHA4EAAASVQQAABJZBQABARJZ
+BAAAEhADAAABBAgAElUECAASWQQIABIQCAEACAAAAAAAHgEAAQBUAhZXcmFwTm9uRXhjZXB0aW9u
+VGhyb3dzAQgBAAIAAAAAACgBACNTVF80OTA2OTA0NjAwNTg0MjMyOWZkNzUxMzg4ZjRjMDM0YgAA
+BQEAAAAAFgEAEUNvcHlyaWdodCBAICAyMDI2AABNAQAcLk5FVEZyYW1ld29yayxWZXJzaW9uPXY0
+LjcuMgEAVA4URnJhbWV3b3JrRGlzcGxheU5hbWUULk5FVCBGcmFtZXdvcmsgNC43LjIAAAC0AAAA
+zsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIsIG1zY29ybGliLCBW
+ZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9rZW49Yjc3YTVjNTYx
+OTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIAAAAAAAAAAAAAAFBB
+RFBBRFC0AAAAdDIAAAAAAAAAAAAAjjIAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAyAAAAAAAA
+AAAAAAAAX0NvckRsbE1haW4AbXNjb3JlZS5kbGwAAAAAAP8lACAAEAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAQAQAAAAGAAAgAAAAAAAAAAAAAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAA
+SAAAAFhAAAAaBAAAAAAAAAAAAAAaBDQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAA
+AAAAvQTv/gAAAQAAAAEAoEjPJQAAAQCgSM8lPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQA
+AAABAFYAYQByAEYAaQBsAGUASQBuAGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBu
+AAAAAAAAALAEegMAAAEAUwB0AHIAaQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAVgMAAAEAMAAwADAA
+MAAwADQAYgAwAAAAGgABAAEAQwBvAG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBu
+AHkATgBhAG0AZQAAAAAAAAAAAHAAJAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAA
+AABTAFQAXwA0ADkAMAA2ADkAMAA0ADYAMAAwADUAOAA0ADIAMwAyADkAZgBkADcANQAxADMAOAA4
+AGYANABjADAAMwA0AGIAAAA+AA8AAQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4A
+OQA2ADcAOQAuADEAOAA1ADkAMgAAAAAAcAAoAAEASQBuAHQAZQByAG4AYQBsAE4AYQBtAGUAAABT
+AFQAXwA0ADkAMAA2ADkAMAA0ADYAMAAwADUAOAA0ADIAMwAyADkAZgBkADcANQAxADMAOAA4AGYA
+NABjADAAMwA0AGIALgBkAGwAbAAAAEgAEgABAEwAZQBnAGEAbABDAG8AcAB5AHIAaQBnAGgAdAAA
+AEMAbwBwAHkAcgBpAGcAaAB0ACAAQAAgACAAMgAwADIANgAAACoAAQABAEwAZQBnAGEAbABUAHIA
+YQBkAGUAbQBhAHIAawBzAAAAAAAAAAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBh
+AG0AZQAAAFMAVABfADQAOQAwADYAOQAwADQANgAwADAANQA4ADQAMgAzADIAOQBmAGQANwA1ADEA
+MwA4ADgAZgA0AGMAMAAzADQAYgAuAGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBl
+AAAAAABTAFQAXwA0ADkAMAA2ADkAMAA0ADYAMAAwADUAOAA0ADIAMwAyADkAZgBkADcANQAxADMA
+OAA4AGYANABjADAAMwA0AGIAAABCAA8AAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAx
+AC4AMAAuADkANgA3ADkALgAxADgANQA5ADIAAAAAAEYADwABAEEAcwBzAGUAbQBiAGwAeQAgAFYA
+ZQByAHMAaQBvAG4AAAAxAC4AMAAuADkANgA3ADkALgAxADgANQA5ADIAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAwAAAMAAAAoDIAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA</BinaryItem>
+        </ScriptProject>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{50AB718F-5A05-4C99-8F32-CECADC512593}"
+      DTS:From="Package\EST_GetMaxDate_Citi"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SCR_ConvertMaxDate_Citi" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{35F35C9D-C6E1-47A8-A387-164B168EA3D6}"
+      DTS:From="Package\SCR_ConvertMaxDate_Citi"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\DFT_LoadTransactions_Citi" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{1DFEC499-CFB3-4FDE-BDF9-3E3563F422F4}"
+      DTS:From="Package\EST_GetMaxDate_WellsFargo"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SCR_ConvertMaxDate_WellsFargo" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 3]"
+      DTS:CreationName=""
+      DTS:DTSID="{46A12A7B-846C-4CE6-8C6D-100185139BE6}"
+      DTS:From="Package\SCR_ConvertMaxDate_WellsFargo"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 3"
+      DTS:To="Package\DFT_LoadTransactions_WellsFargo" />
+  </DTS:PrecedenceConstraints>
   <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
 <!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
 <!--If you manually edit this section and make a mistake, you can delete it. -->
@@ -24,5 +2509,371 @@
 <Objects
   Version="8">
   <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="237,42"
+          Id="Package\DFT_LoadTransactions_Citi"
+          TopLeft="378.5,346.5" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\EST_GetMaxDate_Citi"
+          TopLeft="48.5,43.5" />
+        <NodeLayout
+          Size="213,42"
+          Id="Package\SCR_ConvertMaxDate_Citi"
+          TopLeft="132,195" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="143.5,85.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="95,109.5"
+              Start="0,0"
+              End="95,102">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,50.75"
+                    Point2="0,54.75"
+                    Point3="4,54.75" />
+                  <mssgle:LineSegment
+                    End="91,54.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="91,54.75"
+                    Point2="95,54.75"
+                    Point3="95,58.75" />
+                  <mssgle:LineSegment
+                    End="95,102" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="238.5,237">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="258.5,109.5"
+              Start="0,0"
+              End="258.5,102">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,50.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,50.75"
+                    Point2="0,54.75"
+                    Point3="4,54.75" />
+                  <mssgle:LineSegment
+                    End="254.5,54.75" />
+                  <mssgle:CubicBezierSegment
+                    Point1="254.5,54.75"
+                    Point2="258.5,54.75"
+                    Point3="258.5,58.75" />
+                  <mssgle:LineSegment
+                    End="258.5,102" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT_LoadTransactions_WellsFargo"
+          TopLeft="679,268" />
+        <NodeLayout
+          Size="230,42"
+          Id="Package\EST_GetMaxDate_WellsFargo"
+          TopLeft="346,28" />
+        <NodeLayout
+          Size="253,42"
+          Id="Package\SCR_ConvertMaxDate_WellsFargo"
+          TopLeft="446,151" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="461,70">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="111.5,81"
+              Start="0,0"
+              End="111.5,73.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.5"
+                    Point2="0,40.5"
+                    Point3="4,40.5" />
+                  <mssgle:LineSegment
+                    End="107.5,40.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="107.5,40.5"
+                    Point2="111.5,40.5"
+                    Point3="111.5,44.5" />
+                  <mssgle:LineSegment
+                    End="111.5,73.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 3]"
+          TopLeft="572.5,193">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="234.5,75"
+              Start="0,0"
+              End="234.5,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.5"
+                    Point2="0,37.5"
+                    Point3="4,37.5" />
+                  <mssgle:LineSegment
+                    End="230.5,37.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="230.5,37.5"
+                    Point2="234.5,37.5"
+                    Point3="234.5,41.5" />
+                  <mssgle:LineSegment
+                    End="234.5,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT_LoadTransactions_Citi">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="170,42"
+          Id="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank"
+          TopLeft="33,5.5" />
+        <NodeLayout
+          Size="225,42"
+          Id="Package\DFT_LoadTransactions_Citi\CSPLIT_NewCitiTransactions"
+          TopLeft="5.50000000000003,107.5" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank"
+          TopLeft="257.5,205.5" />
+        <EdgeLayout
+          Id="Package\DFT_LoadTransactions_Citi.Paths[New Citi Transactions]"
+          TopLeft="118,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="224,56"
+              Start="0,0"
+              End="224,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24"
+                    Point2="0,28"
+                    Point3="4,28" />
+                  <mssgle:LineSegment
+                    End="220,28" />
+                  <mssgle:CubicBezierSegment
+                    Point1="220,28"
+                    Point2="224,28"
+                    Point3="224,32" />
+                  <mssgle:LineSegment
+                    End="224,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="54.97876953125,33,114.0424609375,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT_LoadTransactions_Citi.Paths[Excel Source Output]"
+          TopLeft="118,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_LoadTransactions_Citi\EX_SRC_CitiBank">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_LoadTransactions_Citi\EX_DST_CitiBank">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\DFT_LoadTransactions_WellsFargo">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="206,42"
+          Id="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo"
+          TopLeft="15,5.5" />
+        <NodeLayout
+          Size="225,42"
+          Id="Package\DFT_LoadTransactions_WellsFargo\CSPLIT_NewCitiTransactions"
+          TopLeft="5.50000000000003,107.5" />
+        <EdgeLayout
+          Id="Package\DFT_LoadTransactions_WellsFargo.Paths[Excel Source Output]"
+          TopLeft="118,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="205,42"
+          Id="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo"
+          TopLeft="308.5,202.5" />
+        <EdgeLayout
+          Id="Package\DFT_LoadTransactions_WellsFargo.Paths[New WellsFargo Transactions]"
+          TopLeft="118,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="293,53"
+              Start="0,0"
+              End="293,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.5"
+                    Point2="0,26.5"
+                    Point3="4,26.5" />
+                  <mssgle:LineSegment
+                    End="289,26.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="289,26.5"
+                    Point2="293,26.5"
+                    Point3="293,30.5" />
+                  <mssgle:LineSegment
+                    End="293,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="81.142421875,31.5,130.71515625,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_LoadTransactions_WellsFargo\EXCEL_SRC_WellsFargo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT_LoadTransactions_WellsFargo\EXCEL_DST_WellsFargo">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
 </Objects>]]></DTS:DesignTimeProperties>
 </DTS:Executable>
