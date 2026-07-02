@@ -26,7 +26,7 @@
           <SSIS:Property SSIS:Name="CreatorComputerName">DEVELOPER-PC</SSIS:Property>
           <SSIS:Property SSIS:Name="Description">
           </SSIS:Property>
-          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAACghxxjEprT/79BkJ3C+HgP+LlbtdmynOnZvG465A6skgAAAAAOgAAAAAIAACAAAAA+vDtpZznRSTgPV5dem2C7HFyhXYVZ50jwFxWlzSgD95AAAAAMaNUiiVLOw2KTKrPICK14EfxQa5XKC8DwgTspgBCno88+FU1N9sAua7sz3bYVPM3AVW8y1wMgwFzloIxRUeWQ4s5qmL3jNfp+/UcgBuJqRdacwUx3jq1p92bevTWE01xN4vk9TptI7i//09/C68x0qQyFy/zaE//9ljJ+DjEaaUAr7VY5QXvmsvMS/InAbIRAAAAA9x3rZ6/T2BHvfzA8j2GKawygoVr6Jg2QTOIyU09AV2dAvDVvw5a28GnmLL9I4XUMsun+9gLNR4hLC7mzB+SBxQ==</SSIS:Property>
+          <SSIS:Property SSIS:Name="PasswordVerifier" SSIS:Sensitive="1">AQAAANCMnd8BFdERjHoAwE/Cl+sBAAAAB78Lxivvx02sIaYbbm6anQAAAAACAAAAAAAQZgAAAAEAACAAAAA5IbJa1z2fOs5UdjOxeJLQY+mO49uMbIOkQ9bTmqFzowAAAAAOgAAAAAIAACAAAACIUH0pToWW1bNFYBY+FJ53cJEVqSgYKnye/qBX0bLezpAAAABGSx0XVput5OsWf4rRBXGttHK/fjJOqi8ixgwEtWUEc2TufjJSkkP/fIal+aS0KL+iPQdRGZDsjOX7dq1r+d36Gv9XJoul1/hol9qe+ZhtRjcxyZfSrt8ofN4Ms1J7tH7jVtOBB3ZEGpddA4yWhoArwJOyDdPzYFQ8/sGG1WEA0Y5RgNhlOODr623I7k5GwAZAAAAA3nqv665UMWAtwncTZdi82RIacii/QwcReulGzn7N4MHwtDCK8BaY8c3rkPHynaoNMwT4BkWr8cFBto8OOgNSww==</SSIS:Property>
           <SSIS:Property SSIS:Name="FormatVersion">1</SSIS:Property>
         </SSIS:Properties>
         <SSIS:Packages>
@@ -37,6 +37,7 @@
           <SSIS:Package SSIS:Name="STG_Master_Incremental.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="DW_Load_FamilyFinance.dtsx" SSIS:EntryPoint="1" />
           <SSIS:Package SSIS:Name="DW_Initial_Setup.dtsx" SSIS:EntryPoint="1" />
+          <SSIS:Package SSIS:Name="Load_Bank_Transactions.dtsx" SSIS:EntryPoint="1" />
         </SSIS:Packages>
         <SSIS:ConnectionManagers>
           <SSIS:ConnectionManager SSIS:Name="OLDB_STG.conmgr" />
@@ -815,10 +816,10 @@
                 <SSIS:Property SSIS:Name="Name">DW_Load_FamilyFinance</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionBuild">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">9</SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
-                <SSIS:Property SSIS:Name="VersionGUID">{463A0F2C-7248-460C-9F2E-4D3BF3E6E029}</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{21CB5EE4-95AA-4F9E-8B6A-DC85F90D80C5}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>
@@ -836,6 +837,23 @@
                 <SSIS:Property SSIS:Name="VersionComments">
                 </SSIS:Property>
                 <SSIS:Property SSIS:Name="VersionGUID">{7A20F2F8-20DF-488C-8707-363CE49BDB6E}</SSIS:Property>
+                <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
+                <SSIS:Property SSIS:Name="Description">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="ProtectionLevel">1</SSIS:Property>
+              </SSIS:Properties>
+              <SSIS:Parameters />
+            </SSIS:PackageMetaData>
+            <SSIS:PackageMetaData SSIS:Name="Load_Bank_Transactions.dtsx">
+              <SSIS:Properties>
+                <SSIS:Property SSIS:Name="ID">{FD7777CE-A969-42AB-AC97-003DA84F3F09}</SSIS:Property>
+                <SSIS:Property SSIS:Name="Name">Load_Bank_Transactions</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMajor">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionMinor">0</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionBuild">1</SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionComments">
+                </SSIS:Property>
+                <SSIS:Property SSIS:Name="VersionGUID">{4FC89D5F-1F4D-461D-B412-3353BC59AA52}</SSIS:Property>
                 <SSIS:Property SSIS:Name="PackageFormatVersion">8</SSIS:Property>
                 <SSIS:Property SSIS:Name="Description">
                 </SSIS:Property>

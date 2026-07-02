@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DW_Load_FamilyFinance"
   DTS:PackageType="5"
-  DTS:VersionBuild="8"
-  DTS:VersionGUID="{463A0F2C-7248-460C-9F2E-4D3BF3E6E029}">
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{21CB5EE4-95AA-4F9E-8B6A-DC85F90D80C5}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -166,21 +166,21 @@
           Id="Package\Sequence Container\EST_Load_DimBank"
           TopLeft="33.9999999999999,17.5" />
         <NodeLayout
-          Size="194,42"
-          Id="Package\Sequence Container\EST_Load_FactIncome"
-          TopLeft="297,21.5" />
-        <NodeLayout
-          Size="207,42"
-          Id="Package\Sequence Container\EST_Load_FactExpense"
-          TopLeft="287,94.5" />
+          Size="212,42"
+          Id="Package\Sequence Container\EST_Load_DimDescription"
+          TopLeft="20.5,104.5" />
         <NodeLayout
           Size="228,42"
           Id="Package\Sequence Container\EST_Load_DimIncomeSource"
           TopLeft="150,195.5" />
         <NodeLayout
-          Size="212,42"
-          Id="Package\Sequence Container\EST_Load_DimDescription"
-          TopLeft="20.5,104.5" />
+          Size="207,42"
+          Id="Package\Sequence Container\EST_Load_FactExpense"
+          TopLeft="287,94.5" />
+        <NodeLayout
+          Size="194,42"
+          Id="Package\Sequence Container\EST_Load_FactIncome"
+          TopLeft="297,21.5" />
         <EdgeLayout
           Id="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
           TopLeft="125.75,59.5">
@@ -299,7 +299,7 @@
           PanelSize="500,271"
           Size="500,314"
           Id="Package\Sequence Container"
-          TopLeft="83,42" />
+          TopLeft="102,84" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
