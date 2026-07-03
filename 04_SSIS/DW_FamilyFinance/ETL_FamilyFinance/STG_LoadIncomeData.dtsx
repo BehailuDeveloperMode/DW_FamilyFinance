@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadIncomeData"
   DTS:PackageType="5"
-  DTS:VersionBuild="37"
-  DTS:VersionGUID="{FF052D22-E176-4762-84FE-D4C581C662EC}">
+  DTS:VersionBuild="40"
+  DTS:VersionGUID="{866D9876-EA21-4BB2-847B-47FADD9B3C9F}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:ConnectionManagers>
@@ -941,37 +941,45 @@
         <NodeLayout
           Size="190,42"
           Id="Package\DFT_LoadIncomeData"
-          TopLeft="70.5,217.5" />
+          TopLeft="155.5,140.5" />
+        <NodeLayout
+          Size="226,42"
+          Id="Package\EST_GetNewMaxIncomeDate"
+          TopLeft="249,219" />
         <NodeLayout
           Size="193,42"
           Id="Package\EST_Income_MaxDate"
-          TopLeft="93,47" />
+          TopLeft="81,51" />
+        <NodeLayout
+          Size="220,42"
+          Id="Package\EST_InsertIncomeLoadAudit"
+          TopLeft="502,305" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
-          TopLeft="189.5,89">
+          TopLeft="177.5,93">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-24,128.5"
+              EndConnector="73,47.5"
               Start="0,0"
-              End="-24,121">
+              End="73,40">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,60.25" />
+                    End="0,19.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,60.25"
-                    Point2="0,64.25"
-                    Point3="-4,64.25" />
+                    Point1="0,19.75"
+                    Point2="0,23.75"
+                    Point3="4,23.75" />
                   <mssgle:LineSegment
-                    End="-20,64.25" />
+                    End="69,23.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="-20,64.25"
-                    Point2="-24,64.25"
-                    Point3="-24,68.25" />
+                    Point1="69,23.75"
+                    Point2="73,23.75"
+                    Point3="73,27.75" />
                   <mssgle:LineSegment
-                    End="-24,121" />
+                    End="73,40" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -980,40 +988,32 @@
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="220,42"
-          Id="Package\EST_InsertIncomeLoadAudit"
-          TopLeft="376,367" />
-        <NodeLayout
-          Size="226,42"
-          Id="Package\EST_GetNewMaxIncomeDate"
-          TopLeft="381,194" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="260.5,238.5">
+          TopLeft="250.5,182.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="120.5,-23.5"
+              EndConnector="111.5,36.5"
               Start="0,0"
-              End="113,-23.5">
+              End="111.5,29">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="56.25,0" />
+                    End="0,14.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="56.25,0"
-                    Point2="60.25,0"
-                    Point3="60.25,-4" />
+                    Point1="0,14.25"
+                    Point2="0,18.25"
+                    Point3="4,18.25" />
                   <mssgle:LineSegment
-                    End="60.25,-19.5" />
+                    End="107.5,18.25" />
                   <mssgle:CubicBezierSegment
-                    Point1="60.25,-19.5"
-                    Point2="60.25,-23.5"
-                    Point3="64.25,-23.5" />
+                    Point1="107.5,18.25"
+                    Point2="111.5,18.25"
+                    Point3="111.5,22.25" />
                   <mssgle:LineSegment
-                    End="113,-23.5" />
+                    End="111.5,29" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1024,30 +1024,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="494,236">
+          TopLeft="362,261">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-8,131"
+              EndConnector="250,44"
               Start="0,0"
-              End="-8,123.5">
+              End="250,36.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,61.5" />
+                    End="0,18" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,61.5"
-                    Point2="0,65.5"
-                    Point3="-4,65.5" />
+                    Point1="0,18"
+                    Point2="0,22"
+                    Point3="4,22" />
                   <mssgle:LineSegment
-                    End="-4,65.5" />
+                    End="246,22" />
                   <mssgle:CubicBezierSegment
-                    Point1="-4,65.5"
-                    Point2="-8,65.5"
-                    Point3="-8,69.5" />
+                    Point1="246,22"
+                    Point2="250,22"
+                    Point3="250,26" />
                   <mssgle:LineSegment
-                    End="-8,123.5" />
+                    End="250,36.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1188,7 +1188,7 @@
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT_LoadIncomeData\EXL_IncomeSource">
+    design-time-name="Package\DFT_LoadIncomeData\OLED_FamilyIncome">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
@@ -1201,7 +1201,7 @@
     </Properties>
   </PipelineComponentMetadata>
   <PipelineComponentMetadata
-    design-time-name="Package\DFT_LoadIncomeData\OLED_FamilyIncome">
+    design-time-name="Package\DFT_LoadIncomeData\EXL_IncomeSource">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
