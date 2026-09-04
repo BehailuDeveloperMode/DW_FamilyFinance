@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DW_Initial_Setup"
   DTS:PackageType="5"
-  DTS:VersionBuild="5"
-  DTS:VersionGUID="{62C4125A-DF75-4189-BE7F-6CF08E08C6F0}">
+  DTS:VersionBuild="6"
+  DTS:VersionGUID="{1E772982-9DC1-4F5D-959C-2D6E8F0A6A83}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -50,7 +50,7 @@
         <NodeLayout
           Size="180,42"
           Id="Package\EST_Load_DimDate"
-          TopLeft="205,66" />
+          TopLeft="271,87" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
