@@ -1,0 +1,3285 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/3/2026 4:48:06 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DEVELOPER-PC"
+  DTS:CreatorName="Developer-PC\tbeha"
+  DTS:DTSID="{6DDFF0D5-4C75-4579-BCEA-4C2FEE54ECC7}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="17.0.1016.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="IncomeLoad_GoogleSheet"
+  DTS:PackageType="5"
+  DTS:VersionBuild="26"
+  DTS:VersionGUID="{DF9B38DA-9C31-4944-B6EE-4B960B6A6D05}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FAD2C1B2-A1B5-4558-A171-E55D37ECE9BB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="GoogleCredentialsPath">
+      <DTS:VariableValue
+        DTS:DataType="8">C:\SSIS\Credentials\ssis-google-sheets-key.json</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E4281413-10A8-4B1F-8E41-117C8B687FC2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="GoogleRowsRead">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2065AAA5-8F48-4B0B-B512-6740F9450ABE}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="GoogleSheetRange">
+      <DTS:VariableValue
+        DTS:DataType="8">Data!A2:O</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{44FA8F22-751F-48B1-A259-B63AB51E617F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="GoogleSpreadsheetId">
+      <DTS:VariableValue
+        DTS:DataType="8">164nRDMs7jd3hXepmQdaiCEZndfMD2MYFurw4eLrgGKQ</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load Income from Google Sheet"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{0F48C771-3DCC-4A74-A9FE-95D76807E052}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load Income from Google Sheet"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Google Sheet Rows">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::GoogleRowsRead</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="CNV - Convert Income Data Types"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Submitted_At]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Submitted_At"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Submitted_At]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Period_Start]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Period_Start"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_Start]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Period_End]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Period_End"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_End]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Pay_Day]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Pay_Day"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Pay_Day]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Gross_Payment_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Gross_Payment_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Gross_Payment_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Federal_Income_Tax_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Federal_Income_Tax_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Federal_Income_Tax_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Social_Security_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Social_Security_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Social_Security_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Medicare_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Medicare_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Medicare_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Total_Tax_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Total_Tax_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Total_Tax_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Net_Income_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Net_Income_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Net_Income_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[CA_State_Tax_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CA_State_Tax_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_State_Tax_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[CA_Disability_Clean]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CA_Disability_Clean"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_Disability_Clean]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input].Columns[Data_Validator]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Data_Validator"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Data_Validator]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Submitted_At_DateTime]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Submitted_At_DateTime]"
+                      name="Submitted_At_DateTime"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Submitted_At]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_Start_Date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_Start_Date]"
+                      name="Period_Start_Date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_Start]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_End_Date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_End_Date]"
+                      name="Period_End_Date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_End]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Pay_Day_Date]"
+                      dataType="dbDate"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Pay_Day_Date]"
+                      name="Pay_Day_Date"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Pay_Day]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Gross_Payment_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Gross_Payment_Decimal]"
+                      name="Gross_Payment_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Gross_Payment_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Federal_Income_Tax_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Federal_Income_Tax_Decimal]"
+                      name="Federal_Income_Tax_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Federal_Income_Tax_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Social_Security_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Social_Security_Decimal]"
+                      name="Social_Security_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Social_Security_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Medicare_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Medicare_Decimal]"
+                      name="Medicare_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Medicare_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Total_Tax_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Total_Tax_Decimal]"
+                      name="Total_Tax_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Total_Tax_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Net_Income_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Net_Income_Decimal]"
+                      name="Net_Income_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Net_Income_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[CA_State_Tax_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[CA_State_Tax_Decimal]"
+                      name="CA_State_Tax_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_State_Tax_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[CA_Disability_Decimal]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[CA_Disability_Decimal]"
+                      name="CA_Disability_Decimal"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_Disability_Clean]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Data_Validator_Integer]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Data_Validator_Integer]"
+                      name="Data_Validator_Integer"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Data_Validator]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - Clean Google Sheet Values"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[Total_Tax]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Total_Tax"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Total_Tax]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[Net_Income]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Net_Income"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Net_Income]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[CA_Disability]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CA_Disability"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_Disability]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[CA_State_Tax]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="CA_State_Tax"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_State_Tax]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[Medicare]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Medicare"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Medicare]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[Social_Security]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Social_Security"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Social_Security]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[Federal_Income_Tax]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Federal_Income_Tax"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Federal_Income_Tax]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input].Columns[Gross_Payment]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Gross_Payment"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Gross_Payment]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Gross_Payment_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Gross_Payment_Clean]"
+                      name="Gross_Payment_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Gross_Payment]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Gross_Payment]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(Gross_Payment)) == 0 ? "0" : REPLACE(REPLACE(TRIM(Gross_Payment),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Federal_Income_Tax_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Federal_Income_Tax_Clean]"
+                      name="Federal_Income_Tax_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Federal_Income_Tax]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Federal_Income_Tax]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(Federal_Income_Tax)) == 0 ? "0" : REPLACE(REPLACE(TRIM(Federal_Income_Tax),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Social_Security_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Social_Security_Clean]"
+                      name="Social_Security_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Social_Security]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Social_Security]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(Social_Security)) == 0 ? "0" : REPLACE(REPLACE(TRIM(Social_Security),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Medicare_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Medicare_Clean]"
+                      name="Medicare_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Medicare]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Medicare]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(Medicare)) == 0 ? "0" : REPLACE(REPLACE(TRIM(Medicare),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_State_Tax_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_State_Tax_Clean]"
+                      name="CA_State_Tax_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_State_Tax]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_State_Tax]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(CA_State_Tax)) == 0 ? "0" : REPLACE(REPLACE(TRIM(CA_State_Tax),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_Disability_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[CA_Disability_Clean]"
+                      name="CA_Disability_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_Disability]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_Disability]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(CA_Disability)) == 0 ? "0" : REPLACE(REPLACE(TRIM(CA_Disability),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Net_Income_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Net_Income_Clean]"
+                      name="Net_Income_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Net_Income]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Net_Income]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(Net_Income)) == 0 ? "0" : REPLACE(REPLACE(TRIM(Net_Income),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Total_Tax_Clean]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output].Columns[Total_Tax_Clean]"
+                      name="Total_Tax_Clean"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[LEN]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Total_Tax]})) == 0 ? "0" : [REPLACE]([REPLACE]([TRIM](#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Total_Tax]}),"$",""),",","")</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">LEN(TRIM(Total_Tax)) == 0 ? "0" : REPLACE(REPLACE(TRIM(Total_Tax),"$",""),",","")</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DST - STG Family Income"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[Family_Income]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Connections[OleDbConnection]"
+                  connectionManagerID="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OLDB_STG]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[CA_Disability_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="CA_Disability_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[CA_SDI_Tax]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[CA_Disability_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Net_Income_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="Net_Income_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Employer_NetPay]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Net_Income_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Federal_Income_Tax_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="Federal_Income_Tax_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Federal_Tax]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Federal_Income_Tax_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Medicare_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="Medicare_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Medical_Tax]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Medicare_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Data_Validator_Integer]"
+                      cachedDataType="i4"
+                      cachedName="Data_Validator_Integer"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Payment_Validation]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Data_Validator_Integer]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Period_Start_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Period_Start_Date"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Period_Bginning]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_Start_Date]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Period_End_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Period_End_Date"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Period_Ending]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_End_Date]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Social_Security_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="Social_Security_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[SS_Tax]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Social_Security_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[CA_State_Tax_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="CA_State_Tax_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[CA_State_Tax]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[CA_State_Tax_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Employee_FullName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Employee_FullName"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Employee_FullName]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Employee_FullName]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Gross_Payment_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="Gross_Payment_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Gross_Payment]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Gross_Payment_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Pay_Day_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Pay_Day_Date"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Pay_Day]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Pay_Day_Date]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Total_Tax_Decimal]"
+                      cachedDataType="numeric"
+                      cachedName="Total_Tax_Decimal"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Total_Tax]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Total_Tax_Decimal]" />
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].Columns[Work_Place]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Work_Place"
+                      externalMetadataColumnId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Work_Place]"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Work_Place]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[IncomeSourceID]"
+                      dataType="i8"
+                      name="IncomeSourceID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Period_Bginning]"
+                      dataType="dbDate"
+                      name="Period_Bginning" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Period_Ending]"
+                      dataType="dbDate"
+                      name="Period_Ending" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Pay_Day]"
+                      dataType="dbDate"
+                      name="Pay_Day" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Work_Place]"
+                      dataType="wstr"
+                      length="255"
+                      name="Work_Place" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Employee_FullName]"
+                      dataType="wstr"
+                      length="255"
+                      name="Employee_FullName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Gross_Payment]"
+                      dataType="numeric"
+                      name="Gross_Payment"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Federal_Tax]"
+                      dataType="numeric"
+                      name="Federal_Tax"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[SS_Tax]"
+                      dataType="numeric"
+                      name="SS_Tax"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Medical_Tax]"
+                      dataType="numeric"
+                      name="Medical_Tax"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[CA_State_Tax]"
+                      dataType="numeric"
+                      name="CA_State_Tax"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[CA_SDI_Tax]"
+                      dataType="numeric"
+                      name="CA_SDI_Tax"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Employer_NetPay]"
+                      dataType="numeric"
+                      name="Employer_NetPay"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Total_Tax]"
+                      dataType="numeric"
+                      name="Total_Tax"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input].ExternalColumns[Payment_Validation]"
+                      dataType="numeric"
+                      name="Payment_Validation"
+                      precision="18"
+                      scale="2" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="SPL - Validate Income Rows"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Inputs[Conditional Split Input].Columns[Data_Validator_Integer]"
+                      cachedDataType="i4"
+                      cachedName="Data_Validator_Integer"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Data_Validator_Integer]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Valid Income Rows]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Valid Income Rows"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Data_Validator_Integer]} == 1</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">Data_Validator_Integer == 1</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Invalid Income Rows]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Invalid Income Rows"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income"
+              componentClassID="Microsoft.ManagedComponentHost"
+              contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;14"
+              description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+              name="SRC - Google Sheet Income"
+              version="14">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Stores the source code of the component"
+                  isArray="true"
+                  name="SourceCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="30">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public GoogleSheetOutputBuffer GoogleSheetOutputBuffer;
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != GoogleSheetOutputBuffer)
+        {
+            GoogleSheetOutputBuffer.SetEndOfRowset();
+            GoogleSheetOutputBuffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"GoogleSheetOutput"))
+            {
+                GoogleSheetOutputBuffer = new GoogleSheetOutputBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+        FinishOutputs();
+        MarkOutputsFinished();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String GoogleCredentialsPath
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["GoogleCredentialsPath"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public String GoogleSheetRange
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["GoogleSheetRange"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public String GoogleSpreadsheetId
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["GoogleSpreadsheetId"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Net;
+using System.Security.Cryptography;
+using System.Text;
+using System.Web.Script.Serialization;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    private const string SheetsReadOnlyScope =
+        "https://www.googleapis.com/auth/spreadsheets.readonly";
+
+    // Reads every current and future row returned by the open-ended Data!A2:O range.
+    public override void CreateNewOutputRows()
+    {
+        try
+        {
+            string credentialsPath = Variables.GoogleCredentialsPath;
+            string spreadsheetId = Variables.GoogleSpreadsheetId;
+            string sheetRange = Variables.GoogleSheetRange;
+
+            ServiceAccountInfo serviceAccount = ReadServiceAccount(credentialsPath);
+            string accessToken = GetAccessToken(serviceAccount);
+            object[][] rows = ReadGoogleSheet(accessToken, spreadsheetId, sheetRange);
+
+            bool fireAgain = true;
+            ComponentMetaData.FireInformation(
+                0,
+                "SRC - Google Sheet Income",
+                "Rows received from Google Sheets: " + rows.Length,
+                string.Empty,
+                0,
+                ref fireAgain);
+
+            foreach (object[] cells in rows)
+            {
+                if (cells == null || IsBlankRow(cells))
+                {
+                    continue;
+                }
+
+                GoogleSheetOutputBuffer.AddRow();
+                GoogleSheetOutputBuffer.SubmittedAt = Cell(cells, 0);
+                GoogleSheetOutputBuffer.PeriodStart = Cell(cells, 1);
+                GoogleSheetOutputBuffer.PeriodEnd = Cell(cells, 2);
+                GoogleSheetOutputBuffer.PayDay = Cell(cells, 3);
+                GoogleSheetOutputBuffer.WorkPlace = Cell(cells, 4);
+                GoogleSheetOutputBuffer.EmployeeFullName = Cell(cells, 5);
+                GoogleSheetOutputBuffer.GrossPayment = Cell(cells, 6);
+                GoogleSheetOutputBuffer.FederalIncomeTax = Cell(cells, 7);
+                GoogleSheetOutputBuffer.SocialSecurity = Cell(cells, 8);
+                GoogleSheetOutputBuffer.Medicare = Cell(cells, 9);
+                GoogleSheetOutputBuffer.CAStateTax = Cell(cells, 10);
+                GoogleSheetOutputBuffer.CADisability = Cell(cells, 11);
+                GoogleSheetOutputBuffer.NetIncome = Cell(cells, 12);
+                GoogleSheetOutputBuffer.TotalTax = Cell(cells, 13);
+                GoogleSheetOutputBuffer.DataValidator = Cell(cells, 14);
+            }
+        }
+        catch (Exception ex)
+        {
+            bool cancel;
+            ComponentMetaData.FireError(
+                0,
+                "SRC - Google Sheet Income",
+                ex.ToString(),
+                string.Empty,
+                0,
+                out cancel);
+
+            throw;
+        }
+    }
+
+    // Reads the service-account email, private key, and token endpoint from the JSON key.
+    private static ServiceAccountInfo ReadServiceAccount(string credentialsPath)
+    {
+        if (string.IsNullOrWhiteSpace(credentialsPath))
+        {
+            throw new InvalidOperationException("GoogleCredentialsPath is empty.");
+        }
+
+        if (!File.Exists(credentialsPath))
+        {
+            throw new FileNotFoundException(
+                "The Google service-account JSON key was not found.",
+                credentialsPath);
+        }
+
+        JavaScriptSerializer serializer = CreateSerializer();
+        Dictionary<string, object> json = serializer.Deserialize<Dictionary<string, object>>(
+            File.ReadAllText(credentialsPath));
+
+        return new ServiceAccountInfo
+        {
+            ClientEmail = RequiredString(json, "client_email"),
+            PrivateKey = RequiredString(json, "private_key"),
+            TokenUri = RequiredString(json, "token_uri")
+        };
+    }
+
+    // Creates a short-lived OAuth access token by signing a JWT with the service-account key.
+    private static string GetAccessToken(ServiceAccountInfo serviceAccount)
+    {
+        long issuedAt = UnixTimeSeconds(DateTime.UtcNow);
+
+        JavaScriptSerializer serializer = CreateSerializer();
+        Dictionary<string, object> claims = new Dictionary<string, object>();
+        claims["iss"] = serviceAccount.ClientEmail;
+        claims["scope"] = SheetsReadOnlyScope;
+        claims["aud"] = serviceAccount.TokenUri;
+        claims["iat"] = issuedAt;
+        claims["exp"] = issuedAt + 3600;
+
+        string encodedHeader = Base64UrlEncode(
+            Encoding.UTF8.GetBytes("{\"alg\":\"RS256\",\"typ\":\"JWT\"}"));
+        string encodedClaims = Base64UrlEncode(
+            Encoding.UTF8.GetBytes(serializer.Serialize(claims)));
+        string unsignedJwt = encodedHeader + "." + encodedClaims;
+
+        byte[] signature;
+        RSAParameters rsaParameters = ReadPkcs8PrivateKey(serviceAccount.PrivateKey);
+        CspParameters cspParameters = new CspParameters(24);
+
+        using (RSACryptoServiceProvider rsa = new RSACryptoServiceProvider(cspParameters))
+        {
+            rsa.PersistKeyInCsp = false;
+            rsa.ImportParameters(rsaParameters);
+            signature = rsa.SignData(
+                Encoding.UTF8.GetBytes(unsignedJwt),
+                CryptoConfig.MapNameToOID("SHA256"));
+        }
+
+        string assertion = unsignedJwt + "." + Base64UrlEncode(signature);
+        string requestBody =
+            "grant_type=" + Uri.EscapeDataString("urn:ietf:params:oauth:grant-type:jwt-bearer") +
+            "&assertion=" + Uri.EscapeDataString(assertion);
+
+        string responseText = SendRequest(
+            serviceAccount.TokenUri,
+            "POST",
+            null,
+            "application/x-www-form-urlencoded",
+            requestBody);
+
+        Dictionary<string, object> response = serializer.Deserialize<Dictionary<string, object>>(
+            responseText);
+
+        return RequiredString(response, "access_token");
+    }
+
+    // Calls the Google Sheets values endpoint and returns its row array.
+    private static object[][] ReadGoogleSheet(
+        string accessToken,
+        string spreadsheetId,
+        string sheetRange)
+    {
+        if (string.IsNullOrWhiteSpace(spreadsheetId))
+        {
+            throw new InvalidOperationException("GoogleSpreadsheetId is empty.");
+        }
+
+        if (string.IsNullOrWhiteSpace(sheetRange))
+        {
+            throw new InvalidOperationException("GoogleSheetRange is empty.");
+        }
+
+        string url =
+            "https://sheets.googleapis.com/v4/spreadsheets/" +
+            Uri.EscapeDataString(spreadsheetId) +
+            "/values/" +
+            Uri.EscapeDataString(sheetRange) +
+            "?majorDimension=ROWS&valueRenderOption=FORMATTED_VALUE";
+
+        string responseText = SendRequest(
+            url,
+            "GET",
+            "Bearer " + accessToken,
+            null,
+            null);
+
+        JavaScriptSerializer serializer = CreateSerializer();
+        SheetValuesResponse response = serializer.Deserialize<SheetValuesResponse>(responseText);
+        return response == null || response.values == null
+            ? new object[0][]
+            : response.values;
+    }
+
+    // Sends an HTTPS request and includes Google's response text in any error message.
+    private static string SendRequest(
+        string url,
+        string method,
+        string authorization,
+        string contentType,
+        string requestBody)
+    {
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12;
+
+        HttpWebRequest request = (HttpWebRequest)WebRequest.Create(url);
+        request.Method = method;
+        request.Accept = "application/json";
+        request.Timeout = 120000;
+        request.ReadWriteTimeout = 120000;
+
+        if (!string.IsNullOrWhiteSpace(authorization))
+        {
+            request.Headers[HttpRequestHeader.Authorization] = authorization;
+        }
+
+        if (!string.IsNullOrEmpty(requestBody))
+        {
+            byte[] bodyBytes = Encoding.UTF8.GetBytes(requestBody);
+            request.ContentType = contentType;
+            request.ContentLength = bodyBytes.Length;
+
+            using (Stream requestStream = request.GetRequestStream())
+            {
+                requestStream.Write(bodyBytes, 0, bodyBytes.Length);
+            }
+        }
+
+        try
+        {
+            using (HttpWebResponse response = (HttpWebResponse)request.GetResponse())
+            using (StreamReader reader = new StreamReader(response.GetResponseStream()))
+            {
+                return reader.ReadToEnd();
+            }
+        }
+        catch (WebException ex)
+        {
+            string providerResponse = string.Empty;
+
+            if (ex.Response != null)
+            {
+                using (Stream responseStream = ex.Response.GetResponseStream())
+                using (StreamReader reader = new StreamReader(responseStream))
+                {
+                    providerResponse = reader.ReadToEnd();
+                }
+            }
+
+            throw new InvalidOperationException(
+                "Google API request failed. " + providerResponse,
+                ex);
+        }
+    }
+
+    private static JavaScriptSerializer CreateSerializer()
+    {
+        JavaScriptSerializer serializer = new JavaScriptSerializer();
+        serializer.MaxJsonLength = int.MaxValue;
+        serializer.RecursionLimit = 100;
+        return serializer;
+    }
+
+    private static string RequiredString(Dictionary<string, object> values, string key)
+    {
+        object value;
+        if (!values.TryGetValue(key, out value) || value == null ||
+            string.IsNullOrWhiteSpace(Convert.ToString(value)))
+        {
+            throw new InvalidOperationException(
+                "Required JSON property is missing: " + key);
+        }
+
+        return Convert.ToString(value);
+    }
+
+    private static string Cell(object[] cells, int index)
+    {
+        if (cells == null || index < 0 || index >= cells.Length || cells[index] == null)
+        {
+            return string.Empty;
+        }
+
+        return Convert.ToString(cells[index]);
+    }
+
+    private static bool IsBlankRow(object[] cells)
+    {
+        for (int index = 0; index < cells.Length; index++)
+        {
+            if (!string.IsNullOrWhiteSpace(Cell(cells, index)))
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    private static long UnixTimeSeconds(DateTime utcDateTime)
+    {
+        DateTime epoch = new DateTime(1970, 1, 1, 0, 0, 0, DateTimeKind.Utc);
+        return Convert.ToInt64((utcDateTime - epoch).TotalSeconds);
+    }
+
+    private static string Base64UrlEncode(byte[] value)
+    {
+        return Convert.ToBase64String(value)
+            .TrimEnd('=')
+            .Replace('+', '-')
+            .Replace('/', '_');
+    }
+
+    // Converts Google's PEM PKCS#8 private key into RSA parameters using framework classes only.
+    private static RSAParameters ReadPkcs8PrivateKey(string pem)
+    {
+        string base64 = pem
+            .Replace("-----BEGIN PRIVATE KEY-----", string.Empty)
+            .Replace("-----END PRIVATE KEY-----", string.Empty)
+            .Replace("\r", string.Empty)
+            .Replace("\n", string.Empty)
+            .Trim();
+
+        byte[] pkcs8 = Convert.FromBase64String(base64);
+        DerReader privateKeyInfo = new DerReader(pkcs8).ReadSequence();
+
+        privateKeyInfo.ReadIntegerBytes();
+        privateKeyInfo.SkipElement();
+        byte[] pkcs1 = privateKeyInfo.ReadOctetString();
+
+        DerReader rsaKey = new DerReader(pkcs1).ReadSequence();
+        rsaKey.ReadIntegerBytes();
+
+        RSAParameters parameters = new RSAParameters();
+        parameters.Modulus = rsaKey.ReadIntegerBytes();
+        parameters.Exponent = rsaKey.ReadIntegerBytes();
+        parameters.D = rsaKey.ReadIntegerBytes();
+        parameters.P = rsaKey.ReadIntegerBytes();
+        parameters.Q = rsaKey.ReadIntegerBytes();
+        parameters.DP = rsaKey.ReadIntegerBytes();
+        parameters.DQ = rsaKey.ReadIntegerBytes();
+        parameters.InverseQ = rsaKey.ReadIntegerBytes();
+        return parameters;
+    }
+
+    private sealed class ServiceAccountInfo
+    {
+        public string ClientEmail { get; set; }
+        public string PrivateKey { get; set; }
+        public string TokenUri { get; set; }
+    }
+
+    private sealed class SheetValuesResponse
+    {
+        public object[][] values { get; set; }
+    }
+
+    // Minimal ASN.1 DER reader used only for the service-account RSA private key.
+    private sealed class DerReader
+    {
+        private readonly byte[] data;
+        private int position;
+
+        public DerReader(byte[] value)
+        {
+            if (value == null)
+            {
+                throw new ArgumentNullException("value");
+            }
+
+            data = value;
+            position = 0;
+        }
+
+        public DerReader ReadSequence()
+        {
+            ExpectTag(0x30);
+            int length = ReadLength();
+            return new DerReader(ReadBytes(length));
+        }
+
+        public byte[] ReadIntegerBytes()
+        {
+            ExpectTag(0x02);
+            int length = ReadLength();
+            byte[] value = ReadBytes(length);
+
+            int firstNonZero = 0;
+            while (firstNonZero < value.Length - 1 && value[firstNonZero] == 0)
+            {
+                firstNonZero++;
+            }
+
+            if (firstNonZero == 0)
+            {
+                return value;
+            }
+
+            byte[] trimmed = new byte[value.Length - firstNonZero];
+            Buffer.BlockCopy(value, firstNonZero, trimmed, 0, trimmed.Length);
+            return trimmed;
+        }
+
+        public byte[] ReadOctetString()
+        {
+            ExpectTag(0x04);
+            int length = ReadLength();
+            return ReadBytes(length);
+        }
+
+        public void SkipElement()
+        {
+            if (position >= data.Length)
+            {
+                throw new InvalidDataException("Unexpected end of DER data.");
+            }
+
+            position++;
+            int length = ReadLength();
+            ReadBytes(length);
+        }
+
+        private void ExpectTag(byte expectedTag)
+        {
+            if (position >= data.Length || data[position] != expectedTag)
+            {
+                throw new InvalidDataException(
+                    "Unexpected DER tag while reading the Google private key.");
+            }
+
+            position++;
+        }
+
+        private int ReadLength()
+        {
+            if (position >= data.Length)
+            {
+                throw new InvalidDataException("Unexpected end of DER data.");
+            }
+
+            int first = data[position++];
+            if ((first & 0x80) == 0)
+            {
+                return first;
+            }
+
+            int lengthByteCount = first & 0x7F;
+            if (lengthByteCount < 1 || lengthByteCount > 4)
+            {
+                throw new InvalidDataException("Unsupported DER length.");
+            }
+
+            int length = 0;
+            for (int index = 0; index < lengthByteCount; index++)
+            {
+                if (position >= data.Length)
+                {
+                    throw new InvalidDataException("Unexpected end of DER data.");
+                }
+
+                length = (length << 8) | data[position++];
+            }
+
+            return length;
+        }
+
+        private byte[] ReadBytes(int length)
+        {
+            if (length < 0 || position + length > data.Length)
+            {
+                throw new InvalidDataException("Invalid DER length.");
+            }
+
+            byte[] value = new byte[length];
+            Buffer.BlockCopy(data, position, value, 0, length);
+            position += length;
+            return value;
+        }
+    }
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class GoogleSheetOutputBuffer: ScriptBuffer
+
+{
+    public GoogleSheetOutputBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String DataValidator
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool DataValidator_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String TotalTax
+    {
+        set
+        {
+            this[1] = value;
+        }
+    }
+    public bool TotalTax_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(1);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String NetIncome
+    {
+        set
+        {
+            this[2] = value;
+        }
+    }
+    public bool NetIncome_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(2);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String CADisability
+    {
+        set
+        {
+            this[3] = value;
+        }
+    }
+    public bool CADisability_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(3);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String CAStateTax
+    {
+        set
+        {
+            this[4] = value;
+        }
+    }
+    public bool CAStateTax_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(4);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String Medicare
+    {
+        set
+        {
+            this[5] = value;
+        }
+    }
+    public bool Medicare_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(5);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String SocialSecurity
+    {
+        set
+        {
+            this[6] = value;
+        }
+    }
+    public bool SocialSecurity_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(6);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String FederalIncomeTax
+    {
+        set
+        {
+            this[7] = value;
+        }
+    }
+    public bool FederalIncomeTax_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(7);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String GrossPayment
+    {
+        set
+        {
+            this[8] = value;
+        }
+    }
+    public bool GrossPayment_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(8);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String EmployeeFullName
+    {
+        set
+        {
+            this[9] = value;
+        }
+    }
+    public bool EmployeeFullName_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(9);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String WorkPlace
+    {
+        set
+        {
+            this[10] = value;
+        }
+    }
+    public bool WorkPlace_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(10);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String PayDay
+    {
+        set
+        {
+            this[11] = value;
+        }
+    }
+    public bool PayDay_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(11);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String PeriodEnd
+    {
+        set
+        {
+            this[12] = value;
+        }
+    }
+    public bool PeriodEnd_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(12);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String PeriodStart
+    {
+        set
+        {
+            this[13] = value;
+        }
+    }
+    public bool PeriodStart_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(13);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String SubmittedAt
+    {
+        set
+        {
+            this[14] = value;
+        }
+    }
+    public bool SubmittedAt_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(14);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_9c43304033ec4f3699b3372031bba99b.Properties.Settings.get_Default():SC_9c43304033ec4f3699b3372031bba99b.Properties.Sett" +
+    "ings")]
+
+namespace SC_9c43304033ec4f3699b3372031bba99b.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_9c43304033ec4f3699b3372031bba99b.csproj]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{807BAE93-72BE-40D2-BED1-D40B763353EF}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_9c43304033ec4f3699b3372031bba99b</RootNamespace>
+    <AssemblyName>SC_9c43304033ec4f3699b3372031bba99b</AssemblyName>
+    <TargetFrameworkVersion>v4.7</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>true</ResolveAssemblyReferenceIgnoreTargetFrameworkAttributeVersionMismatch>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=17.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="VSTAHostName" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" />
+        <Host Name="ScriptComponent" IconIndex="0" />
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC170</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Project]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="4.0" schemaVersion="1.0">
+  <msb:PropertyGroup>
+    <msb:CodeName>SC_9c43304033ec4f3699b3372031bba99b</msb:CodeName>
+    <msb:Language>msBuild</msb:Language>
+    <msb:DisplayName>SC_9c43304033ec4f3699b3372031bba99b</msb:DisplayName>
+    <msb:ProjectId>{3F53C295-0F27-491D-9208-020E1D368571}</msb:ProjectId>
+  </msb:PropertyGroup>
+  <msb:ItemGroup>
+    <msb:Project Include="SC_9c43304033ec4f3699b3372031bba99b.csproj" />
+    <msb:File Include="main.cs" />
+    <msb:File Include="BufferWrapper.cs" />
+    <msb:File Include="ComponentWrapper.cs" />
+    <msb:File Include="Properties\Settings.settings" />
+    <msb:File Include="Properties\AssemblyInfo.cs" />
+    <msb:File Include="Properties\Resources.resx" />
+    <msb:File Include="Properties\Resources.Designer.cs" />
+    <msb:File Include="Properties\Settings.Designer.cs" />
+  </msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_9c43304033ec4f3699b3372031bba99b")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_9c43304033ec4f3699b3372031bba99b")]
+[assembly: AssemblyCopyright("Copyright @  2026")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.0.0")]
+]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_9c43304033ec4f3699b3372031bba99b.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_9c43304033ec4f3699b3372031bba99b.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_9c43304033ec4f3699b3372031bba99b.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_9c43304033ec4f3699b3372031bba99b.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_9c43304033ec4f3699b3372031bba99b.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Stores the binary representation of the component"
+                  isArray="true"
+                  name="BinaryCode"
+                  state="cdata">
+                  <arrayElements
+                    arrayElementCount="2">
+                    <arrayElement
+                      dataType="System.String"><![CDATA[SC_9c43304033ec4f3699b3372031bba99b.dll]]></arrayElement>
+                    <arrayElement
+                      dataType="System.String"><![CDATA[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
+AAACADoBAAADAHECAAABALYIAAACAP8BAAADAJQJAAAEADoDAAAFAHcQAAABAGENAAACALUQAAAB
+AJYNAAACAGAQAAABAJYNAAABAMYCAAABAKkFAAABAN0IAAABAFkLAAACAGgNAAADAHUKAAABAKkF
+AAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAAB
+AKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkF
+AAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAABAKkFAAAB
+AKkFAAABAAwOAAACACgMAAADAMoNAAAEAHUKAAABANgOAAABANgOAAABAKkFAAABAKkFAAABAKkF
+AAABAKkFAAABAKkFAAABAKkFAAABAMUFAAABAL0GCQAbDAEAEQAbDAYAGQAbDAoAKQAbDBAAMQAb
+DBAAOQAbDBAAQQAbDBAASQAbDBAAUQAbDBAAWQAbDBAAYQAbDBAAaQAbDAYA2QAbDAYAAQEbDAYA
+IQEbDBUA+QC2AC4AOQFLBjQAQQFADjgAQQEZET4AMQE6CUEAcQBLBjQAMQH/C0EAQQEcAlUASQEb
+DBAAUQH/DVUAWQEbDFoAUQHCD2AAiQC5BWUAyQASEIwADAAbDAYADADqCJgAaQFuAKAAaQFJDaYA
+iQCvBawAQQFADrEAcQEbDAEAmQAbDLgAmQDGCr8AeQHuDcQAgQGEAGAAmQDMAMoAiQHQAwYAkQEr
+BmAAQQFADtIAQQFADuAAmQGhCAMBqQHYAwoBqQH0ARAAoQANDxAAqQGJDwEAoQCVDwEAqQG+DREB
+sQHqCBcBQQEREVUAqQEqAxAAqQGrBh8BqQHMCCQBqQD0AykBqQHEAzEBwQG6CCQBuQAbDDcByQHd
+ATQAwQCTAzEBSQEbDD0BiQAbDAYAiQCZBgEAiQB4DgEADACdBUgB0QFLBlEByQAbDGEByQCiCW4B
+0QBVDHcB0QFmAHsB0QEcBoABQQHVAYYBQQEUAowBQQEUApkBQQH6CDQA0QELBp8BkQAUDqUBkQDi
+DqUBkQCbAKUBkQCoAKUBkQC0AKUBkQCnAKUBkQCqAKUBkQCtAKUB4QAbDKkB4QDqCLMB4QCZCAEA
+4QAdEAYA4QBpDgYA4QBsDrkB+QAbDAYA+QCRAL0B+QB8DcQBcQAbDAYA+QAYDcoB6QHhCNAB+QD9
+D9cB8QHOD90BCQKaAuQBCQLWEO0BCQEbDPMBKQEbDAYAIQIbDBAAMQLjEAQCQQIbDBAADgAEADkC
+LgALAIoDLgATAJMDLgAbALIDLgAjALsDLgArAOQDLgAzAOQDLgA7AOQDLgBDALsDLgBLAOoDLgBT
+AOQDLgBbAAEEQwBjAEsE4wBzAEsEIQFrAEsEQQFrAEsEYQFrAEsEgQFrAEsEoQFrAEsESQR7ALID
+aQR7ALIDIAhrAEsEQAhrAEsEYAhrAEsEgAhrAEsEoAhrAEsEwAhrAEsEAAlrAEsEIAlrAEsEHABM
+AHUA2gDuAEQBVgFaAZIB+wERAhkCAwABAAYAHwAHACIACAAkAAkAJQAKACgAAAANDGsDAAC0B28D
+AABXEGsDAABFCG8DAADWAmsDAACLB28DAADxEGsDAABrCG8DAABIEGsDAAAvCG8DAABKA2sDAACg
+B28DAAACEWsDAACDCG8DAAAzEGsDAAATCG8DAACnDmsDAADkB28DAAC1AmsDAABvB28DAAAKAmsD
+AABaB28DAABqEGsDAABZCG8DAADLAWsDAABFB28DAAA5D2sDAAD8B28DAAA0DmsDAADNB28DAABo
+BmsDAABgAmsDAAAmAWsDAABkC3MDAABzA3kDAACPDn8DAAAIB2sDAACqEGsDAADVBmsDAABhDYQD
+AQAPAAMAAQAQAAUAAQARAAcAAQASAAkAAQATAAsAAQAUAA0AAQAVAA8AAQAWABEAAQAXABMAAQAY
+ABUAAQAZABcAAQAaABkAAQAbABsAAQAcAB0AAQAdAB8AAQAeACEAAQAfACMAAQAgACUAAQAhACcA
+AQAiACkAAQAjACsAAQAkAC0AAQAlAC8AAQAmADEAAQAnADMAAQAoADUAAQApADcAAQAqADkAAQAr
+ADsAAQAsAD0AAgA3AD8AAgA4AEEAAgA5AEMAAgA7AEUAAgA8AEcAAQA9AEcAAgA+AEkAAgBBAEsA
+AQBCAEsAAgBDAE0AAQBEAE0AAgBFAE8AAQBGAE8AAgBIAFEAAQBJAFEAkQDrAASAAAABAAAAAAAA
+AAAAAAAAANoAAAAEAAAAAAAAAAAAAAAeAv4AAAAAABEAAAAAAAAAAAAAACcCGA8AAAAABAAAAAAA
+AAAAAAAAMAKcDQAAAAAEAAAAAAAAAAAAAAAeAvMIAAAAABEAAAAAAAAAAAAAACcCaA8AAAAAEQAA
+AAAAAAAAAAAAJwKiCgAAAAARAAAAAAAAAAAAAAAnAn8KAAAAAAAAAAABAAAAlwwAAAkAAgAKAAIA
+CwACADkAbAA5AOYAAAAASURUU0NvbXBvbmVudE1ldGFEYXRhMTAwAElEVFNWYXJpYWJsZTEwMABJ
+RFRTVmFyaWFibGVzMTAwAElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAEludDMyAERpY3Rpb25hcnlg
+MgBUb0ludDY0AGdldF9VVEY4ADxNb2R1bGU+AFJTQQBNYXBOYW1lVG9PSUQAR2V0T3V0cHV0SUQA
+U3lzdGVtLklPAERQAERRAEludmVyc2VRAGdldF9Db21wb25lbnRNZXRhRGF0YQBTaWduRGF0YQBk
+YXRhAFNDXzljNDMzMDQwMzNlYzRmMzY5OWIzMzcyMDMxYmJhOTliAG1zY29ybGliAFN5c3RlbS5D
+b2xsZWN0aW9ucy5HZW5lcmljAGdldF9Hb29nbGVTcHJlYWRzaGVldElkAHNwcmVhZHNoZWV0SWQA
+TWFya091dHB1dHNGaW5pc2hlZAA8VG9rZW5Vcmk+a19fQmFja2luZ0ZpZWxkADxDbGllbnRFbWFp
+bD5rX19CYWNraW5nRmllbGQAPHZhbHVlcz5rX19CYWNraW5nRmllbGQAPFByaXZhdGVLZXk+a19f
+QmFja2luZ0ZpZWxkAHNldF9QZXJpb2RFbmQAVHJpbUVuZABSZWFkVG9FbmQARGF0ZVRpbWVLaW5k
+AHNldF9NZXRob2QAbWV0aG9kAHNldF9Xb3JrUGxhY2UAUmVwbGFjZQBJc051bGxPcldoaXRlU3Bh
+Y2UAZGVmYXVsdEluc3RhbmNlAFJlYWRTZXF1ZW5jZQBCYXNlNjRVcmxFbmNvZGUAZ2V0X0dvb2ds
+ZVNoZWV0UmFuZ2UAc2hlZXRSYW5nZQBJRGlzcG9zYWJsZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRU
+eXBlRnJvbUhhbmRsZQBGaWxlAHNldF9FbXBsb3llZUZ1bGxOYW1lAHV0Y0RhdGVUaW1lAHNldF9O
+ZXRJbmNvbWUATWljcm9zb2Z0LlNxbFNlcnZlci5EdHMuUGlwZWxpbmUAU2hlZXRzUmVhZE9ubHlT
+Y29wZQBTZWN1cml0eVByb3RvY29sVHlwZQBzZXRfQ29udGVudFR5cGUAY29udGVudFR5cGUAc2V0
+X01lZGljYXJlAGdldF9DdWx0dXJlAHNldF9DdWx0dXJlAHJlc291cmNlQ3VsdHVyZQBBcHBsaWNh
+dGlvblNldHRpbmdzQmFzZQBnZXRfUmVzcG9uc2UASHR0cFdlYlJlc3BvbnNlAFNoZWV0VmFsdWVz
+UmVzcG9uc2UAR2V0UmVzcG9uc2UARGlzcG9zZQBDcmVhdGUARWRpdG9yQnJvd3NhYmxlU3RhdGUA
+V3JpdGUAQ29tcGlsZXJHZW5lcmF0ZWRBdHRyaWJ1dGUARGVidWdnZXJOb25Vc2VyQ29kZUF0dHJp
+YnV0ZQBEZWJ1Z2dhYmxlQXR0cmlidXRlAEVkaXRvckJyb3dzYWJsZUF0dHJpYnV0ZQBBc3NlbWJs
+eVRpdGxlQXR0cmlidXRlAEFzc2VtYmx5VHJhZGVtYXJrQXR0cmlidXRlAFRhcmdldEZyYW1ld29y
+a0F0dHJpYnV0ZQBBc3NlbWJseUNvbmZpZ3VyYXRpb25BdHRyaWJ1dGUAQXNzZW1ibHlEZXNjcmlw
+dGlvbkF0dHJpYnV0ZQBDb21waWxhdGlvblJlbGF4YXRpb25zQXR0cmlidXRlAEFzc2VtYmx5UHJv
+ZHVjdEF0dHJpYnV0ZQBBc3NlbWJseUNvcHlyaWdodEF0dHJpYnV0ZQBTU0lTU2NyaXB0Q29tcG9u
+ZW50RW50cnlQb2ludEF0dHJpYnV0ZQBBc3NlbWJseUNvbXBhbnlBdHRyaWJ1dGUAUnVudGltZUNv
+bXBhdGliaWxpdHlBdHRyaWJ1dGUAQnl0ZQBUcnlHZXRWYWx1ZQB2YWx1ZQBTZXJpYWxpemUARGVz
+ZXJpYWxpemUAZXhwZWN0ZWRUYWcARXhwZWN0VGFnAENyeXB0b0NvbmZpZwBFbmNvZGluZwBTeXN0
+ZW0uUnVudGltZS5WZXJzaW9uaW5nAEZyb21CYXNlNjRTdHJpbmcAVG9CYXNlNjRTdHJpbmcARXNj
+YXBlRGF0YVN0cmluZwBSZXF1aXJlZFN0cmluZwBUb1N0cmluZwBSZWFkT2N0ZXRTdHJpbmcAZ2V0
+X0dvb2dsZUNyZWRlbnRpYWxzUGF0aABjcmVkZW50aWFsc1BhdGgAUmVhZExlbmd0aABzZXRfTWF4
+SnNvbkxlbmd0aABzZXRfQ29udGVudExlbmd0aABsZW5ndGgAZ2V0X1Rva2VuVXJpAHNldF9Ub2tl
+blVyaQBTeXN0ZW0uQ29tcG9uZW50TW9kZWwAZ2V0X0NsaWVudEVtYWlsAHNldF9DbGllbnRFbWFp
+bABTQ185YzQzMzA0MDMzZWM0ZjM2OTliMzM3MjAzMWJiYTk5Yi5kbGwAQ2VsbABzZXRfUGVyaW9k
+RW5kX0lzTnVsbABzZXRfV29ya1BsYWNlX0lzTnVsbABzZXRfRW1wbG95ZWVGdWxsTmFtZV9Jc051
+bGwAc2V0X05ldEluY29tZV9Jc051bGwAc2V0X01lZGljYXJlX0lzTnVsbABzZXRfRGF0YVZhbGlk
+YXRvcl9Jc051bGwAc2V0X1N1Ym1pdHRlZEF0X0lzTnVsbABzZXRfR3Jvc3NQYXltZW50X0lzTnVs
+bABzZXRfUGVyaW9kU3RhcnRfSXNOdWxsAHNldF9GZWRlcmFsSW5jb21lVGF4X0lzTnVsbABzZXRf
+Q0FTdGF0ZVRheF9Jc051bGwAc2V0X1RvdGFsVGF4X0lzTnVsbABzZXRfUGF5RGF5X0lzTnVsbABz
+ZXRfQ0FEaXNhYmlsaXR5X0lzTnVsbABzZXRfU29jaWFsU2VjdXJpdHlfSXNOdWxsAFNldE51bGwA
+c2V0X1NlY3VyaXR5UHJvdG9jb2wAdXJsAEdldFJlc3BvbnNlU3RyZWFtAEdldFJlcXVlc3RTdHJl
+YW0AcGVtAGdldF9JdGVtAHNldF9JdGVtAFN5c3RlbQBUcmltAHJlc291cmNlTWFuAFRpbWVTcGFu
+AEdldEFjY2Vzc1Rva2VuAGFjY2Vzc1Rva2VuAFNjcmlwdE1haW4ARmlyZUluZm9ybWF0aW9uAFN5
+c3RlbS5Db25maWd1cmF0aW9uAFN5c3RlbS5HbG9iYWxpemF0aW9uAFN5c3RlbS5XZWIuU2NyaXB0
+LlNlcmlhbGl6YXRpb24AYXV0aG9yaXphdGlvbgBvcF9TdWJ0cmFjdGlvbgBTeXN0ZW0uUmVmbGVj
+dGlvbgBXZWJIZWFkZXJDb2xsZWN0aW9uAHBvc2l0aW9uAEludmFsaWREYXRhRXhjZXB0aW9uAFdl
+YkV4Y2VwdGlvbgBGaWxlTm90Rm91bmRFeGNlcHRpb24AQXJndW1lbnROdWxsRXhjZXB0aW9uAElu
+dmFsaWRPcGVyYXRpb25FeGNlcHRpb24AQ3VsdHVyZUluZm8AU2VydmljZUFjY291bnRJbmZvAE91
+dHB1dE5hbWVNYXAAT3V0cHV0TWFwAE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRFRTUnVudGltZVdyYXAA
+TWljcm9zb2Z0LlNxbFNlcnZlci5EVFNQaXBlbGluZVdyYXAAc2V0X1BlcnNpc3RLZXlJbkNzcABD
+aGFyAEh0dHBSZXF1ZXN0SGVhZGVyAFN0cmVhbVJlYWRlcgBEZXJSZWFkZXIAVGV4dFJlYWRlcgBS
+U0FDcnlwdG9TZXJ2aWNlUHJvdmlkZXIAUGlwZWxpbmVCdWZmZXIAU2NyaXB0QnVmZmVyAEdvb2ds
+ZVNoZWV0T3V0cHV0QnVmZmVyAGdldF9SZXNvdXJjZU1hbmFnZXIAU2VydmljZVBvaW50TWFuYWdl
+cgBNaWNyb3NvZnQuU3FsU2VydmVyLkR0cy5SdW50aW1lLldyYXBwZXIATWljcm9zb2Z0LlNxbFNl
+cnZlci5EdHMuUGlwZWxpbmUuV3JhcHBlcgBDcmVhdGVTZXJpYWxpemVyAEphdmFTY3JpcHRTZXJp
+YWxpemVyAEZpcmVFcnJvcgBzZXRfRGF0YVZhbGlkYXRvcgAuY3RvcgAuY2N0b3IAT3V0cHV0SURz
+AFN5c3RlbS5EaWFnbm9zdGljcwBVbml4VGltZVNlY29uZHMAZ2V0X1RvdGFsU2Vjb25kcwBTeXN0
+ZW0uUnVudGltZS5Db21waWxlclNlcnZpY2VzAFN5c3RlbS5SZXNvdXJjZXMAU0NfOWM0MzMwNDAz
+M2VjNGYzNjk5YjMzNzIwMzFiYmE5OWIuUHJvcGVydGllcy5SZXNvdXJjZXMucmVzb3VyY2VzAERl
+YnVnZ2luZ01vZGVzAFNDXzljNDMzMDQwMzNlYzRmMzY5OWIzMzcyMDMxYmJhOTliLlByb3BlcnRp
+ZXMAZ2V0X1JlYWRPbmx5VmFyaWFibGVzAFJlYWRCeXRlcwBSZWFkSW50ZWdlckJ5dGVzAEdldEJ5
+dGVzAGdldF92YWx1ZXMAc2V0X3ZhbHVlcwBCdWZmZXJDb2x1bW5JbmRleGVzAEdldENvbHVtbklu
+ZGV4ZXMAU2V0dGluZ3MAY2VsbHMAU3lzdGVtLldlYi5FeHRlbnNpb25zAENvbm5lY3Rpb25zAGdl
+dF9IZWFkZXJzAEJ1ZmZlcnMAUlNBUGFyYW1ldGVycwBDc3BQYXJhbWV0ZXJzAEltcG9ydFBhcmFt
+ZXRlcnMARXhpc3RzAEZpbmlzaE91dHB1dHMATW9kdWx1cwBDcmVhdGVOZXdPdXRwdXRSb3dzAHNl
+dF9TdWJtaXR0ZWRBdABDb25jYXQAT2JqZWN0AFN5c3RlbS5OZXQAUmVhZEdvb2dsZVNoZWV0AFNl
+dEVuZE9mUm93c2V0AHNldF9SZWN1cnNpb25MaW1pdABnZXRfRGVmYXVsdABTa2lwRWxlbWVudABz
+ZXRfR3Jvc3NQYXltZW50AFVzZXJDb21wb25lbnQAUGFyZW50Q29tcG9uZW50AFNjcmlwdENvbXBv
+bmVudABFeHBvbmVudABSZWFkU2VydmljZUFjY291bnQAc2VydmljZUFjY291bnQAc2V0X0FjY2Vw
+dABNaWNyb3NvZnQuU3FsU2VydmVyLlR4U2NyaXB0AHNldF9QZXJpb2RTdGFydABDb252ZXJ0AEh0
+dHBXZWJSZXF1ZXN0AFNlbmRSZXF1ZXN0AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuUGlwZWxpbmVIb3N0
+AHNldF9UaW1lb3V0AHNldF9SZWFkV3JpdGVUaW1lb3V0AFByaW1lT3V0cHV0AFN5c3RlbS5UZXh0
+AFJlYWRBbGxUZXh0AEdldFZhbHVlV2l0aENvbnRleHQAU2NyaXB0Q29tcG9uZW50RXZhbENvbnRl
+eHQAZ2V0X0V2YWx1YXRvckNvbnRleHQAZ2V0X1V0Y05vdwBBZGRSb3cASXNCbGFua1JvdwBzZXRf
+RmVkZXJhbEluY29tZVRheABzZXRfQ0FTdGF0ZVRheABzZXRfVG90YWxUYXgAaW5kZXgAc2V0X1Bh
+eURheQBBcnJheQByZXF1ZXN0Qm9keQBSZWFkUGtjczhQcml2YXRlS2V5AGdldF9Qcml2YXRlS2V5
+AHNldF9Qcml2YXRlS2V5AGtleQBTeXN0ZW0uU2VjdXJpdHkuQ3J5cHRvZ3JhcGh5AGdldF9Bc3Nl
+bWJseQBCbG9ja0NvcHkAc2V0X0NBRGlzYWJpbGl0eQBzZXRfU29jaWFsU2VjdXJpdHkASXNOdWxs
+T3JFbXB0eQAAADNTAFIAQwAgAC0AIABHAG8AbwBnAGwAZQAgAFMAaABlAGUAdAAgAEkAbgBjAG8A
+bQBlAAFFUgBvAHcAcwAgAHIAZQBjAGUAaQB2AGUAZAAgAGYAcgBvAG0AIABHAG8AbwBnAGwAZQAg
+AFMAaABlAGUAdABzADoAIAAAP0cAbwBvAGcAbABlAEMAcgBlAGQAZQBuAHQAaQBhAGwAcwBQAGEA
+dABoACAAaQBzACAAZQBtAHAAdAB5AC4AAGVUAGgAZQAgAEcAbwBvAGcAbABlACAAcwBlAHIAdgBp
+AGMAZQAtAGEAYwBjAG8AdQBuAHQAIABKAFMATwBOACAAawBlAHkAIAB3AGEAcwAgAG4AbwB0ACAA
+ZgBvAHUAbgBkAC4AARljAGwAaQBlAG4AdABfAGUAbQBhAGkAbAAAF3AAcgBpAHYAYQB0AGUAXwBr
+AGUAeQAAE3QAbwBrAGUAbgBfAHUAcgBpAAAHaQBzAHMAAAtzAGMAbwBwAGUAAGtoAHQAdABwAHMA
+OgAvAC8AdwB3AHcALgBnAG8AbwBnAGwAZQBhAHAAaQBzAC4AYwBvAG0ALwBhAHUAdABoAC8AcwBw
+AHIAZQBhAGQAcwBoAGUAZQB0AHMALgByAGUAYQBkAG8AbgBsAHkAAAdhAHUAZAAAB2kAYQB0AAAH
+ZQB4AHAAADd7ACIAYQBsAGcAIgA6ACIAUgBTADIANQA2ACIALAAiAHQAeQBwACIAOgAiAEoAVwBU
+ACIAfQAAAy4AAA1TAEgAQQAyADUANgAAF2cAcgBhAG4AdABfAHQAeQBwAGUAPQAAV3UAcgBuADoA
+aQBlAHQAZgA6AHAAYQByAGEAbQBzADoAbwBhAHUAdABoADoAZwByAGEAbgB0AC0AdAB5AHAAZQA6
+AGoAdwB0AC0AYgBlAGEAcgBlAHIAARcmAGEAcwBzAGUAcgB0AGkAbwBuAD0AAAlQAE8AUwBUAABD
+YQBwAHAAbABpAGMAYQB0AGkAbwBuAC8AeAAtAHcAdwB3AC0AZgBvAHIAbQAtAHUAcgBsAGUAbgBj
+AG8AZABlAGQAARlhAGMAYwBlAHMAcwBfAHQAbwBrAGUAbgAAO0cAbwBvAGcAbABlAFMAcAByAGUA
+YQBkAHMAaABlAGUAdABJAGQAIABpAHMAIABlAG0AcAB0AHkALgAANUcAbwBvAGcAbABlAFMAaABl
+AGUAdABSAGEAbgBnAGUAIABpAHMAIABlAG0AcAB0AHkALgAAXWgAdAB0AHAAcwA6AC8ALwBzAGgA
+ZQBlAHQAcwAuAGcAbwBvAGcAbABlAGEAcABpAHMALgBjAG8AbQAvAHYANAAvAHMAcAByAGUAYQBk
+AHMAaABlAGUAdABzAC8AABEvAHYAYQBsAHUAZQBzAC8AAG0/AG0AYQBqAG8AcgBEAGkAbQBlAG4A
+cwBpAG8AbgA9AFIATwBXAFMAJgB2AGEAbAB1AGUAUgBlAG4AZABlAHIATwBwAHQAaQBvAG4APQBG
+AE8AUgBNAEEAVABUAEUARABfAFYAQQBMAFUARQAAB0cARQBUAAAPQgBlAGEAcgBlAHIAIAAAIWEA
+cABwAGwAaQBjAGEAdABpAG8AbgAvAGoAcwBvAG4AADdHAG8AbwBnAGwAZQAgAEEAUABJACAAcgBl
+AHEAdQBlAHMAdAAgAGYAYQBpAGwAZQBkAC4AIAAAR1IAZQBxAHUAaQByAGUAZAAgAEoAUwBPAE4A
+IABwAHIAbwBwAGUAcgB0AHkAIABpAHMAIABtAGkAcwBzAGkAbgBnADoAIAAANy0ALQAtAC0ALQBC
+AEUARwBJAE4AIABQAFIASQBWAEEAVABFACAASwBFAFkALQAtAC0ALQAtAAEzLQAtAC0ALQAtAEUA
+TgBEACAAUABSAEkAVgBBAFQARQAgAEsARQBZAC0ALQAtAC0ALQABAw0AAAMKAACAm0kAcwBOAHUA
+bABsACAAcAByAG8AcABlAHIAdAB5ACAAYwBhAG4AbgBvAHQAIABiAGUAIABzAGUAdAAgAHQAbwAg
+AEYAYQBsAHMAZQAuACAAQQBzAHMAaQBnAG4AIABhACAAdgBhAGwAdQBlACAAdABvACAAdABoAGUA
+IABjAG8AbAB1AG0AbgAgAGkAbgBzAHQAZQBhAGQALgAAI0cAbwBvAGcAbABlAFMAaABlAGUAdABP
+AHUAdABwAHUAdAAAK0cAbwBvAGcAbABlAEMAcgBlAGQAZQBuAHQAaQBhAGwAcwBQAGEAdABoAAAh
+RwBvAG8AZwBsAGUAUwBoAGUAZQB0AFIAYQBuAGcAZQAAJ0cAbwBvAGcAbABlAFMAcAByAGUAYQBk
+AHMAaABlAGUAdABJAGQAAHFTAEMAXwA5AGMANAAzADMAMAA0ADAAMwAzAGUAYwA0AGYAMwA2ADkA
+OQBiADMAMwA3ADIAMAAzADEAYgBiAGEAOQA5AGIALgBQAHIAbwBwAGUAcgB0AGkAZQBzAC4AUgBl
+AHMAbwB1AHIAYwBlAHMAAAt2AGEAbAB1AGUAADdVAG4AZQB4AHAAZQBjAHQAZQBkACAAZQBuAGQA
+IABvAGYAIABEAEUAUgAgAGQAYQB0AGEALgAAcVUAbgBlAHgAcABlAGMAdABlAGQAIABEAEUAUgAg
+AHQAYQBnACAAdwBoAGkAbABlACAAcgBlAGEAZABpAG4AZwAgAHQAaABlACAARwBvAG8AZwBsAGUA
+IABwAHIAaQB2AGEAdABlACAAawBlAHkALgAAL1UAbgBzAHUAcABwAG8AcgB0AGUAZAAgAEQARQBS
+ACAAbABlAG4AZwB0AGgALgAAJ0kAbgB2AGEAbABpAGQAIABEAEUAUgAgAGwAZQBuAGcAdABoAC4A
+AAAAyIN56biD2kaWirzulVbyOwAEIAEBCAMgAAEFIAEBEREEIAEBDgYgAQERgI0RBwkODh0dHAII
+HR0cHRwSPQIFIAASgJkDIAAOBQACDg4OAgYOCiAGAQgODg4IEAIIBwEVEkECDhwEAAECDgUgAgEO
+DgQAAQ4OBjABAR4ADggKARUSQQIOHBYHCwoSRRUSQQIOHA4OHQURSQ4ODhJNBAAAEWUGFRJBAg4c
+ByACARMAEwEFAAASgLUFIAEdBQ4EIAEOHAYAAw4ODg4GIAEBEoC5BCABAQIFIAEBEUkHIAIdBR0F
+HAcABA4ODg4OBQcCDhIoBQABDh0OBAoBEigCHRwUBwoSUR0FElUSWRJdDhJhDhJVEl0GAAEBEYDR
+BgABEoDVDgUgABKA2QcgAgERgN0OBCABAQoEIAASVQcgAwEdBQgIBSAAEoDhBSABARJVBiACAQ4S
+PQMHARwIIAICEwAQEwEEAAEOHAMHAQgGBwIRZRFpDCAHAQgICAgICBGA7QgAAhFpEWURZQMgAA0E
+AAEKDQUAAQ4dBQUgAQ4dAwUgAg4DAwYHAhIsEUkFIAIODg4FAAEdBQ4DBh0FCSADARJ1HQgSeQUg
+AgEIHAMgAAIGAAIIEnkOBSABHQgIBSAAEoD1BiABEoD5HAUAABKA/QYgARwSgQEIAAESgQURgQkF
+IAASgQ0HIAIBDhKBDQgHBAgdBQgdBQwABQESgR0IEoEdCAgHBwUICAgICAQHAR0FCLd6XFYZNOCJ
+CImEXc2AgMyRCDG/OFatNk41amgAdAB0AHAAcwA6AC8ALwB3AHcAdwAuAGcAbwBvAGcAbABlAGEA
+cABpAHMALgBjAG8AbQAvAGEAdQB0AGgALwBzAHAAcgBlAGEAZABzAGgAZQBlAHQAcwAuAHIAZQBh
+AGQAbwBuAGwAeQADBhIUAwYSGAMGEgwDBhJ9BAYSgIUEBhKAiQMGEiAEBh0dHAIGCAUAARIkDgUA
+AQ4SJAgAAx0dHA4ODggABQ4ODg4ODgQAABJFCgACDhUSQQIOHA4GAAIOHRwIBQABAh0cBQABChFl
+BQABEUkOCyAEAQgdCB0SdRJ5BSABARJ9BQAAEoCFBQAAEoCJBgABARKAiQQAABIgAwAAAQUgAB0d
+HAYgAQEdHRwFIAEBHQUEIAASLAQgAB0FBCABAQUDIAAIBSABHQUIAygADgMoAAIFCAASgIUFCAAS
+gIkECAASIAUoAB0dHAgBAAgAAAAAAB4BAAEAVAIWV3JhcE5vbkV4Y2VwdGlvblRocm93cwEIAQAC
+AAAAAAAoAQAjU0NfOWM0MzMwNDAzM2VjNGYzNjk5YjMzNzIwMzFiYmE5OWIAAAUBAAAAABYBABFD
+b3B5cmlnaHQgQCAgMjAyNgAASQEAGi5ORVRGcmFtZXdvcmssVmVyc2lvbj12NC43AQBUDhRGcmFt
+ZXdvcmtEaXNwbGF5TmFtZRIuTkVUIEZyYW1ld29yayA0LjcEAQAAALQAAADOyu++AQAAAJEAAABs
+U3lzdGVtLlJlc291cmNlcy5SZXNvdXJjZVJlYWRlciwgbXNjb3JsaWIsIFZlcnNpb249NC4wLjAu
+MCwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1iNzdhNWM1NjE5MzRlMDg5I1N5c3Rl
+bS5SZXNvdXJjZXMuUnVudGltZVJlc291cmNlU2V0AgAAAAAAAAAAAAAAUEFEUEFEULQAAABgXQAA
+AAAAAAAAAAB6XQAAACAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAbF0AAAAAAAAAAAAAAABfQ29yRGxs
+TWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAAAGAAAgAAAAAAAAAAA
+AAAAAAAAAQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFhgAADsAwAAAAAAAAAAAADs
+AzQAAABWAFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv/gAAAQAAAAEAAAAAAAAA
+AQAAAAAAPwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYAYQByAEYAaQBsAGUASQBu
+AGYAbwAAAAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAAALAETAMAAAEAUwB0AHIA
+aQBuAGcARgBpAGwAZQBJAG4AZgBvAAAAKAMAAAEAMAAwADAAMAAwADQAYgAwAAAAGgABAAEAQwBv
+AG0AbQBlAG4AdABzAAAAAAAAACIAAQABAEMAbwBtAHAAYQBuAHkATgBhAG0AZQAAAAAAAAAAAHAA
+JAABAEYAaQBsAGUARABlAHMAYwByAGkAcAB0AGkAbwBuAAAAAABTAEMAXwA5AGMANAAzADMAMAA0
+ADAAMwAzAGUAYwA0AGYAMwA2ADkAOQBiADMAMwA3ADIAMAAzADEAYgBiAGEAOQA5AGIAAAAwAAgA
+AQBGAGkAbABlAFYAZQByAHMAaQBvAG4AAAAAADEALgAwAC4AMAAuADAAAABwACgAAQBJAG4AdABl
+AHIAbgBhAGwATgBhAG0AZQAAAFMAQwBfADkAYwA0ADMAMwAwADQAMAAzADMAZQBjADQAZgAzADYA
+OQA5AGIAMwAzADcAMgAwADMAMQBiAGIAYQA5ADkAYgAuAGQAbABsAAAASAASAAEATABlAGcAYQBs
+AEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAAeQByAGkAZwBoAHQAIABAACAAIAAyADAAMgA2AAAA
+KgABAAEATABlAGcAYQBsAFQAcgBhAGQAZQBtAGEAcgBrAHMAAAAAAAAAAAB4ACgAAQBPAHIAaQBn
+AGkAbgBhAGwARgBpAGwAZQBuAGEAbQBlAAAAUwBDAF8AOQBjADQAMwAzADAANAAwADMAMwBlAGMA
+NABmADMANgA5ADkAYgAzADMANwAyADAAMwAxAGIAYgBhADkAOQBiAC4AZABsAGwAAABoACQAAQBQ
+AHIAbwBkAHUAYwB0AE4AYQBtAGUAAAAAAFMAQwBfADkAYwA0ADMAMwAwADQAMAAzADMAZQBjADQA
+ZgAzADYAOQA5AGIAMwAzADcAMgAwADMAMQBiAGIAYQA5ADkAYgAAADQACAABAFAAcgBvAGQAdQBj
+AHQAVgBlAHIAcwBpAG8AbgAAADEALgAwAC4AMAAuADAAAAA4AAgAAQBBAHMAcwBlAG0AYgBsAHkA
+IABWAGUAcgBzAGkAbwBuAAAAMQAuADAALgAwAC4AMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAABQAAAMAAAAjD0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+                  </arrayElements>
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                  name="VSTAProjectName"
+                  typeConverter="NOTBROWSABLE">SC_9c43304033ec4f3699b3372031bba99b</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the programming language used by the script."
+                  name="ScriptLanguage"
+                  typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages">CSharp</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read-only variables."
+                  name="ReadOnlyVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg">User::GoogleCredentialsPath,User::GoogleSheetRange,User::GoogleSpreadsheetId</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a comma-separated list of read/write variables."
+                  name="ReadWriteVariables"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg"></property>
+                <property
+                  dataType="System.String"
+                  description="List of breakpoints present on the script."
+                  isArray="true"
+                  name="BreakpointCollection"
+                  typeConverter="NOTBROWSABLE">
+                  <arrayElements
+                    arrayElementCount="0" />
+                </property>
+                <property
+                  dataType="System.String"
+                  description="Checksum to match component metedata against compiled codes."
+                  name="MetadataChecksum140"
+                  typeConverter="NOTBROWSABLE">3C</property>
+                <property
+                  dataType="System.String"
+                  name="UserComponentTypeName">Microsoft.ScriptComponentHost</property>
+              </properties>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput]"
+                  hasSideEffects="true"
+                  name="GoogleSheetOutput">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Data_Validator]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Data_Validator]"
+                      name="Data_Validator" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Total_Tax]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Total_Tax]"
+                      name="Total_Tax" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Net_Income]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Net_Income]"
+                      name="Net_Income" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_Disability]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_Disability]"
+                      name="CA_Disability" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_State_Tax]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[CA_State_Tax]"
+                      name="CA_State_Tax" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Medicare]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Medicare]"
+                      name="Medicare" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Social_Security]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Social_Security]"
+                      name="Social_Security" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Federal_Income_Tax]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Federal_Income_Tax]"
+                      name="Federal_Income_Tax" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Gross_Payment]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Gross_Payment]"
+                      name="Gross_Payment" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Employee_FullName]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Employee_FullName]"
+                      name="Employee_FullName" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Work_Place]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Work_Place]"
+                      name="Work_Place" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Pay_Day]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Pay_Day]"
+                      name="Pay_Day" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_End]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_End]"
+                      name="Period_End" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_Start]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Period_Start]"
+                      name="Period_Start" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Submitted_At]"
+                      dataType="wstr"
+                      length="255"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Submitted_At]"
+                      name="Submitted_At" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load Income from Google Sheet.Paths[Data Conversion Output]"
+              endId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Inputs[Conditional Split Input]"
+              name="Data Conversion Output"
+              startId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\DFT - Load Income from Google Sheet.Paths[Derived Column Output]"
+              endId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Inputs[Data Conversion Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Load Income from Google Sheet.Paths[GoogleSheetOutput]"
+              endId="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values.Inputs[Derived Column Input]"
+              name="GoogleSheetOutput"
+              startId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput]" />
+            <path
+              refId="Package\DFT - Load Income from Google Sheet.Paths[Row Count Output 1]"
+              endId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - Load Income from Google Sheet.Paths[Valid Income Rows]"
+              endId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Inputs[Row Count Input 1]"
+              name="Valid Income Rows"
+              startId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Valid Income Rows]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="268,42"
+          Id="Package\DFT - Load Income from Google Sheet"
+          TopLeft="249,125" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Load Income from Google Sheet">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="218,42"
+          Id="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income"
+          TopLeft="100,72" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows"
+          TopLeft="571,397" />
+        <NodeLayout
+          Size="247,42"
+          Id="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values"
+          TopLeft="65,195" />
+        <EdgeLayout
+          Id="Package\DFT - Load Income from Google Sheet.Paths[GoogleSheetOutput]"
+          TopLeft="209,114">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-20.5,81"
+              Start="0,0"
+              End="-20.5,73.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,36.5"
+                    Point2="0,40.5"
+                    Point3="-4,40.5" />
+                  <mssgle:LineSegment
+                    End="-16.5,40.5" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-16.5,40.5"
+                    Point2="-20.5,40.5"
+                    Point3="-20.5,44.5" />
+                  <mssgle:LineSegment
+                    End="-20.5,73.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="248,42"
+          Id="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types"
+          TopLeft="375,161" />
+        <EdgeLayout
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Derived Column Output]"
+          TopLeft="312,216">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="63,-34"
+              Start="0,0"
+              End="55.5,-34">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="27.5,0" />
+                  <mssgle:CubicBezierSegment
+                    Point1="27.5,0"
+                    Point2="31.5,0"
+                    Point3="31.5,-4" />
+                  <mssgle:LineSegment
+                    End="31.5,-30" />
+                  <mssgle:CubicBezierSegment
+                    Point1="31.5,-30"
+                    Point2="31.5,-34"
+                    Point3="35.5,-34" />
+                  <mssgle:LineSegment
+                    End="55.5,-34" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="219,42"
+          Id="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows"
+          TopLeft="280,299" />
+        <EdgeLayout
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Data Conversion Output]"
+          TopLeft="499,203">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-109.5,96"
+              Start="0,0"
+              End="-109.5,88.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,44"
+                    Point2="0,48"
+                    Point3="-4,48" />
+                  <mssgle:LineSegment
+                    End="-105.5,48" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-105.5,48"
+                    Point2="-109.5,48"
+                    Point3="-109.5,52" />
+                  <mssgle:LineSegment
+                    End="-109.5,88.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Valid Income Rows]"
+          TopLeft="389.5,341">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="252.5,56"
+              Start="0,0"
+              End="252.5,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.3447293447293" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.3447293447293"
+                    Point2="0,33.3447293447293"
+                    Point3="4,33.3447293447293" />
+                  <mssgle:LineSegment
+                    End="248.5,33.3447293447293" />
+                  <mssgle:CubicBezierSegment
+                    Point1="248.5,33.3447293447293"
+                    Point2="252.5,33.3447293447293"
+                    Point3="252.5,37.3447293447293" />
+                  <mssgle:LineSegment
+                    End="252.5,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="83.26423828125,38.3447293447293,85.9715234375,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="208,42"
+          Id="Package\DFT - Load Income from Google Sheet\DST - STG Family Income"
+          TopLeft="738,257" />
+        <EdgeLayout
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Row Count Output 1]"
+          TopLeft="709,397">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="133,-98"
+              Start="0,0"
+              End="133,-90.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-35.6467236467237" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,-35.6467236467237"
+                    Point2="0,-39.6467236467237"
+                    Point3="4,-39.6467236467237" />
+                  <mssgle:LineSegment
+                    End="129,-39.6467236467237" />
+                  <mssgle:CubicBezierSegment
+                    Point1="129,-39.6467236467237"
+                    Point2="133,-39.6467236467237"
+                    Point3="133,-43.6467236467237" />
+                  <mssgle:LineSegment
+                    End="133,-90.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Income from Google Sheet\DST - STG Family Income">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

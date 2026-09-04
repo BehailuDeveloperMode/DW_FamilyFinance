@@ -11,24 +11,10 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_LoadIncomeData"
   DTS:PackageType="5"
-  DTS:VersionBuild="47"
-  DTS:VersionGUID="{C30E367B-8F77-4A4C-AD3D-AD4CB0CCBC88}">
+  DTS:VersionBuild="56"
+  DTS:VersionGUID="{2A688000-D82F-4E0A-9FBC-154C3F076046}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
-  <DTS:ConnectionManagers>
-    <DTS:ConnectionManager
-      DTS:refId="Package.ConnectionManagers[STG_Income_OneDrive]"
-      DTS:CreationName="EXCEL"
-      DTS:DTSID="{648E5CA2-8DFD-4689-8A95-863DBEB8B5A8}"
-      DTS:ObjectName="STG_Income_OneDrive">
-      <DTS:ObjectData>
-        <DTS:ConnectionManager
-          DTS:ConnectRetryCount="0"
-          DTS:ConnectRetryInterval="0"
-          DTS:ConnectionString="Provider=Microsoft.ACE.OLEDB.12.0;Data Source=C:\Users\tbeha\OneDrive - Behailu Tessema-(DeveloperMode.dev)\FamilyFinance\Income_Statement\Family_Income.xlsx;Extended Properties=&quot;EXCEL 12.0 XML;HDR=YES&quot;;" />
-      </DTS:ObjectData>
-    </DTS:ConnectionManager>
-  </DTS:ConnectionManagers>
   <DTS:Variables>
     <DTS:Variable
       DTS:CreationName=""
@@ -90,7 +76,7 @@
                       refId="Package\DFT_LoadIncomeData\Conditional Split.Inputs[Conditional Split Input].Columns[Pay_Day]"
                       cachedDataType="date"
                       cachedName="Pay_Day"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Pay_Day]" />
+                      lineageId="Package\DFT_LoadIncomeData\26:invalid" />
                   </inputColumns>
                   <externalMetadataColumns />
                 </input>
@@ -110,7 +96,7 @@
                       containsID="true"
                       dataType="System.String"
                       description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
-                      name="Expression">#{Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Pay_Day]} &gt; (DT_DATE)@[User::MaxIncomeDate]</property>
+                      name="Expression">#{Package\DFT_LoadIncomeData\26:invalid} &gt; (DT_DATE)@[User::MaxIncomeDate]</property>
                     <property
                       containsID="true"
                       dataType="System.String"
@@ -178,7 +164,7 @@
                 <property
                   dataType="System.String"
                   description="Specifies the name of the database object used to open a rowset."
-                  name="OpenRowset">Form_Responses1$ExternalData_1</property>
+                  name="OpenRowset"></property>
                 <property
                   dataType="System.String"
                   description="Specifies the variable that contains the name of the database object used to open a rowset."
@@ -205,8 +191,6 @@
               <connections>
                 <connection
                   refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Connections[OleDbConnection]"
-                  connectionManagerID="Package.ConnectionManagers[STG_Income_OneDrive]"
-                  connectionManagerRefId="Package.ConnectionManagers[STG_Income_OneDrive]"
                   description="The OLE DB runtime connection used to access the database."
                   name="OleDbConnection" />
               </connections>
@@ -214,275 +198,14 @@
                 <output
                   refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output]"
                   name="Excel Source Output">
-                  <outputColumns>
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Period_Start]"
-                      dataType="date"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Period_Start]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Period_Start]"
-                      name="Period_Start"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Period_End]"
-                      dataType="date"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Period_End]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Period_End]"
-                      name="Period_End"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Pay_Day]"
-                      dataType="date"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Pay_Day]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Pay_Day]"
-                      name="Pay_Day"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Work_Place]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Work_Place]"
-                      length="255"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Work_Place]"
-                      name="Work_Place"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Employee_FullName]"
-                      dataType="wstr"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Employee_FullName]"
-                      length="255"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Employee_FullName]"
-                      name="Employee_FullName"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Gross_Payment]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Gross_Payment]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Gross_Payment]"
-                      name="Gross_Payment"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Federal_Income_Tax]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Federal_Income_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Federal_Income_Tax]"
-                      name="Federal_Income_Tax"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Social_Security]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Social_Security]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Social_Security]"
-                      name="Social_Security"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Medicare]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Medicare]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Medicare]"
-                      name="Medicare"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[CA_State_Tax]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[CA_State_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[CA_State_Tax]"
-                      name="CA_State_Tax"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[CA-Disablity]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[CA-Disablity]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[CA-Disablity]"
-                      name="CA-Disablity"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Net_Income]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Net_Income]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Net_Income]"
-                      name="Net_Income"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Total_Tax]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Total_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Total_Tax]"
-                      name="Total_Tax"
-                      truncationRowDisposition="FailComponent" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Data_Validetor]"
-                      dataType="r8"
-                      errorOrTruncationOperation="Conversion"
-                      errorRowDisposition="FailComponent"
-                      externalMetadataColumnId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Data_Validetor]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Data_Validetor]"
-                      name="Data_Validetor"
-                      truncationRowDisposition="FailComponent" />
-                  </outputColumns>
                   <externalMetadataColumns
-                    isUsed="True">
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Period_Start]"
-                      dataType="date"
-                      name="Period_Start" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Period_End]"
-                      dataType="date"
-                      name="Period_End" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Pay_Day]"
-                      dataType="date"
-                      name="Pay_Day" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Work_Place]"
-                      dataType="wstr"
-                      length="255"
-                      name="Work_Place" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Employee_FullName]"
-                      dataType="wstr"
-                      length="255"
-                      name="Employee_FullName" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Gross_Payment]"
-                      dataType="r8"
-                      name="Gross_Payment" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Federal_Income_Tax]"
-                      dataType="r8"
-                      name="Federal_Income_Tax" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Social_Security]"
-                      dataType="r8"
-                      name="Social_Security" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Medicare]"
-                      dataType="r8"
-                      name="Medicare" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[CA_State_Tax]"
-                      dataType="r8"
-                      name="CA_State_Tax" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[CA-Disablity]"
-                      dataType="r8"
-                      name="CA-Disablity" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Net_Income]"
-                      dataType="r8"
-                      name="Net_Income" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Total_Tax]"
-                      dataType="r8"
-                      name="Total_Tax" />
-                    <externalMetadataColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].ExternalColumns[Data_Validetor]"
-                      dataType="r8"
-                      name="Data_Validetor" />
-                  </externalMetadataColumns>
+                    isUsed="True" />
                 </output>
                 <output
                   refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output]"
                   isErrorOut="true"
                   name="Excel Source Error Output">
                   <outputColumns>
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Period_Start]"
-                      dataType="date"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Period_Start]"
-                      name="Period_Start" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Period_End]"
-                      dataType="date"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Period_End]"
-                      name="Period_End" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Pay_Day]"
-                      dataType="date"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Pay_Day]"
-                      name="Pay_Day" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Work_Place]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Work_Place]"
-                      name="Work_Place" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Employee_FullName]"
-                      dataType="wstr"
-                      length="255"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Employee_FullName]"
-                      name="Employee_FullName" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Gross_Payment]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Gross_Payment]"
-                      name="Gross_Payment" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Federal_Income_Tax]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Federal_Income_Tax]"
-                      name="Federal_Income_Tax" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Social_Security]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Social_Security]"
-                      name="Social_Security" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Medicare]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Medicare]"
-                      name="Medicare" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[CA_State_Tax]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[CA_State_Tax]"
-                      name="CA_State_Tax" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[CA-Disablity]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[CA-Disablity]"
-                      name="CA-Disablity" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Net_Income]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Net_Income]"
-                      name="Net_Income" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Total_Tax]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Total_Tax]"
-                      name="Total_Tax" />
-                    <outputColumn
-                      refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Data_Validetor]"
-                      dataType="r8"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[Data_Validetor]"
-                      name="Data_Validetor" />
                     <outputColumn
                       refId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Error Output].Columns[ErrorCode]"
                       dataType="i4"
@@ -577,87 +300,87 @@
                       cachedDataType="date"
                       cachedName="Pay_Day"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Pay_Day]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Pay_Day]" />
+                      lineageId="Package\DFT_LoadIncomeData\26:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Work_Place]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="Work_Place"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Work_Place]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Work_Place]" />
+                      lineageId="Package\DFT_LoadIncomeData\27:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Employee_FullName]"
                       cachedDataType="wstr"
                       cachedLength="255"
                       cachedName="Employee_FullName"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Employee_FullName]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Employee_FullName]" />
+                      lineageId="Package\DFT_LoadIncomeData\28:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Gross_Payment]"
                       cachedDataType="r8"
                       cachedName="Gross_Payment"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Gross_Payment]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Gross_Payment]" />
+                      lineageId="Package\DFT_LoadIncomeData\29:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[CA_State_Tax]"
                       cachedDataType="r8"
                       cachedName="CA_State_Tax"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[CA_State_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[CA_State_Tax]" />
+                      lineageId="Package\DFT_LoadIncomeData\33:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Total_Tax]"
                       cachedDataType="r8"
                       cachedName="Total_Tax"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Total_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Total_Tax]" />
+                      lineageId="Package\DFT_LoadIncomeData\36:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Data_Validetor]"
                       cachedDataType="r8"
                       cachedName="Data_Validetor"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Payment_Validation]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Data_Validetor]" />
+                      lineageId="Package\DFT_LoadIncomeData\37:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Period_Start]"
                       cachedDataType="date"
                       cachedName="Period_Start"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Period_Bginning]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Period_Start]" />
+                      lineageId="Package\DFT_LoadIncomeData\24:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Period_End]"
                       cachedDataType="date"
                       cachedName="Period_End"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Period_Ending]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Period_End]" />
+                      lineageId="Package\DFT_LoadIncomeData\25:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Federal_Income_Tax]"
                       cachedDataType="r8"
                       cachedName="Federal_Income_Tax"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Federal_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Federal_Income_Tax]" />
+                      lineageId="Package\DFT_LoadIncomeData\30:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Social_Security]"
                       cachedDataType="r8"
                       cachedName="Social_Security"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[SS_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Social_Security]" />
+                      lineageId="Package\DFT_LoadIncomeData\31:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Medicare]"
                       cachedDataType="r8"
                       cachedName="Medicare"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Medical_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Medicare]" />
+                      lineageId="Package\DFT_LoadIncomeData\32:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[CA-Disablity]"
                       cachedDataType="r8"
                       cachedName="CA-Disablity"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[CA_SDI_Tax]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[CA-Disablity]" />
+                      lineageId="Package\DFT_LoadIncomeData\34:invalid" />
                     <inputColumn
                       refId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].Columns[Net_Income]"
                       cachedDataType="r8"
                       cachedName="Net_Income"
                       externalMetadataColumnId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input].ExternalColumns[Employer_NetPay]"
-                      lineageId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output].Columns[Net_Income]" />
+                      lineageId="Package\DFT_LoadIncomeData\35:invalid" />
                   </inputColumns>
                   <externalMetadataColumns
                     isUsed="True">
@@ -806,11 +529,6 @@
               name="CS_PayDay"
               startId="Package\DFT_LoadIncomeData\Conditional Split.Outputs[CS_PayDay]" />
             <path
-              refId="Package\DFT_LoadIncomeData.Paths[Excel Source Output]"
-              endId="Package\DFT_LoadIncomeData\Conditional Split.Inputs[Conditional Split Input]"
-              name="Excel Source Output"
-              startId="Package\DFT_LoadIncomeData\EXL_IncomeSource.Outputs[Excel Source Output]" />
-            <path
               refId="Package\DFT_LoadIncomeData.Paths[Row Count Output 1]"
               endId="Package\DFT_LoadIncomeData\OLED_FamilyIncome.Inputs[OLE DB Destination Input]"
               name="Row Count Output 1"
@@ -941,11 +659,11 @@
         <NodeLayout
           Size="190,42"
           Id="Package\DFT_LoadIncomeData"
-          TopLeft="148.5,142.5" />
+          TopLeft="117.5,160.5" />
         <NodeLayout
           Size="226,42"
           Id="Package\EST_GetNewMaxIncomeDate"
-          TopLeft="173,266" />
+          TopLeft="208,298" />
         <NodeLayout
           Size="193,42"
           Id="Package\EST_Income_MaxDate"
@@ -953,33 +671,33 @@
         <NodeLayout
           Size="220,42"
           Id="Package\EST_InsertIncomeLoadAudit"
-          TopLeft="476,344" />
+          TopLeft="499,384" />
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint]"
           TopLeft="177.5,93">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="66,49.5"
+              EndConnector="35,67.5"
               Start="0,0"
-              End="66,42">
+              End="35,60">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,20.75" />
+                    End="0,29.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,20.75"
-                    Point2="0,24.75"
-                    Point3="4,24.75" />
+                    Point1="0,29.75"
+                    Point2="0,33.75"
+                    Point3="4,33.75" />
                   <mssgle:LineSegment
-                    End="62,24.75" />
+                    End="31,33.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="62,24.75"
-                    Point2="66,24.75"
-                    Point3="66,28.75" />
+                    Point1="31,33.75"
+                    Point2="35,33.75"
+                    Point3="35,37.75" />
                   <mssgle:LineSegment
-                    End="66,42" />
+                    End="35,60" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -990,30 +708,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="243.5,184.5">
+          TopLeft="212.5,202.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="42.5,81.5"
+              EndConnector="108.5,95.5"
               Start="0,0"
-              End="42.5,74">
+              End="108.5,88">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.75" />
+                    End="0,43.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.75"
-                    Point2="0,40.75"
-                    Point3="4,40.75" />
+                    Point1="0,43.75"
+                    Point2="0,47.75"
+                    Point3="4,47.75" />
                   <mssgle:LineSegment
-                    End="38.5,40.75" />
+                    End="104.5,47.75" />
                   <mssgle:CubicBezierSegment
-                    Point1="38.5,40.75"
-                    Point2="42.5,40.75"
-                    Point3="42.5,44.75" />
+                    Point1="104.5,47.75"
+                    Point2="108.5,47.75"
+                    Point3="108.5,51.75" />
                   <mssgle:LineSegment
-                    End="42.5,74" />
+                    End="108.5,88" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1024,30 +742,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 2]"
-          TopLeft="286,308">
+          TopLeft="321,340">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="300,36"
+              EndConnector="288,44"
               Start="0,0"
-              End="300,28.5">
+              End="288,36.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,14" />
+                    End="0,18" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,14"
-                    Point2="0,18"
-                    Point3="4,18" />
+                    Point1="0,18"
+                    Point2="0,22"
+                    Point3="4,22" />
                   <mssgle:LineSegment
-                    End="296,18" />
+                    End="284,22" />
                   <mssgle:CubicBezierSegment
-                    Point1="296,18"
-                    Point2="300,18"
-                    Point3="300,22" />
+                    Point1="284,22"
+                    Point2="288,22"
+                    Point3="288,26" />
                   <mssgle:LineSegment
-                    End="300,28.5" />
+                    End="288,36.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -1065,21 +783,17 @@
       <GraphLayout
         Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
         <NodeLayout
-          Size="184,42"
-          Id="Package\DFT_LoadIncomeData\OLED_FamilyIncome"
-          TopLeft="617.5,395.5" />
-        <NodeLayout
           Size="188,42"
           Id="Package\DFT_LoadIncomeData\RC_IncomeRowCount"
           TopLeft="99,322" />
         <NodeLayout
+          Size="184,42"
+          Id="Package\DFT_LoadIncomeData\OLED_FamilyIncome"
+          TopLeft="617.5,395.5" />
+        <NodeLayout
           Size="159,42"
           Id="Package\DFT_LoadIncomeData\Conditional Split"
           TopLeft="374,215" />
-        <NodeLayout
-          Size="177,42"
-          Id="Package\DFT_LoadIncomeData\EXL_IncomeSource"
-          TopLeft="174,90.5" />
         <EdgeLayout
           Id="Package\DFT_LoadIncomeData.Paths[Row Count Output 1]"
           TopLeft="193,364">
@@ -1111,41 +825,9 @@
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
-          </EdgeLayout.Labels>
-        </EdgeLayout>
-        <EdgeLayout
-          Id="Package\DFT_LoadIncomeData.Paths[Excel Source Output]"
-          TopLeft="262.5,132.5">
-          <EdgeLayout.Curve>
-            <mssgle:Curve
-              StartConnector="{assembly:Null}"
-              EndConnector="191,82.5"
-              Start="0,0"
-              End="191,75">
-              <mssgle:Curve.Segments>
-                <mssgle:SegmentCollection
-                  Capacity="5">
-                  <mssgle:LineSegment
-                    End="0,37.25" />
-                  <mssgle:CubicBezierSegment
-                    Point1="0,37.25"
-                    Point2="0,41.25"
-                    Point3="4,41.25" />
-                  <mssgle:LineSegment
-                    End="187,41.25" />
-                  <mssgle:CubicBezierSegment
-                    Point1="187,41.25"
-                    Point2="191,41.25"
-                    Point3="191,45.25" />
-                  <mssgle:LineSegment
-                    End="191,75" />
-                </mssgle:SegmentCollection>
-              </mssgle:Curve.Segments>
-            </mssgle:Curve>
-          </EdgeLayout.Curve>
-          <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="250.25,20.75,16,16"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
         <EdgeLayout
@@ -1184,24 +866,15 @@
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="177,42"
+          Id="Package\DFT_LoadIncomeData\EXL_IncomeSource"
+          TopLeft="168,110" />
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
   <PipelineComponentMetadata
     design-time-name="Package\DFT_LoadIncomeData\OLED_FamilyIncome">
-    <Properties>
-      <Property>
-        <Name>DataSourceViewID</Name>
-      </Property>
-      <Property>
-        <Name>TableInfoObjectType</Name>
-        <Value
-          type="q2:string">Table</Value>
-      </Property>
-    </Properties>
-  </PipelineComponentMetadata>
-  <PipelineComponentMetadata
-    design-time-name="Package\DFT_LoadIncomeData\EXL_IncomeSource">
     <Properties>
       <Property>
         <Name>DataSourceViewID</Name>
