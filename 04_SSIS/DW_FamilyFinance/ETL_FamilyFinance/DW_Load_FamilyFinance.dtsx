@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DW_Load_FamilyFinance"
   DTS:PackageType="5"
-  DTS:VersionBuild="9"
-  DTS:VersionGUID="{21CB5EE4-95AA-4F9E-8B6A-DC85F90D80C5}">
+  DTS:VersionBuild="10"
+  DTS:VersionGUID="{4040C7BD-A695-4BC8-A11B-78F9EDA7069C}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
@@ -299,7 +299,7 @@
           PanelSize="500,271"
           Size="500,314"
           Id="Package\Sequence Container"
-          TopLeft="102,84" />
+          TopLeft="82,78" />
       </GraphLayout>
     </LayoutInfo>
   </Package>

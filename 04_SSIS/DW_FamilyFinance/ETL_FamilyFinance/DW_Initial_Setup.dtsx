@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="DW_Initial_Setup"
   DTS:PackageType="5"
-  DTS:VersionBuild="6"
-  DTS:VersionGUID="{1E772982-9DC1-4F5D-959C-2D6E8F0A6A83}">
+  DTS:VersionBuild="7"
+  DTS:VersionGUID="{E7443959-CEE5-4C6F-91C6-96E5A4EB1C9A}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
