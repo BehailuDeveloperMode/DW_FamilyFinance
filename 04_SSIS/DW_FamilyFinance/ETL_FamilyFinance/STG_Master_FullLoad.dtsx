@@ -11,12 +11,29 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="STG_Master_FullLoad"
   DTS:PackageType="5"
-  DTS:VersionBuild="7"
-  DTS:VersionGUID="{A4C7194E-A67D-4C6E-822B-D5A5815513A2}">
+  DTS:VersionBuild="9"
+  DTS:VersionGUID="{5073495A-E321-43BB-8C8B-A531187A50C9}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables />
   <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\EPT_IncomeLoad_GoogleSheet"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{DAF6C475-59B6-4399-A578-03141810B988}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="EPT_IncomeLoad_GoogleSheet"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>IncomeLoad_GoogleSheet.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
     <DTS:Executable
       DTS:refId="Package\EPT_LoadDescriptionPackage"
       DTS:CreationName="Microsoft.ExecutePackageTask"
@@ -52,23 +69,6 @@
       </DTS:ObjectData>
     </DTS:Executable>
     <DTS:Executable
-      DTS:refId="Package\EPT_STG_LoadIncomeData"
-      DTS:CreationName="Microsoft.ExecutePackageTask"
-      DTS:Description="Execute Package Task"
-      DTS:DTSID="{DAF6C475-59B6-4399-A578-03141810B988}"
-      DTS:ExecutableType="Microsoft.ExecutePackageTask"
-      DTS:LocaleID="-1"
-      DTS:ObjectName="EPT_STG_LoadIncomeData"
-      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
-      <DTS:Variables />
-      <DTS:ObjectData>
-        <ExecutePackageTask>
-          <UseProjectReference>True</UseProjectReference>
-          <PackageName>STG_LoadIncomeData.dtsx</PackageName>
-        </ExecutePackageTask>
-      </DTS:ObjectData>
-    </DTS:Executable>
-    <DTS:Executable
       DTS:refId="Package\EST_TruncateStagingTables"
       DTS:CreationName="Microsoft.ExecuteSQLTask"
       DTS:Description="Execute SQL Task"
@@ -94,12 +94,12 @@
       DTS:From="Package\EPT_LoadDescriptionPackage"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint"
-      DTS:To="Package\EPT_STG_LoadIncomeData" />
+      DTS:To="Package\EPT_IncomeLoad_GoogleSheet" />
     <DTS:PrecedenceConstraint
       DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
       DTS:CreationName=""
       DTS:DTSID="{96BB1E5F-FDF4-4234-BF1F-FAF7A44B0286}"
-      DTS:From="Package\EPT_STG_LoadIncomeData"
+      DTS:From="Package\EPT_IncomeLoad_GoogleSheet"
       DTS:LogicalAnd="True"
       DTS:ObjectName="Constraint 1"
       DTS:To="Package\EPT_STG_LoadExpenseData" />
@@ -133,8 +133,8 @@
           Id="Package\EPT_STG_LoadExpenseData"
           TopLeft="651.5,400.5" />
         <NodeLayout
-          Size="227,42"
-          Id="Package\EPT_STG_LoadIncomeData"
+          Size="237,42"
+          Id="Package\EPT_IncomeLoad_GoogleSheet"
           TopLeft="492.5,181.5" />
         <NodeLayout
           Size="220,42"
@@ -146,26 +146,26 @@
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="259.166666666667,-29.5"
+              EndConnector="262.5,-29.5"
               Start="0,0"
-              End="259.166666666667,-22">
+              End="262.5,-22">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,-10.7488845826638" />
+                    End="0,-10.7542749750928" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,-10.7488845826638"
-                    Point2="0,-14.7488845826638"
-                    Point3="4,-14.7488845826638" />
+                    Point1="0,-10.7542749750928"
+                    Point2="0,-14.7542749750928"
+                    Point3="4,-14.7542749750928" />
                   <mssgle:LineSegment
-                    End="255.166666666667,-14.7488845826638" />
+                    End="258.5,-14.7542749750928" />
                   <mssgle:CubicBezierSegment
-                    Point1="255.166666666667,-14.7488845826638"
-                    Point2="259.166666666667,-14.7488845826638"
-                    Point3="259.166666666667,-18.7488845826638" />
+                    Point1="258.5,-14.7542749750928"
+                    Point2="262.5,-14.7542749750928"
+                    Point3="262.5,-18.7542749750928" />
                   <mssgle:LineSegment
-                    End="259.166666666667,-22" />
+                    End="262.5,-22" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -176,30 +176,30 @@
         </EdgeLayout>
         <EdgeLayout
           Id="Package.PrecedenceConstraints[Constraint 1]"
-          TopLeft="642.5,223.5">
+          TopLeft="649.166666666667,223.5">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="122,177"
+              EndConnector="115.333333333333,177"
               Start="0,0"
-              End="122,169.5">
+              End="115.333333333333,169.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,67.5433070866142" />
+                    End="0,67.512154233026" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,67.5433070866142"
-                    Point2="0,71.5433070866142"
-                    Point3="4,71.5433070866142" />
+                    Point1="0,67.512154233026"
+                    Point2="0,71.512154233026"
+                    Point3="4,71.512154233026" />
                   <mssgle:LineSegment
-                    End="118,71.5433070866142" />
+                    End="111.333333333333,71.512154233026" />
                   <mssgle:CubicBezierSegment
-                    Point1="118,71.5433070866142"
-                    Point2="122,71.5433070866142"
-                    Point3="122,75.5433070866142" />
+                    Point1="111.333333333333,71.512154233026"
+                    Point2="115.333333333333,71.512154233026"
+                    Point3="115.333333333333,75.512154233026" />
                   <mssgle:LineSegment
-                    End="122,169.5" />
+                    End="115.333333333333,169.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>

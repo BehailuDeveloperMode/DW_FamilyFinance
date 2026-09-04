@@ -11,8 +11,8 @@
   DTS:LocaleID="1033"
   DTS:ObjectName="IncomeLoad_GoogleSheet"
   DTS:PackageType="5"
-  DTS:VersionBuild="26"
-  DTS:VersionGUID="{DF9B38DA-9C31-4944-B6EE-4B960B6A6D05}">
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{D2C998BE-0829-4099-9921-CDD7EEBBD6A0}">
   <DTS:Property
     DTS:Name="PackageFormatVersion">8</DTS:Property>
   <DTS:Variables>
@@ -1064,6 +1064,213 @@
                       refId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
                       dataType="i4"
                       lineageId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - Existing Family Income"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from [dbo].[vw_FamilyIncome_ExistingKeys]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">select * from (select * from [dbo].[vw_FamilyIncome_ExistingKeys]) [refTable]
+where [refTable].[Employee_FullName] = ? and [refTable].[Work_Place] = ? and [refTable].[Period_Bginning] = ? and [refTable].[Period_Ending] = ? and [refTable].[Pay_Day] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Period_Bginning" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Period_Ending" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Pay_Day" dataType="DT_DBDATE" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Work_Place" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Employee_FullName" dataType="DT_WSTR" length="255" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Employee_FullName]};#{Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Work_Place]};#{Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_Start_Date]};#{Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_End_Date]};#{Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Pay_Day_Date]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Connections[OleDbConnection]"
+                  connectionManagerID="{B32620D0-DC98-42C3-B3B4-4103FDA4927C}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[OLDB_STG]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input].Columns[Period_Start_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Period_Start_Date"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_Start_Date]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Period_Bginning</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input].Columns[Period_End_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Period_End_Date"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Period_End_Date]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Period_Ending</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input].Columns[Pay_Day_Date]"
+                      cachedDataType="dbDate"
+                      cachedName="Pay_Day_Date"
+                      lineageId="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types.Outputs[Data Conversion Output].Columns[Pay_Day_Date]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Pay_Day</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input].Columns[Work_Place]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Work_Place"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Work_Place]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Work_Place</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input].Columns[Employee_FullName]"
+                      cachedDataType="wstr"
+                      cachedLength="255"
+                      cachedName="Employee_FullName"
+                      lineageId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput].Columns[Employee_FullName]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Employee_FullName</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup Error Output].Columns[ErrorColumn]"
                       name="ErrorColumn"
                       specialFlags="2" />
                   </outputColumns>
@@ -3031,13 +3238,18 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
               name="GoogleSheetOutput"
               startId="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income.Outputs[GoogleSheetOutput]" />
             <path
+              refId="Package\DFT - Load Income from Google Sheet.Paths[Lookup No Match Output]"
+              endId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Outputs[Lookup No Match Output]" />
+            <path
               refId="Package\DFT - Load Income from Google Sheet.Paths[Row Count Output 1]"
               endId="Package\DFT - Load Income from Google Sheet\DST - STG Family Income.Inputs[OLE DB Destination Input]"
               name="Row Count Output 1"
               startId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Outputs[Row Count Output 1]" />
             <path
               refId="Package\DFT - Load Income from Google Sheet.Paths[Valid Income Rows]"
-              endId="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows.Inputs[Row Count Input 1]"
+              endId="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income.Inputs[Lookup Input]"
               name="Valid Income Rows"
               startId="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows.Outputs[Valid Income Rows]" />
           </paths>
@@ -3060,7 +3272,7 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         <NodeLayout
           Size="268,42"
           Id="Package\DFT - Load Income from Google Sheet"
-          TopLeft="249,125" />
+          TopLeft="160,58" />
       </GraphLayout>
     </LayoutInfo>
   </Package>
@@ -3072,41 +3284,41 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         <NodeLayout
           Size="218,42"
           Id="Package\DFT - Load Income from Google Sheet\SRC - Google Sheet Income"
-          TopLeft="100,72" />
+          TopLeft="22,45" />
         <NodeLayout
           Size="209,42"
           Id="Package\DFT - Load Income from Google Sheet\CNT - Google Sheet Rows"
-          TopLeft="571,397" />
+          TopLeft="657,236" />
         <NodeLayout
           Size="247,42"
           Id="Package\DFT - Load Income from Google Sheet\DRV - Clean Google Sheet Values"
-          TopLeft="65,195" />
+          TopLeft="200,129" />
         <EdgeLayout
           Id="Package\DFT - Load Income from Google Sheet.Paths[GoogleSheetOutput]"
-          TopLeft="209,114">
+          TopLeft="131,87">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-20.5,81"
+              EndConnector="192.5,42"
               Start="0,0"
-              End="-20.5,73.5">
+              End="192.5,34.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,36.5" />
+                    End="0,17" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,36.5"
-                    Point2="0,40.5"
-                    Point3="-4,40.5" />
+                    Point1="0,17"
+                    Point2="0,21"
+                    Point3="4,21" />
                   <mssgle:LineSegment
-                    End="-16.5,40.5" />
+                    End="188.5,21" />
                   <mssgle:CubicBezierSegment
-                    Point1="-16.5,40.5"
-                    Point2="-20.5,40.5"
-                    Point3="-20.5,44.5" />
+                    Point1="188.5,21"
+                    Point2="192.5,21"
+                    Point3="192.5,25" />
                   <mssgle:LineSegment
-                    End="-20.5,73.5" />
+                    End="192.5,34.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3118,33 +3330,33 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         <NodeLayout
           Size="248,42"
           Id="Package\DFT - Load Income from Google Sheet\CNV - Convert Income Data Types"
-          TopLeft="375,161" />
+          TopLeft="137,231" />
         <EdgeLayout
           Id="Package\DFT - Load Income from Google Sheet.Paths[Derived Column Output]"
-          TopLeft="312,216">
+          TopLeft="323.5,171">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="63,-34"
+              EndConnector="-62.5,60"
               Start="0,0"
-              End="55.5,-34">
+              End="-62.5,52.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="27.5,0" />
+                    End="0,26" />
                   <mssgle:CubicBezierSegment
-                    Point1="27.5,0"
-                    Point2="31.5,0"
-                    Point3="31.5,-4" />
+                    Point1="0,26"
+                    Point2="0,30"
+                    Point3="-4,30" />
                   <mssgle:LineSegment
-                    End="31.5,-30" />
+                    End="-58.5,30" />
                   <mssgle:CubicBezierSegment
-                    Point1="31.5,-30"
-                    Point2="31.5,-34"
-                    Point3="35.5,-34" />
+                    Point1="-58.5,30"
+                    Point2="-62.5,30"
+                    Point3="-62.5,34" />
                   <mssgle:LineSegment
-                    End="55.5,-34" />
+                    End="-62.5,52.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3156,33 +3368,33 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
         <NodeLayout
           Size="219,42"
           Id="Package\DFT - Load Income from Google Sheet\SPL - Validate Income Rows"
-          TopLeft="280,299" />
+          TopLeft="230,329" />
         <EdgeLayout
           Id="Package\DFT - Load Income from Google Sheet.Paths[Data Conversion Output]"
-          TopLeft="499,203">
+          TopLeft="261,273">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="-109.5,96"
+              EndConnector="78.5,56"
               Start="0,0"
-              End="-109.5,88.5">
+              End="78.5,48.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,44" />
+                    End="0,24" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,44"
-                    Point2="0,48"
-                    Point3="-4,48" />
+                    Point1="0,24"
+                    Point2="0,28"
+                    Point3="4,28" />
                   <mssgle:LineSegment
-                    End="-105.5,48" />
+                    End="74.5,28" />
                   <mssgle:CubicBezierSegment
-                    Point1="-105.5,48"
-                    Point2="-109.5,48"
-                    Point3="-109.5,52" />
+                    Point1="74.5,28"
+                    Point2="78.5,28"
+                    Point3="78.5,32" />
                   <mssgle:LineSegment
-                    End="-109.5,88.5" />
+                    End="78.5,48.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
@@ -3191,83 +3403,146 @@ AAAAAAAAAAAAAAAAAAAAAAAAAAAA]]></arrayElement>
             <EdgeLabelCollection />
           </EdgeLayout.Labels>
         </EdgeLayout>
+        <NodeLayout
+          Size="208,42"
+          Id="Package\DFT - Load Income from Google Sheet\DST - STG Family Income"
+          TopLeft="648,91" />
         <EdgeLayout
-          Id="Package\DFT - Load Income from Google Sheet.Paths[Valid Income Rows]"
-          TopLeft="389.5,341">
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Row Count Output 1]"
+          TopLeft="761.5,236">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="252.5,56"
+              EndConnector="-9.5,-103"
               Start="0,0"
-              End="252.5,48.5">
+              End="-9.5,-95.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,29.3447293447293" />
+                    End="0,-47.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,29.3447293447293"
-                    Point2="0,33.3447293447293"
-                    Point3="4,33.3447293447293" />
+                    Point1="0,-47.5"
+                    Point2="0,-51.5"
+                    Point3="-4,-51.5" />
                   <mssgle:LineSegment
-                    End="248.5,33.3447293447293" />
+                    End="-5.5,-51.5" />
                   <mssgle:CubicBezierSegment
-                    Point1="248.5,33.3447293447293"
-                    Point2="252.5,33.3447293447293"
-                    Point3="252.5,37.3447293447293" />
+                    Point1="-5.5,-51.5"
+                    Point2="-9.5,-51.5"
+                    Point3="-9.5,-55.5" />
                   <mssgle:LineSegment
-                    End="252.5,48.5" />
+                    End="-9.5,-95.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <NodeLayout
+          Size="222,42"
+          Id="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income"
+          TopLeft="483,418" />
+        <EdgeLayout
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Valid Income Rows]"
+          TopLeft="339.5,371">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="218.833333333333,47"
+              Start="0,0"
+              End="218.833333333333,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.9982110912343" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.9982110912343"
+                    Point2="0,27.9982110912343"
+                    Point3="4,27.9982110912343" />
+                  <mssgle:LineSegment
+                    End="214.833333333333,27.9982110912343" />
+                  <mssgle:CubicBezierSegment
+                    Point1="214.833333333333,27.9982110912343"
+                    Point2="218.833333333333,27.9982110912343"
+                    Point3="218.833333333333,31.9982110912343" />
+                  <mssgle:LineSegment
+                    End="218.833333333333,39.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
             <mssgm:EdgeLabel
-              BoundingBox="83.26423828125,38.3447293447293,85.9715234375,9.7490234375"
+              BoundingBox="66.4309049479167,32.9982110912343,85.9715234375,9.7490234375"
               RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
-        <NodeLayout
-          Size="208,42"
-          Id="Package\DFT - Load Income from Google Sheet\DST - STG Family Income"
-          TopLeft="738,257" />
         <EdgeLayout
-          Id="Package\DFT - Load Income from Google Sheet.Paths[Row Count Output 1]"
-          TopLeft="709,397">
+          Id="Package\DFT - Load Income from Google Sheet.Paths[Lookup No Match Output]"
+          TopLeft="629.666666666667,418">
           <EdgeLayout.Curve>
             <mssgle:Curve
               StartConnector="{assembly:Null}"
-              EndConnector="133,-98"
+              EndConnector="131.833333333333,-140"
               Start="0,0"
-              End="133,-90.5">
+              End="131.833333333333,-132.5">
               <mssgle:Curve.Segments>
                 <mssgle:SegmentCollection
                   Capacity="5">
                   <mssgle:LineSegment
-                    End="0,-35.6467236467237" />
+                    End="0,-52.6010733452594" />
                   <mssgle:CubicBezierSegment
-                    Point1="0,-35.6467236467237"
-                    Point2="0,-39.6467236467237"
-                    Point3="4,-39.6467236467237" />
+                    Point1="0,-52.6010733452594"
+                    Point2="0,-56.6010733452594"
+                    Point3="4,-56.6010733452594" />
                   <mssgle:LineSegment
-                    End="129,-39.6467236467237" />
+                    End="127.833333333333,-56.6010733452594" />
                   <mssgle:CubicBezierSegment
-                    Point1="129,-39.6467236467237"
-                    Point2="133,-39.6467236467237"
-                    Point3="133,-43.6467236467237" />
+                    Point1="127.833333333333,-56.6010733452594"
+                    Point2="131.833333333333,-56.6010733452594"
+                    Point3="131.833333333333,-60.6010733452594" />
                   <mssgle:LineSegment
-                    End="133,-90.5" />
+                    End="131.833333333333,-132.5" />
                 </mssgle:SegmentCollection>
               </mssgle:Curve.Segments>
             </mssgle:Curve>
           </EdgeLayout.Curve>
           <EdgeLayout.Labels>
-            <EdgeLabelCollection />
+            <mssgm:EdgeLabel
+              BoundingBox="10.1102799479167,-51.6010733452594,111.6127734375,11.609375"
+              RelativePosition="Any" />
           </EdgeLayout.Labels>
         </EdgeLayout>
       </GraphLayout>
     </LayoutInfo>
   </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load Income from Google Sheet\LKP - Existing Family Income">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string">[dbo].[vw_FamilyIncome_ExistingKeys]</Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">1</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
   <PipelineComponentMetadata
     design-time-name="Package\DFT - Load Income from Google Sheet\DST - STG Family Income">
     <Properties>
